@@ -9,7 +9,11 @@ class ErrorController extends Controller
 
     public function notFound()
     {
-        $this->views->getView($this, "error");
+        $data['page_id'] = 3;
+        $data['page_tag'] = "Erro - Blumenau Bakery";
+        $data['page_title'] = "Erro";
+        $data['page_name'] = "erro";
+        $this->views->getView($this, "erro", $data);
     }
 }
 
