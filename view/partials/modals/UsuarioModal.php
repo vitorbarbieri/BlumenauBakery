@@ -21,7 +21,7 @@
                                 </div>
                                 <div id="divDataCriacao" class="form-group col-md-6">
                                     <label class="control-label" for="txtDataCriacao">Data de Criação</label>&nbsp;
-                                    <input class="form-control valid" id="txtDataCriacao" name="txtDataCriacao" tabindex="1" type="text">
+                                    <input class="form-control" id="txtDataCriacao" name="txtDataCriacao" tabindex="1" type="text">
                                 </div>
                             </div>
                             <div class="form-row">

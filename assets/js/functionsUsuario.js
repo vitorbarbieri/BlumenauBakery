@@ -37,6 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
     formUsuario.onsubmit = function (e) {
         e.preventDefault();
 
+        var intId = document.querySelector("#idUsuario").value;
         var strcpf = document.querySelector("#txtCpf").value;
         var strNome = document.querySelector("#txtNome").value;
         var strSobrenome = document.querySelector("#txtSobrenome").value;
@@ -47,23 +48,25 @@ document.addEventListener('DOMContentLoaded', function () {
         var strSenha = document.querySelector("#txtSenha").value;
         var strConfirmaSenha = document.querySelector("#txtSenhaConfirma").value;
 
-        $camposOk = true;
-        validaCampos();
-        if (!$camposOk) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Atenção',
-                text: 'Todos os campos são obrigatórios!',
-                didClose: () => {
-                    $("#txtCpf").select();
-                }
-            });
-            return false;
-        }
+        if (intId == "" || (intId != "" && (strSenha != "" || strConfirmaSenha != ""))) {
+            $camposOk = true;
+            validaCampos();
+            if (!$camposOk) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Atenção',
+                    text: 'Todos os campos são obrigatórios!',
+                    didClose: () => {
+                        $("#txtCpf").select();
+                    }
+                });
+                return false;
+            }
 
-        var senhaOK = validaSenha();
-        if (!senhaOK) {
-            return false;
+            var senhaOK = validaSenha();
+            if (!senhaOK) {
+                return false;
+            }
         }
 
         var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
@@ -99,6 +102,7 @@ function openModal() {
     document.querySelector('#titleModal').innerHTML = "Criar Usuário";
     document.querySelector('.modal-header').classList.replace("headerUpdate", "headerRegister");
     document.querySelector('.modal-header').classList.replace("headerView", "headerRegister");
+    document.querySelector('#btnActionForm').classList.replace("btn-info", "btn-primary");
     document.querySelector('#btnCancelar').classList.replace("btn-secondary", "btn-danger");
     document.querySelector('#btnText').innerHTML = "<u>S</u>alvar";
     document.querySelector("#btnActionForm").setAttribute("accesskey", "s");
@@ -116,7 +120,7 @@ function openModal() {
 function cancelar() {
     removeClass();
     ocultarSenha();
-    
+
     document.querySelector("#formUsuario").reset();
     $("#modalFormUsuario").modal("hide");
 }
@@ -179,4 +183,84 @@ function verUsuario(id) {
         }
         $("#modalFormUsuario").modal("show");
     }
+}
+
+function editarUsuario(id) {
+    document.querySelector('#idUsuario').value = "";
+    document.querySelector('#titleModal').innerHTML = "Editar Usuário";
+    document.querySelector('.modal-header').classList.replace("headerRegister", "headerUpdate");
+    document.querySelector('.modal-header').classList.replace("headerView", "headerUpdate");
+    document.querySelector('#btnActionForm').classList.replace("btn-primary", "btn-info");
+    document.querySelector('#btnCancelar').classList.replace("btn-danger", "btn-secondary");
+    document.querySelector('#btnText').innerHTML = "<u>A</u>lterar";
+    document.querySelector("#btnActionForm").setAttribute("accesskey", "a");
+    document.querySelector('#btnText2').innerHTML = "<u>C</u>ancelar";
+    document.querySelector("#btnCancelar").setAttribute("accesskey", "c");
+    document.getElementById('btnActionForm').style.display = "";
+    document.getElementById('divDataCriacao').style.display = "none";
+    document.getElementById('divSenha').style.display = "";
+    statusCampos("habilita");
+
+    var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+    var ajaxUrl = base_url + '/Usuario/getUsuario/' + id;
+    request.open("GET", ajaxUrl, true);
+    request.send();
+    request.onreadystatechange = function () {
+        if (request.readyState == 4 && request.status == 200) {
+            var objData = JSON.parse(request.responseText);
+
+            if (objData.status) {
+                document.querySelector("#idUsuario").value = objData.data.id;
+                document.querySelector("#txtCpf").value = objData.data.cpf;
+                document.querySelector("#txtDataCriacao").value = objData.data.data_criacao;
+                document.querySelector("#txtNome").value = objData.data.nome;
+                document.querySelector("#txtSobrenome").value = objData.data.sobrenome;
+                document.querySelector("#txtTelefone").value = objData.data.telefone;
+                document.querySelector("#txtEmail").value = objData.data.email;
+                document.querySelector("#listCargo").value = objData.data.cId;
+                document.querySelector("#listStatus").value = objData.data.status;
+                $('#modalViewUser').modal('show');
+            } else {
+                swal("Error", objData.msg, "error");
+            }
+        }
+        $("#modalFormUsuario").modal("show");
+    }
+}
+
+function deletarUsuario(id) {
+    var idUser = id;
+
+    Swal.fire({
+        title: 'Você tem certeza?',
+        text: "Você não poderá reverter isso!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sim, delete!',
+        cancelButtonText: 'Cancelar!',
+        focusCancel: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+            var ajaxUrl = base_url + "/Usuario/delUsuario";
+            var strData = "id=" + id;
+            request.open("POST", ajaxUrl, true);
+            request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            request.send(strData);
+            request.onreadystatechange = function () {
+                if (request.readyState == 4 && request.status == 200) {
+                    var objData = JSON.parse(request.responseText);
+
+                    if (objData.status) {
+                        Swal.fire("Atenção", objData.msg, "success");
+                    } else {
+                        Swal.fire("Atenção", objData.msg, "error");
+                    }
+                    tableUsuario.api().ajax.reload(function () { });
+                }
+            }
+        }
+    })
 }

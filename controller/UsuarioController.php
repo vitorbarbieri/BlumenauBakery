@@ -76,8 +76,12 @@ class UsuarioController extends Controller
             $strEmail = strtolower(strClean($_POST['txtEmail']));
             $intCargo = intval(strClean($_POST['listCargo']));
             $intStatus = intval(strClean($_POST['listStatus']));
-            $strSenha = hash("SHA256", $_POST['txtSenha']);
             $dateCadastro = date('Y-m-d H:i:s',);
+
+            $strSenha = "";
+            if ($_POST['txtSenha'] != "") {
+                $strSenha = hash("SHA256", $_POST['txtSenha']);
+            }
 
             if ($intId == 0) {
                 $request = $this->model->insertUsuario($strCpf, $strNome, $strSobrenome, $strTelefone, $strEmail, $intCargo, $intStatus, $strSenha, $dateCadastro);
@@ -89,19 +93,39 @@ class UsuarioController extends Controller
 
             if ($request == 1) {
                 if ($option == 1) {
-                    $arrResponse = array('status' => true, 'msg' => 'Informações salvas corretamente');
+                    $arrResponse = array('status' => true, 'msg' => 'Usuário salvo com sucesso');
                 } else {
-                    $arrResponse = array('status' => true, 'msg' => 'Informações atualizadas corretamente');
+                    $arrResponse = array('status' => true, 'msg' => 'Usuário atualizado com sucesso');
                 }
             } else {
                 if ($request == 2) {
                     $arrResponse = array('status' => false, 'msg' => 'Atenção, CPF já está sendo utilizado');
                 } else {
-                    $arrResponse = array('status' => false, 'msg' => 'Erro ao salvar as informações');
+                    if ($option == 1) {
+                        $arrResponse = array('status' => false, 'msg' => 'Erro ao salvar o usuário');
+                    } else {
+                        $arrResponse = array('status' => false, 'msg' => 'Erro ao atualizar o usuário');
+                    }
                 }
             }
             echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
         }
+        die();
+    }
+
+    public function delUsuario($id)
+    {
+        $intId = intval(strClean($_POST['id']));
+
+        $request = $this->model->deleteUsuario($intId);
+
+        if ($request == 1) {
+            $arrResponse = array('status' => true, 'msg' => 'Usuário excluído com sucesso');
+        } else {
+            $arrResponse = array('status' => false, 'msg' => 'Erro ao excluir o usuário');
+        }
+
+        echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
         die();
     }
 }

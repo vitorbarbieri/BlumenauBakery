@@ -33,6 +33,25 @@ class UsuarioModel extends Mysql
         return $request;
     }
 
+    public function selectUsuario(int $id)
+    {
+        $this->intId = $id;
+        $sql = "SELECT u.id,
+                       u.nome,
+                       u.sobrenome,
+                       u.telefone,
+                       u.email,
+                       u.cpf,
+                       c.id as cId,
+                       u.data_criacao,
+                       u.status
+                FROM usuario u
+                INNER JOIN cargo c ON u.id_cargo = c.id
+                WHERE u.id = $this->intId";
+        $request = $this->select($sql);
+        return $request;
+    }
+
     public function insertUsuario(string $cpf, string $nome, string $sobrenome, string $tel, string $email, int $cargo, int $status, string $senha, $dataCriacao)
     {
         $this->strCpf = $cpf;
@@ -59,22 +78,44 @@ class UsuarioModel extends Mysql
         return $return;
     }
 
-    public function selectUsuario(int $id)
+    public function updateUsuario(int $id, string $cpf, string $nome, string $sobrenome, string $tel, string $email, int $cargo, int $status, string $senha)
     {
         $this->intId = $id;
-        $sql = "SELECT u.id,
-                       u.nome,
-                       u.sobrenome,
-                       u.telefone,
-                       u.email,
-                       u.cpf,
-                       c.id as cId,
-                       u.data_criacao,
-                       u.status
-                FROM usuario u
-                INNER JOIN cargo c ON u.id_cargo = c.id
-                WHERE u.id = $this->intId";
+        $this->strCpf = $cpf;
+        $this->strNome = $nome;
+        $this->strSobrenome = $sobrenome;
+        $this->strTelefone = $tel;
+        $this->strEmail = $email;
+        $this->strSenha = $senha;
+        $this->intCargo = $cargo;
+        $this->intStatus = $status;
+
+        $sql = "SELECT * FROM usuario WHERE id = '{$this->intId}'";
         $request = $this->select($sql);
-        return $request;
+
+        if (!empty($request)) {
+            if ($this->strSenha == "") {
+                $sql = "UPDATE usuario SET nome = ?, sobrenome = ?, telefone = ?, email = ?, cpf = ?, id_cargo = ?, status = ? WHERE id = $this->intId";
+                $arrData = array($this->strNome, $this->strSobrenome, $this->strTelefone, $this->strEmail, $this->strCpf, $this->intCargo, $this->intStatus);
+            } else {
+                $sql = "UPDATE usuario SET nome = ?, sobrenome = ?, telefone = ?, email = ?, senha = ?, cpf = ?, id_cargo = ?, status = ? WHERE id = $this->intId";
+                $arrData = array($this->strNome, $this->strSobrenome, $this->strTelefone, $this->strEmail, $this->strSenha, $this->strCpf, $this->intCargo, $this->intStatus);
+            }
+            $request = $this->update($sql, $arrData);
+            return 1;
+        }
+    }
+
+    public function deleteUsuario($id)
+    {
+        $this->intId = $id;
+
+        $sql = "DELETE FROM usuario WHERE id = $this->intId";
+        $request = $this->delete($sql);
+        if ($request) {
+            return 1;
+        } else {
+            return 2;
+        }
     }
 }
