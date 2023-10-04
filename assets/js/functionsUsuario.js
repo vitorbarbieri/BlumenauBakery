@@ -159,7 +159,7 @@ function validaCampos() {
 }
 
 function statusCampos(param) {
-    var elementos = document.getElementsByClassName("valid");
+    var elementos = document.getElementsByClassName("block");
     for (let i = 0; i < elementos.length; i++) {
         const item = elementos[i];
         if (param == "habilita") {

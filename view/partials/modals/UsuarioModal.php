@@ -17,42 +17,42 @@
                                 <div class="form-group col-md-6">
                                     <label class="control-label" for="txtCpf">CPF</label>&nbsp;
                                     <label class="corVermelha">*</label>
-                                    <input class="form-control valid" id="txtCpf" name="txtCpf" tabindex="1" type="text" maxlength="11" placeholder="Digite seu CPF" onblur="formataCampo('#txtCpf','###.###.###-##');">
+                                    <input class="form-control valid block" id="txtCpf" name="txtCpf" tabindex="1" type="text" maxlength="11" placeholder="Digite seu CPF" onblur="formataCampo('#txtCpf','###.###.###-##');">
                                 </div>
                                 <div id="divDataCriacao" class="form-group col-md-6">
                                     <label class="control-label" for="txtDataCriacao">Data de Criação</label>&nbsp;
-                                    <input class="form-control" id="txtDataCriacao" name="txtDataCriacao" tabindex="1" type="text">
+                                    <input class="form-control block" id="txtDataCriacao" name="txtDataCriacao" tabindex="1" type="text">
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label class="control-label" for="txtNome">Nome</label>&nbsp;
                                     <label class="corVermelha">*</label>
-                                    <input class="form-control valid" id="txtNome" name="txtNome" tabindex="2" type="text" placeholder="Digite seu nome" onblur="alteraClassInvalido();">
+                                    <input class="form-control valid block" id="txtNome" name="txtNome" tabindex="2" type="text" placeholder="Digite seu nome" onblur="alteraClassInvalido();">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label class="control-label" for="txtSobrenome">Sobrenome</label>&nbsp;
                                     <label class="corVermelha">*</label>
-                                    <input class="form-control valid" id="txtSobrenome" name="txtSobrenome" tabindex="3" type="text" placeholder="Digite seu sobrenome" onblur="alteraClassInvalido();">
+                                    <input class="form-control valid block" id="txtSobrenome" name="txtSobrenome" tabindex="3" type="text" placeholder="Digite seu sobrenome" onblur="alteraClassInvalido();">
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label class="control-label" for="txtTelefone">Telefone</label>&nbsp;
                                     <label class="corVermelha">*</label>
-                                    <input class="form-control valid" id="txtTelefone" name="txtTelefone" tabindex="4" type="text" maxlength="11" placeholder="Digite seu telefone com DDD" onblur="formataCampo('#txtTelefone','(##)#####-####');">
+                                    <input class="form-control valid block" id="txtTelefone" name="txtTelefone" tabindex="4" type="text" maxlength="11" placeholder="Digite seu telefone com DDD" onblur="formataCampo('#txtTelefone','(##)#####-####');">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label class="control-label" for="txtEmail">Email</label>&nbsp;
                                     <label class="corVermelha">*</label>
-                                    <input class="form-control valid" id="txtEmail" name="txtEmail" tabindex="5" type="text" placeholder="Digite seu e-mail" onblur="validaEmail();">
+                                    <input class="form-control valid block" id="txtEmail" name="txtEmail" tabindex="5" type="text" placeholder="Digite seu e-mail" onblur="validaEmail();">
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label class="control-label">Cargo</label>&nbsp;
                                     <label class="corVermelha">*</label>
-                                    <select class="form-control valid" id="listCargo" name="listCargo" tabindex="6" onchange="alteraClassInvalido();" disabled>
+                                    <select class="form-control valid block" id="listCargo" name="listCargo" tabindex="6" onchange="alteraClassInvalido();" disabled>
                                         <option value="0">-- Selecionar --</option>
                                         <option value="1">Administrador</option>
                                         <option value="2">Vendedor</option>
@@ -61,7 +61,7 @@
                                 <div class="form-group col-md-6">
                                     <label class="control-label">Email</label>&nbsp;
                                     <label class="corVermelha">*</label>
-                                    <select class="form-control valid" id="listStatus" name="listStatus" tabindex="7" onchange="alteraClassInvalido();">
+                                    <select class="form-control valid block" id="listStatus" name="listStatus" tabindex="7" onchange="alteraClassInvalido();">
                                         <option value="0">-- Selecionar --</option>
                                         <option value="1">Ativo</option>
                                         <option value="2">Inativo</option>
@@ -72,19 +72,19 @@
                                 <div class="form-group col-md-6">
                                     <label class="control-label" for="txtSenha">Senha</label>&nbsp;
                                     <label class="corVermelha">*</label>
-                                    <input class="form-control valid" id="txtSenha" name="txtSenha" tabindex="8" type="password" placeholder="Digite sua senha" onblur="alteraClassInvalido();">
+                                    <input class="form-control valid block" id="txtSenha" name="txtSenha" tabindex="8" type="password" placeholder="Digite sua senha" onblur="alteraClassInvalido();">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label class="control-label" for="txtSenhaConfirma">Confirmação Senha</label>&nbsp;
                                     <label class="corVermelha">*</label>
                                     <div style="display: flex; align-items: center;">
-                                        <input class="form-control valid" id="txtSenhaConfirma" name="txtSenhaConfirma" tabindex="9" type="password" placeholder="Digite sua senha" onBlur="alteraClassInvalido();">
+                                        <input class="form-control valid block" id="txtSenhaConfirma" name="txtSenhaConfirma" tabindex="9" type="password" placeholder="Digite sua senha" onBlur="alteraClassInvalido();">
                                         &nbsp;
                                         <i class="fa-solid fa-eye imgSenha" onclick="mostrarSenha();"></i>
                                     </div>
                                 </div>
                             </div>
-                            <div class="tile-footer">
+                            <div class="tile-footer text-center">
                                 <button class="btn btn-primary" id="btnActionForm" type="submit" tabindex="10" accesskey="s">
                                     <i class="fa-solid fa-circle-check"></i>&nbsp;
                                     <span id="btnText"><u>S</u>alvar</span>
