@@ -1,0 +1,21 @@
+textarea {
+    resize: none;
+}
+
+.corVermelha {
+    color: red;
+}
+
+.headerRegister {
+    background: #009688;
+    color: #fff;
+}
+
+.headerUpdate {
+    background: #17a2b8;
+    color: #fff;
+}
+
+.imgSenha:hover {
+    cursor: pointer;
+}

@@ -16,8 +16,8 @@
             </a>
         </li>
         <li>
-            <a class="app-menu__item" href="<?= base_url(); ?>/cliente">
-                <i class="app-menu__icon fa fa-user"></i>
+            <a class="app-menu__item" href="<?= base_url(); ?>/usuario">
+                <i class="app-menu__icon fa-solid fa-users"></i>
                 <span class="app-menu__label">Usuários</span>
             </a>
         </li>
@@ -37,12 +37,6 @@
             <a class="app-menu__item" href="<?= base_url(); ?>/pedido">
                 <i class="app-menu__icon fa fa-shopping-cart"></i>
                 <span class="app-menu__label">Pedidos</span>
-            </a>
-        </li>
-        <li>
-            <a class="app-menu__item" href="<?= base_url(); ?>/logout">
-                <i class="app-menu__icon fa fa-sign-out"></i>
-                <span class="app-menu__label">Logouts</span>
             </a>
         </li>
     </ul>
