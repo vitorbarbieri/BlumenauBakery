@@ -32,13 +32,13 @@ class UsuarioController extends Controller
 
             $arrData[$i]['opcao'] = '
             <div class="text-center">
-                <button class="btn btn-secondary btn-sm" onClick="VerUsuario(' . $arrData[$i]['id'] . ')" title="Permissão" type="button">
+                <button class="btn btn-secondary btn-sm" onClick="verUsuario(' . $arrData[$i]['id'] . ')" title="Permissão" type="button">
                     <i class="fa-solid fa-eye"></i>
                 </button>
-                <button class="btn btn-primary btn-sm" onClick="EditarUsuario(' . $arrData[$i]['id'] . ')" title="Editar" type="button">
+                <button class="btn btn-primary btn-sm" onClick="editarUsuario(' . $arrData[$i]['id'] . ')" title="Editar" type="button">
                     <i class="fa-solid fa-pencil"></i>
                 </button>
-                <button class="btn btn-danger btn-sm" onClick="DeletarUsuario(' . $arrData[$i]['id'] . ')" title="Eliminar" type="button">
+                <button class="btn btn-danger btn-sm" onClick="deletarUsuario(' . $arrData[$i]['id'] . ')" title="Eliminar" type="button">
                     <i class="fa-solid fa-trash"></i>
                 </button>
             </div>';
@@ -48,7 +48,24 @@ class UsuarioController extends Controller
         die();
     }
 
-    public function setUsuario()
+    public function getUsuario($id)
+    {
+        $intId = intval(strClean($id));
+
+        if ($intId > 0) {
+            $arrData = $this->model->selectUsuario($intId);
+            if (empty($arrData)) {
+                $arrResponse = array('status' => false, 'msg' => "Usuário não existe");
+            } else {
+                $arrData['data_criacao'] = date("d/m/Y", strtotime($arrData['data_criacao']));
+                $arrResponse = array('status' => true, 'data' => $arrData);
+            }
+            echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
+        }
+        die();
+    }
+
+    public function setUsuario($id)
     {
         if ($_POST) {
             $intId = intval(strClean($_POST['idUsuario']));
@@ -59,7 +76,7 @@ class UsuarioController extends Controller
             $strEmail = strtolower(strClean($_POST['txtEmail']));
             $intCargo = intval(strClean($_POST['listCargo']));
             $intStatus = intval(strClean($_POST['listStatus']));
-            $strSenha = hash("SHA256",$_POST['txtSenha']);
+            $strSenha = hash("SHA256", $_POST['txtSenha']);
             $dateCadastro = date('Y-m-d H:i:s',);
 
             if ($intId == 0) {

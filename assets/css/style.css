@@ -16,6 +16,11 @@ textarea {
     color: #fff;
 }
 
+.headerView {
+    background: #6c757d;
+    color: #fff;
+}
+
 .imgSenha:hover {
     cursor: pointer;
 }

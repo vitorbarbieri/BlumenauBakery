@@ -19,6 +19,10 @@
                                     <label class="corVermelha">*</label>
                                     <input class="form-control valid" id="txtCpf" name="txtCpf" tabindex="1" type="text" maxlength="11" placeholder="Digite seu CPF" onblur="formataCampo('#txtCpf','###.###.###-##');">
                                 </div>
+                                <div id="divDataCriacao" class="form-group col-md-6">
+                                    <label class="control-label" for="txtDataCriacao">Data de Criação</label>&nbsp;
+                                    <input class="form-control valid" id="txtDataCriacao" name="txtDataCriacao" tabindex="1" type="text">
+                                </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
@@ -48,7 +52,7 @@
                                 <div class="form-group col-md-6">
                                     <label class="control-label">Cargo</label>&nbsp;
                                     <label class="corVermelha">*</label>
-                                    <select class="form-control valid" id="listCargo" name="listCargo" tabindex="6" onchange="alteraClassInvalido();">
+                                    <select class="form-control valid" id="listCargo" name="listCargo" tabindex="6" onchange="alteraClassInvalido();" disabled>
                                         <option value="0">-- Selecionar --</option>
                                         <option value="1">Administrador</option>
                                         <option value="2">Vendedor</option>
@@ -64,7 +68,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-row">
+                            <div id="divSenha" class="form-row">
                                 <div class="form-group col-md-6">
                                     <label class="control-label" for="txtSenha">Senha</label>&nbsp;
                                     <label class="corVermelha">*</label>
@@ -86,9 +90,9 @@
                                     <span id="btnText"><u>S</u>alvar</span>
                                 </button>
                                 &nbsp;&nbsp;&nbsp;
-                                <a class="btn btn-danger" href="#" tabindex="11" accesskey="c" data-dismiss="modal" onclick="cancelar();">
+                                <a class="btn btn-danger" id="btnCancelar" tabindex="11" accesskey="c" data-dismiss="modal" onclick="cancelar();">
                                     <i class="fa-solid fa-circle-xmark"></i>&nbsp;
-                                    <u>C</u>ancelar
+                                    <span id="btnText2"><u>C</u>ancelar</span>
                                 </a>
                             </div>
                         </form>
