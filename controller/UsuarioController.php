@@ -5,6 +5,11 @@ class UsuarioController extends Controller
     public function __construct()
     {
         parent::__construct();
+
+        session_start();
+        if (!$_SESSION['login']) {
+            header('location: ' . base_url() . '/login');
+        }
     }
 
     public function usuario()

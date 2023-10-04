@@ -66,7 +66,7 @@ function removeClass() {
 }
 
 function mostrarSenha() {
-    var tipo = document.querySelector("#txtSenhaConfirma").type;
+    var tipo = document.querySelector("#txtSenha").type;
     if (tipo == "text") {
         $("#txtSenha").attr("type", "password");
         $("#txtSenhaConfirma").attr("type", "password");
