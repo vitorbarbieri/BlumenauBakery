@@ -14,6 +14,10 @@ class UsuarioController extends Controller
 
     public function usuario()
     {
+        if($_SESSION['userData']['idCargo'] != 1){
+            header("Location:".base_url().'/cliente');
+        }
+
         $data['page_id'] = 2;
         $data['page_tag'] = "Usuário - Blumenau Bakery";
         $data['page_title'] = "Usuário";

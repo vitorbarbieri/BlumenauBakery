@@ -9,18 +9,22 @@
         </div>
     </div>
     <ul class="app-menu">
-        <li>
-            <a class="app-menu__item" href="<?= base_url(); ?>/dashboard">
-                <i class="app-menu__icon fa fa-dashboard"></i>
-                <span class="app-menu__label">Dashboard</span>
-            </a>
-        </li>
-        <li>
-            <a class="app-menu__item" href="<?= base_url(); ?>/usuario">
-                <i class="app-menu__icon fa-solid fa-users"></i>
-                <span class="app-menu__label">Usuários</span>
-            </a>
-        </li>
+        <?php if ($_SESSION['userData']['idCargo'] == 1) { ?>
+            <li>
+                <a class="app-menu__item" href="<?= base_url(); ?>/dashboard">
+                    <i class="app-menu__icon fa fa-dashboard"></i>
+                    <span class="app-menu__label">Dashboard</span>
+                </a>
+            </li>
+        <?php } ?>
+        <?php if ($_SESSION['userData']['idCargo'] == 1) { ?>
+            <li>
+                <a class="app-menu__item" href="<?= base_url(); ?>/usuario">
+                    <i class="app-menu__icon fa-solid fa-users"></i>
+                    <span class="app-menu__label">Usuários</span>
+                </a>
+            </li>
+        <?php } ?>
         <li>
             <a class="app-menu__item" href="<?= base_url(); ?>/cliente">
                 <i class="app-menu__icon fa fa-user"></i>

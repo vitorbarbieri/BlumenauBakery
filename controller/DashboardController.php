@@ -14,6 +14,10 @@ class DashboardController extends Controller
 
     public function dashboard()
     {
+        if($_SESSION['userData']['idCargo'] != 1){
+            header("Location:".base_url().'/cliente');
+        }
+
         $data['page_id'] = 2;
         $data['page_tag'] = "Dashboard - Blumenau Bakery";
         $data['page_title'] = "Dashboard";
