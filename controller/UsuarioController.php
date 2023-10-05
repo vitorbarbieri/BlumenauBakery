@@ -14,7 +14,7 @@ class UsuarioController extends Controller
 
     public function usuario()
     {
-        $data['page_id'] = 3;
+        $data['page_id'] = 2;
         $data['page_tag'] = "Usuário - Blumenau Bakery";
         $data['page_title'] = "Usuário";
         $data['page_name'] = "usuario";
@@ -27,8 +27,6 @@ class UsuarioController extends Controller
         $arrData = $this->model->selectUsuarios();
 
         for ($i = 0; $i < count($arrData); $i++) {
-            $btnEditar = "";
-
             if ($arrData[$i]['status'] == 1) {
                 $arrData[$i]['status'] = '<span class="badge badge-success">Ativo</span>';
             } else {
