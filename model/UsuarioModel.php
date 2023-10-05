@@ -12,7 +12,8 @@ class UsuarioModel extends Mysql
     private $intCargo;
     private $dateCadastro;
     private $intStatus;
-    private $strToken;
+    private $intPergunta;
+    private $strResposta;
 
     public function __construct()
     {
@@ -44,7 +45,9 @@ class UsuarioModel extends Mysql
                        u.cpf,
                        c.id as cId,
                        u.data_criacao,
-                       u.status
+                       u.status,
+                       u.id_pergunta,
+                       u.resposta
                 FROM usuario u
                 INNER JOIN cargo c ON u.id_cargo = c.id
                 WHERE u.id = $this->intId";
@@ -52,7 +55,7 @@ class UsuarioModel extends Mysql
         return $request;
     }
 
-    public function insertUsuario(string $cpf, string $nome, string $sobrenome, string $tel, string $email, int $cargo, int $status, string $senha, $dataCriacao)
+    public function insertUsuario(string $cpf, string $nome, string $sobrenome, string $tel, string $email, int $cargo, int $status, string $senha, $dataCriacao, int $pergunta, string $resposta)
     {
         $this->strCpf = $cpf;
         $this->strNome = $nome;
@@ -63,13 +66,15 @@ class UsuarioModel extends Mysql
         $this->intCargo = $cargo;
         $this->dateCadastro = $dataCriacao;
         $this->intStatus = $status;
+        $this->intPergunta = $pergunta;
+        $this->strResposta = $resposta;
 
         $sql = "SELECT * FROM usuario WHERE cpf = '{$this->strCpf}'";
         $request = $this->select($sql);
 
         if (empty($request)) {
-            $sql = "INSERT INTO usuario (nome, sobrenome, telefone, email, senha, cpf, id_cargo, data_criacao, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-            $arrData = array($this->strNome, $this->strSobrenome, $this->strTelefone, $this->strEmail, $this->strSenha, $this->strCpf, $this->intCargo, $this->dateCadastro, $this->intStatus);
+            $sql = "INSERT INTO usuario (nome, sobrenome, telefone, email, senha, cpf, id_cargo, data_criacao, status, id_pergunta, resposta) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $arrData = array($this->strNome, $this->strSobrenome, $this->strTelefone, $this->strEmail, $this->strSenha, $this->strCpf, $this->intCargo, $this->dateCadastro, $this->intStatus, $this->intPergunta, $this->strResposta);
             $request = $this->insert($sql, $arrData);
             $return = 1;
         } else {
@@ -78,7 +83,7 @@ class UsuarioModel extends Mysql
         return $return;
     }
 
-    public function updateUsuario(int $id, string $cpf, string $nome, string $sobrenome, string $tel, string $email, int $cargo, int $status, string $senha)
+    public function updateUsuario(int $id, string $cpf, string $nome, string $sobrenome, string $tel, string $email, int $cargo, int $status, string $senha, int $pergunta, string $resposta)
     {
         $this->intId = $id;
         $this->strCpf = $cpf;
@@ -89,17 +94,19 @@ class UsuarioModel extends Mysql
         $this->strSenha = $senha;
         $this->intCargo = $cargo;
         $this->intStatus = $status;
+        $this->intPergunta = $pergunta;
+        $this->strResposta = $resposta;
 
         $sql = "SELECT * FROM usuario WHERE id = '{$this->intId}'";
         $request = $this->select($sql);
 
         if (!empty($request)) {
             if ($this->strSenha == "") {
-                $sql = "UPDATE usuario SET nome = ?, sobrenome = ?, telefone = ?, email = ?, cpf = ?, id_cargo = ?, status = ? WHERE id = $this->intId";
-                $arrData = array($this->strNome, $this->strSobrenome, $this->strTelefone, $this->strEmail, $this->strCpf, $this->intCargo, $this->intStatus);
+                $sql = "UPDATE usuario SET nome = ?, sobrenome = ?, telefone = ?, email = ?, cpf = ?, id_cargo = ?, status = ?, id_pergunta = ?, resposta = ? WHERE id = $this->intId";
+                $arrData = array($this->strNome, $this->strSobrenome, $this->strTelefone, $this->strEmail, $this->strCpf, $this->intCargo, $this->intStatus, $this->intPergunta, $this->strResposta);
             } else {
-                $sql = "UPDATE usuario SET nome = ?, sobrenome = ?, telefone = ?, email = ?, senha = ?, cpf = ?, id_cargo = ?, status = ? WHERE id = $this->intId";
-                $arrData = array($this->strNome, $this->strSobrenome, $this->strTelefone, $this->strEmail, $this->strSenha, $this->strCpf, $this->intCargo, $this->intStatus);
+                $sql = "UPDATE usuario SET nome = ?, sobrenome = ?, telefone = ?, email = ?, senha = ?, cpf = ?, id_cargo = ?, status = ?, id_pergunta = ?, resposta = ? WHERE id = $this->intId";
+                $arrData = array($this->strNome, $this->strSobrenome, $this->strTelefone, $this->strEmail, $this->strSenha, $this->strCpf, $this->intCargo, $this->intStatus, $this->intPergunta, $this->strResposta);
             }
             $request = $this->update($sql, $arrData);
             return 1;
@@ -117,5 +124,12 @@ class UsuarioModel extends Mysql
         } else {
             return 2;
         }
+    }
+
+    public function selectPerguntas()
+    {
+        $sql = "SELECT * FROM pergunta";
+        $request = $this->select_all($sql);
+        return $request;
     }
 }

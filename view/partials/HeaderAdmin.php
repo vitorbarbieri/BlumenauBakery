@@ -10,6 +10,8 @@
     <meta name="theme-color" content="#009688">
     <link rel="shortcut icon" href="<?= media(); ?>/img/favicon.ico" type="image/x-icon">
     <title><?= $data['page_tag'] ?></title>
+    <!-- Bootstrap-select -->
+    <link rel="stylesheet" type="text/css" href="<?= media() ?>/css/bootstrap-select.min.css">
     <!-- Main CSS-->
     <link rel="stylesheet" type="text/css" href="<?= media() ?>/css/main.css">
     <link rel="stylesheet" type="text/css" href="<?= media() ?>/css/style.css">

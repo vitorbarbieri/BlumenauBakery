@@ -15,6 +15,8 @@
 <script src="<?= media() ?>/js/plugins/pace.min.js"></script>
 <!-- Sweet alert 2 - https://sweetalert2.github.io/ -->
 <script type="text/javascript" src="<?= media(); ?>/js/plugins/sweetalert2.all.min.js"></script>
+<!-- Bootstrap-select -->
+<script type="text/javascript" src="<?= media(); ?>/js/plugins/bootstrap-select.min.js"></script>
 <!-- Data table plugin -->
 <script type="text/javascript" src="<?= media(); ?>/js/plugins/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="<?= media(); ?>/js/plugins/dataTables.bootstrap.min.js"></script>

@@ -1,3 +1,25 @@
+window.addEventListener('load', function () {
+    carregarPerguntasSecretas();
+}, false);
+
+function carregarPerguntasSecretas() {
+    var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+    var ajaxUrl = base_url + '/Usuario/getSelectPerguntas';
+    // Abrir requisição ao servidor
+    request.open("GET", ajaxUrl, true);
+    // Enviar requisição ao servidor
+    request.send();
+    // Obter o reseultado da requisição AJAX
+    request.onreadystatechange = function () {
+        if (request.readyState == 4 && request.status == 200) {
+            document.querySelector('#listPergunta').innerHTML += request.responseText;
+            // document.querySelector('#listPergunta').value += 0;
+            // $('#listPergunta').selectpicker('render');
+            // $('#listPergunta').selectpicker('refresh');
+        }
+    }
+}
+
 var tableUsuario;
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -62,15 +84,10 @@ document.addEventListener('DOMContentLoaded', function () {
         e.preventDefault();
 
         var intId = document.querySelector("#idUsuario").value;
-        var strcpf = document.querySelector("#txtCpf").value;
-        var strNome = document.querySelector("#txtNome").value;
-        var strSobrenome = document.querySelector("#txtSobrenome").value;
-        var strTelefone = document.querySelector("#txtTelefone").value;
-        var strEmail = document.querySelector("#txtEmail").value;
-        var intCargo = document.querySelector("#listCargo").value;
-        var intStatus = document.querySelector("#listStatus").value;
         var strSenha = document.querySelector("#txtSenha").value;
         var strConfirmaSenha = document.querySelector("#txtSenhaConfirma").value;
+        var intPergunta = document.querySelector("#listPergunta").value;
+        var strResposta = document.querySelector("#txtResposta").value;
 
         if (intId == "" || (intId != "" && (strSenha != "" || strConfirmaSenha != ""))) {
             $camposOk = true;
@@ -200,12 +217,14 @@ function verUsuario(id) {
                 document.querySelector("#txtEmail").value = objData.data.email;
                 document.querySelector("#listCargo").value = objData.data.cId;
                 document.querySelector("#listStatus").value = objData.data.status;
+                document.querySelector("#listPergunta").value = objData.data.id_pergunta;
+                document.querySelector("#txtResposta").value = objData.data.resposta;
                 $('#modalViewUser').modal('show');
             } else {
                 swal.fire("Error", objData.msg, "error");
             }
         }
-        // $("#modalFormUsuario").modal("show");
+        $("#modalFormUsuario").modal("show");
     }
 }
 
@@ -243,6 +262,8 @@ function editarUsuario(id) {
                 document.querySelector("#txtEmail").value = objData.data.email;
                 document.querySelector("#listCargo").value = objData.data.cId;
                 document.querySelector("#listStatus").value = objData.data.status;
+                document.querySelector("#listPergunta").value = objData.data.id_pergunta;
+                document.querySelector("#txtResposta").value = objData.data.resposta;
                 $('#modalViewUser').modal('show');
             } else {
                 swal.fire("Error", objData.msg, "error");

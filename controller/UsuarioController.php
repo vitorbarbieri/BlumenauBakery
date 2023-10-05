@@ -80,6 +80,8 @@ class UsuarioController extends Controller
             $intCargo = intval(strClean($_POST['listCargo']));
             $intStatus = intval(strClean($_POST['listStatus']));
             $dateCadastro = date('Y-m-d H:i:s',);
+            $intPergunta = intval(strClean($_POST['listPergunta']));
+            $strResposta = strClean($_POST['txtResposta']);
 
             $strSenha = "";
             if ($_POST['txtSenha'] != "") {
@@ -87,10 +89,10 @@ class UsuarioController extends Controller
             }
 
             if ($intId == 0) {
-                $request = $this->model->insertUsuario($strCpf, $strNome, $strSobrenome, $strTelefone, $strEmail, $intCargo, $intStatus, $strSenha, $dateCadastro);
+                $request = $this->model->insertUsuario($strCpf, $strNome, $strSobrenome, $strTelefone, $strEmail, $intCargo, $intStatus, $strSenha, $dateCadastro, $intPergunta, $strResposta);
                 $option = 1;
             } else {
-                $request = $this->model->updateUsuario($intId, $strCpf, $strNome, $strSobrenome, $strTelefone, $strEmail, $intCargo, $intStatus, $strSenha, $dateCadastro);
+                $request = $this->model->updateUsuario($intId, $strCpf, $strNome, $strSobrenome, $strTelefone, $strEmail, $intCargo, $intStatus, $strSenha, $intPergunta, $strResposta);
                 $option = 2;
             }
 
@@ -129,6 +131,19 @@ class UsuarioController extends Controller
         }
 
         echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
+        die();
+    }
+
+    public function getSelectPerguntas()
+    {
+        $htmlOptions = "";
+        $arrData = $this->model->selectPerguntas();
+        if (count($arrData) > 0) {
+            for ($i = 0; $i < count($arrData); $i++) {
+                $htmlOptions .= '<option value="' . $arrData[$i]['id'] . '">' . $arrData[$i]['pergunta'] . '</option>';
+            }
+        }
+        echo $htmlOptions;
         die();
     }
 }

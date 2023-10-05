@@ -84,13 +84,29 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label for="listPergunta">Pergunta Secreta</label>&nbsp;
+                                    <label class="corVermelha">*</label>
+                                    <select class="form-control valid block" data-live-search="true" id="listPergunta" name="listPergunta" tabindex="10" onchange="alteraClassInvalido();">
+                                        <option value="0">-- Selecionar --</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label class="control-label" for="txtResposta">Resposta Secreta</label>&nbsp;
+                                    <label class="corVermelha">*</label>
+                                    <input class="form-control valid block" id="txtResposta" name="txtResposta" tabindex="11" type="text" placeholder="Digite sua resposta secreta" onblur="alteraClassInvalido();">
+                                </div>
+                            </div>
                             <div class="tile-footer text-center">
-                                <button class="btn btn-primary" id="btnActionForm" type="submit" tabindex="10" accesskey="s">
+                                <button class="btn btn-primary" id="btnActionForm" type="submit" tabindex="12" accesskey="s">
                                     <i class="fa-solid fa-circle-check"></i>&nbsp;
                                     <span id="btnText"><u>S</u>alvar</span>
                                 </button>
                                 &nbsp;&nbsp;&nbsp;
-                                <a class="btn btn-danger" id="btnCancelar" tabindex="11" accesskey="c" data-dismiss="modal" onclick="cancelar();">
+                                <a class="btn btn-danger" id="btnCancelar" tabindex="13" accesskey="c" data-dismiss="modal" onclick="cancelar();">
                                     <i class="fa-solid fa-circle-xmark"></i>&nbsp;
                                     <span id="btnText2"><u>C</u>ancelar</span>
                                 </a>
