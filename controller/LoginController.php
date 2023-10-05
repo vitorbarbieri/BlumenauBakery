@@ -8,8 +8,8 @@ class LoginController extends Controller
         if (isset($_SESSION['login'])) {
             header('location: ' . base_url() . '/dashboard');
         }
-        
-            parent::__construct();
+
+        parent::__construct();
     }
 
     public function login()
@@ -36,7 +36,7 @@ class LoginController extends Controller
                     $_SESSION['idUser'] = $arrData['id'];
                     $_SESSION['login'] = true;
 
-                    $arrData = $this->model->SessionLogin($_SESSION['idUser']);
+                    $arrData = $this->model->sessionLogin($_SESSION['idUser']);
                     $_SESSION['userData'] = $arrData;
 
                     $arrResponse = array('status' => true, 'msg' => "OK");
@@ -48,10 +48,45 @@ class LoginController extends Controller
         }
         die();
     }
-
-    public function resetPass()
+    
+    public function getUsuarioPergunta($email)
     {
-        dep($_POST);
+        $strEmail = strClean($email);
+        if ($strEmail != "") {
+            $arrData = $this->model->selectUsuarioPergunta($strEmail);
+            if (empty($arrData)) {
+                $arrResponse = array('status' => false, 'msg' => 'Cliente não existe.');
+            } else {
+                $arrResponse = array('status' => true, 'data' => $arrData);
+            }
+            echo json_encode($arrResponse);
+        }
+        die();
+    }
+
+    public function criarNovaSenha($entrada)
+    {
+        $params = explode(",", $entrada);
+        $intId = intval($params[0]);
+        $strResposta = strClean($params[1]);
+
+        if ($strResposta != "") {
+            $arrData = $this->model->buscaRespostaUsuario($intId);
+
+            if (empty($arrData)) {
+                $arrResponse = array('status' => false, 'msg' => 'Cliente não existe.');
+            } else { 
+                if (strtolower($arrData['resposta']) == strtolower($strResposta)) {
+                    $senha = passGenerator();
+                    $strSenha = hash("SHA256", $senha);
+                    $this->model->setSenha($intId, $strSenha);
+                    $arrResponse = array('status' => true, 'senha' => $senha);
+                } else {
+                    $arrResponse = array('status' => false, 'msg' => "Resposa informada está incorreta");
+                }
+            }
+            echo json_encode($arrResponse);
+        }
         die();
     }
 }

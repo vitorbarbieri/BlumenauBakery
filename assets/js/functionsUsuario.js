@@ -202,10 +202,10 @@ function verUsuario(id) {
                 document.querySelector("#listStatus").value = objData.data.status;
                 $('#modalViewUser').modal('show');
             } else {
-                swal("Error", objData.msg, "error");
+                swal.fire("Error", objData.msg, "error");
             }
         }
-        $("#modalFormUsuario").modal("show");
+        // $("#modalFormUsuario").modal("show");
     }
 }
 
@@ -245,7 +245,7 @@ function editarUsuario(id) {
                 document.querySelector("#listStatus").value = objData.data.status;
                 $('#modalViewUser').modal('show');
             } else {
-                swal("Error", objData.msg, "error");
+                swal.fire("Error", objData.msg, "error");
             }
         }
         $("#modalFormUsuario").modal("show");

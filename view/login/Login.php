@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+<?php getModal('ResetLoginModal', $data); ?>
 
 <head>
     <meta charset="utf-8">
@@ -53,14 +54,14 @@
                     </button>
                 </div>
             </form>
-            <form id="formRecetPass" name="formRecetPass" class="forget-form">
+            <form id="formResetPass" name="formResetPass" class="forget-form">
                 <h3 class="login-head">
                     <i class="fa fa-lg fa-fw fa-lock"></i>
                     Esqueceu a senha?
                 </h3>
                 <div class="form-group">
                     <label class="control-label">E-mail</label>
-                    <input id="txtEmailReset" name="txtEmailReset" class="form-control valid validReset" type="text" placeholder="Digite seu e-mail" onblur="alteraClassInvalido();">
+                    <input id="txtEmailReset" name="txtEmailReset" class="form-control valid" type="text" placeholder="Digite seu e-mail" onblur="alteraClassInvalido();">
                 </div>
                 <div class="form-group btn-container">
                     <button type="submit" class="btn btn-primary btn-block">
