@@ -86,12 +86,10 @@ document.addEventListener('DOMContentLoaded', function () {
         var intId = document.querySelector("#idUsuario").value;
         var strSenha = document.querySelector("#txtSenha").value;
         var strConfirmaSenha = document.querySelector("#txtSenhaConfirma").value;
-        var intPergunta = document.querySelector("#listPergunta").value;
-        var strResposta = document.querySelector("#txtResposta").value;
 
         if (intId == "" || (intId != "" && (strSenha != "" || strConfirmaSenha != ""))) {
             $camposOk = true;
-            validaCampos();
+            validaCampos(".valid");
             if (!$camposOk) {
                 Swal.fire({
                     icon: 'error',
@@ -159,20 +157,11 @@ function openModal() {
 }
 
 function cancelar() {
-    removeClass();
+    removeClass(".valid");
     ocultarSenha();
 
     document.querySelector("#formUsuario").reset();
     $("#modalFormUsuario").modal("hide");
-}
-
-function validaCampos() {
-    $(".valid").each(function () {
-        if ($(this).val() == "" || $(this).val() == 0) {
-            $(this).addClass("is-invalid");
-            $camposOk = false;
-        }
-    });
 }
 
 function statusCampos(param) {

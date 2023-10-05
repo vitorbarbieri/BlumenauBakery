@@ -140,7 +140,11 @@ class UsuarioController extends Controller
         $arrData = $this->model->selectPerguntas();
         if (count($arrData) > 0) {
             for ($i = 0; $i < count($arrData); $i++) {
-                $htmlOptions .= '<option value="' . $arrData[$i]['id'] . '">' . $arrData[$i]['pergunta'] . '</option>';
+                if ($arrData[$i]['id'] ==  $_SESSION['userData']['id_pergunta']) {
+                    $htmlOptions .= '<option value="' . $arrData[$i]['id'] . '" selected>' . $arrData[$i]['pergunta'] . '</option>';
+                } else {
+                    $htmlOptions .= '<option value="' . $arrData[$i]['id'] . '">' . $arrData[$i]['pergunta'] . '</option>';
+                }
             }
         }
         echo $htmlOptions;

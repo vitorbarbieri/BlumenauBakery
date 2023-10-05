@@ -34,7 +34,7 @@
                         </a>
                     </li>
                     <li>
-                        <a class="dropdown-item" href="<?= base_url() ?>/perfil">
+                        <a class="dropdown-item" href="<?= base_url() ?>/Perfil/perfil">
                             <i class="fa-regular fa-user"></i>&nbsp;
                             Perfil
                         </a>

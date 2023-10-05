@@ -2,7 +2,7 @@
 
 class LoginModel extends Mysql
 {
-    private $idUer;
+    private $idUser;
     private $strEmail;
     private $login;
     private $senha;
@@ -36,11 +36,16 @@ class LoginModel extends Mysql
                     u.cpf,
                     c.id as 'idCargo',
                     c.nome as 'nomeCargo',
-                    u.status
+                    u.status,
+                    u.id_pergunta,
+                    p.pergunta,
+                    resposta
                 FROM usuario u
                 INNER JOIN cargo c ON c.id = u.id_cargo
+                INNER JOIN pergunta p ON p.id = u.id_pergunta
                 WHERE u.id = $this->idUser";
         $request = $this->select($sql);
+        $_SESSION['userData'] = $request;
         return $request;
     }
 

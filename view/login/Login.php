@@ -29,12 +29,12 @@
                 </h3>
                 <div class="form-group">
                     <label class="control-label">Usuário</label>
-                    <input id="txtEmail" name="txtEmail" class="form-control valid validLogin" type="text" placeholder="Digite seu e-mail" onblur="alteraClassInvalido();">
+                    <input id="txtEmail" name="txtEmail" class="form-control valid validLogin" type="text" placeholder="Digite seu e-mail" onblur="alteraClassInvalido('.valid');">
                 </div>
                 <div class="form-group">
                     <label class="control-label">Senha</label>
                     <div style="display: flex; align-items: center;">
-                        <input id="txtSenha" name="txtSenha" class="form-control valid validLogin" type="password" placeholder="Digite sua senha" onblur="alteraClassInvalido();">
+                        <input id="txtSenha" name="txtSenha" class="form-control valid validLogin" type="password" placeholder="Digite sua senha" onblur="alteraClassInvalido('.valid');">
                         &nbsp;
                         <i class="fa-solid fa-eye imgSenha" onclick="mostrarSenha();"></i>
                     </div>
@@ -61,7 +61,7 @@
                 </h3>
                 <div class="form-group">
                     <label class="control-label">E-mail</label>
-                    <input id="txtEmailReset" name="txtEmailReset" class="form-control valid" type="text" placeholder="Digite seu e-mail" onblur="alteraClassInvalido();">
+                    <input id="txtEmailReset" name="txtEmailReset" class="form-control valid" type="text" placeholder="Digite seu e-mail" onblur="alteraClassInvalido('.valid');">
                 </div>
                 <div class="form-group btn-container">
                     <button type="submit" class="btn btn-primary btn-block">

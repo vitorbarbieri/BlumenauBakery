@@ -49,6 +49,14 @@ function getModal(string $nameModal, $data)
     require_once($view_modal);
 }
 
+function sessionUser(int $id)
+{
+    require_once("model/LoginModel.php");
+    $objLogin = new LoginModel();
+    $request = $objLogin->sessionLogin($id);
+    return $request;
+}
+
 // Limpa string
 function strClean($strCadena)
 {

@@ -1,8 +1,21 @@
-function formataCampo(texto, mascara) {
+function formataCampo(texto, mascara, classe) {
     var valor = document.querySelector(texto).value;
 
-    if (texto == "#txtTelefone" && valor.length == 10) {
-        mascara = "(##)####-####";
+    if (texto == "#txtTelefone") {
+        if (valor.length != 10 && valor.length != 11) {
+            document.querySelector(texto).value = "";
+            document.querySelector(texto).select();
+            return;
+        }
+        if (valor.length == 10) {
+            mascara = "(##)####-####";
+        }
+    }
+
+    if (texto == "#txtCpf" && valor.length != 11) {
+        document.querySelector(texto).value = "";
+        document.querySelector(texto).select();
+        return;
     }
 
     if (valor != "") {
@@ -20,14 +33,15 @@ function formataCampo(texto, mascara) {
         }
         document.querySelector(texto).value = retorno;
     }
-    alteraClassInvalido();
+    alteraClassInvalido(classe);
 }
 
-function validaEmail(){
-    const emailRegex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i
-    var emailOk = emailRegex.test(document.querySelector("#txtEmail").value);
+function validaEmail(classe) {
+    const emailRegex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
+    var valor = document.querySelector("#txtEmail").value;
+    var emailOk = emailRegex.test(valor);
 
-    if (emailOk) {
+    if (emailOk || valor == "") {
         document.querySelector("#btnActionForm").disabled = false;
     } else {
         Swal.fire({
@@ -41,11 +55,11 @@ function validaEmail(){
         document.querySelector("#btnActionForm").disabled = true;
     }
 
-    alteraClassInvalido();
+    alteraClassInvalido(classe);
 }
 
-function alteraClassInvalido() {
-    var inputs = document.querySelectorAll(".valid");
+function alteraClassInvalido(classe) {
+    var inputs = document.querySelectorAll(classe);
     inputs.forEach(element => {
         if (element.tagName == "INPUT") {
             if (element.value != "") {
@@ -59,8 +73,8 @@ function alteraClassInvalido() {
     });
 }
 
-function removeClass() {
-    $(".valid").each(function () {
+function removeClass(classe) {
+    $(classe).each(function () {
         $(this).removeClass("is-invalid");
     });
 }
@@ -84,6 +98,11 @@ function ocultarSenha() {
 }
 
 function validaSenha() {
+    var id = document.querySelector("#txtSenha").getAttribute("id");
+    if (id == "txtSenha" || id == "txtSenhaConfirma" && document.querySelector("#txtSenha").value == "" && document.querySelector("#txtSenhaConfirma").value == "") {
+        return true;
+    }
+
     var strSenha = document.querySelector("#txtSenha");
     var strSenhaConfirma = document.querySelector("#txtSenhaConfirma");
     if (strSenha.value != strSenhaConfirma.value) {
@@ -114,4 +133,18 @@ function validaSenha() {
             return true;
         }
     }
+}
+
+function validaCampos(classe) {
+    $(classe).each(function () {
+        if ($(this).val() == "" || $(this).val() == 0) {
+            var id = $(this).attr("id");
+            if (id == "txtSenha" || id == "txtSenhaConfirma" && $("#txtSenha").val() == "" && $("#txtSenhaConfirma").val() == "") {
+                return;
+            }
+
+            $(this).addClass("is-invalid");
+            $camposOk = false;
+        }
+    });
 }
