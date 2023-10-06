@@ -44,7 +44,7 @@ class LoginController extends Controller
                     $arrResponse = array('status' => false, 'msg' => "Usuário inativo");
                 }
             }
-            sleep(3);
+            sleep(1.5);
             echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
         }
         die();
@@ -60,7 +60,7 @@ class LoginController extends Controller
             } else {
                 $arrResponse = array('status' => true, 'data' => $arrData);
             }
-            sleep(3);
+            sleep(1.5);
             echo json_encode($arrResponse);
         }
         die();

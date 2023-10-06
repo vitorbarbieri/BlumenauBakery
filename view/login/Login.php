@@ -59,11 +59,6 @@
                     </button>
                 </div>
             </form>
-            <div id="divLoading">
-                <div>
-                    <img src="<?= media(); ?>/img/loading.svg" alt="Loading">
-                </div>
-            </div>
             <form id="formResetPass" name="formResetPass" class="forget-form">
                 <h3 class="login-head">
                     <i class="fa fa-lg fa-fw fa-lock"></i>
