@@ -22,6 +22,11 @@
             <h1><?= $data['page_title'] ?></h1>
         </div>
         <div class="login-box">
+            <div id="divLoading">
+                <div>
+                    <img src="<?= media(); ?>/img/loading.svg" alt="Loading">
+                </div>
+            </div>
             <form class="login-form" name="formLogin" id="formLogin">
                 <h3 class="login-head">
                     <i class="fa fa-lg fa-fw fa-user"></i>
@@ -54,6 +59,11 @@
                     </button>
                 </div>
             </form>
+            <div id="divLoading">
+                <div>
+                    <img src="<?= media(); ?>/img/loading.svg" alt="Loading">
+                </div>
+            </div>
             <form id="formResetPass" name="formResetPass" class="forget-form">
                 <h3 class="login-head">
                     <i class="fa fa-lg fa-fw fa-lock"></i>

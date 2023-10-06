@@ -7,6 +7,8 @@ $('.login-content [data-toggle="flip"]').click(function () {
     return false;
 });
 
+var divLoading = document.querySelector("#divLoading");
+
 document.addEventListener('DOMContentLoaded', function () {
     // Verificar e-mail e senha informado pra acessar o sistema
     if (document.querySelector("#formLogin")) {
@@ -28,6 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 return false;
             }
 
+            divLoading.style.display = "flex";
             var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
             var ajaxUrl = base_url + '/Login/loginUser';
             var formData = new FormData(formLogin);
@@ -57,6 +60,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 } else {
                     swal.fire("Atenção", "Erro ao validar usuário", "error");
                 }
+                divLoading.style.display = "none";
             }
         }
     }
@@ -83,6 +87,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 document.getElementById("txtEmailReset").classList.remove("is-invalid");
             }
 
+            divLoading.style.display = "flex";
             var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
             var ajaxUrl = base_url + '/Login/getUsuarioPergunta/' + strEmail;
             request.open("GET", ajaxUrl, true);
@@ -99,6 +104,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         swal.fire("Atenção", objData.msg, "error");
                     }
                 }
+                divLoading.style.display = "none";
             }
         }
     }
