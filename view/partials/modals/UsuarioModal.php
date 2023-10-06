@@ -59,7 +59,7 @@
                                     </select>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label class="control-label">Email</label>&nbsp;
+                                    <label class="control-label">Status</label>&nbsp;
                                     <label class="corVermelha">*</label>
                                     <select class="form-control valid block" id="listStatus" name="listStatus" tabindex="7" onchange="alteraClassInvalido('.valid');">
                                         <option value="0">-- Selecionar --</option>
