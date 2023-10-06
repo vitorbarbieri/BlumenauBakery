@@ -83,10 +83,9 @@ class UsuarioModel extends Mysql
         return $return;
     }
 
-    public function updateUsuario(int $id, string $cpf, string $nome, string $sobrenome, string $tel, string $email, int $cargo, int $status, string $senha, int $pergunta, string $resposta)
+    public function updateUsuario(int $id, string $nome, string $sobrenome, string $tel, string $email, int $cargo, int $status, string $senha, int $pergunta, string $resposta)
     {
         $this->intId = $id;
-        $this->strCpf = $cpf;
         $this->strNome = $nome;
         $this->strSobrenome = $sobrenome;
         $this->strTelefone = $tel;
@@ -102,11 +101,11 @@ class UsuarioModel extends Mysql
 
         if (!empty($request)) {
             if ($this->strSenha == "") {
-                $sql = "UPDATE usuario SET nome = ?, sobrenome = ?, telefone = ?, email = ?, cpf = ?, id_cargo = ?, status = ?, id_pergunta = ?, resposta = ? WHERE id = $this->intId";
-                $arrData = array($this->strNome, $this->strSobrenome, $this->strTelefone, $this->strEmail, $this->strCpf, $this->intCargo, $this->intStatus, $this->intPergunta, $this->strResposta);
+                $sql = "UPDATE usuario SET nome = ?, sobrenome = ?, telefone = ?, email = ?, id_cargo = ?, status = ?, id_pergunta = ?, resposta = ? WHERE id = $this->intId";
+                $arrData = array($this->strNome, $this->strSobrenome, $this->strTelefone, $this->strEmail, $this->intCargo, $this->intStatus, $this->intPergunta, $this->strResposta);
             } else {
-                $sql = "UPDATE usuario SET nome = ?, sobrenome = ?, telefone = ?, email = ?, senha = ?, cpf = ?, id_cargo = ?, status = ?, id_pergunta = ?, resposta = ? WHERE id = $this->intId";
-                $arrData = array($this->strNome, $this->strSobrenome, $this->strTelefone, $this->strEmail, $this->strSenha, $this->strCpf, $this->intCargo, $this->intStatus, $this->intPergunta, $this->strResposta);
+                $sql = "UPDATE usuario SET nome = ?, sobrenome = ?, telefone = ?, email = ?, senha = ?, id_cargo = ?, status = ?, id_pergunta = ?, resposta = ? WHERE id = $this->intId";
+                $arrData = array($this->strNome, $this->strSobrenome, $this->strTelefone, $this->strEmail, $this->strCpf, $this->intCargo, $this->intStatus, $this->intPergunta, $this->strResposta);
             }
             $request = $this->update($sql, $arrData);
             return 1;

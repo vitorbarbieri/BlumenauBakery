@@ -151,6 +151,7 @@ function openModal() {
     document.getElementById('divDataCriacao').style.display = "none";
     document.getElementById('divSenha').style.display = "";
     statusCampos("habilita");
+    document.getElementById('txtCpf').removeAttribute("disabled");
     document.querySelector("#formUsuario").reset();
     $("#modalFormUsuario").modal("show");
     $('#txtCpf').select();
@@ -232,6 +233,7 @@ function editarUsuario(id) {
     document.getElementById('divDataCriacao').style.display = "none";
     document.getElementById('divSenha').style.display = "";
     statusCampos("habilita");
+    document.querySelector('#txtCpf').setAttribute("disabled", "disabled");
 
     var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
     var ajaxUrl = base_url + '/Usuario/getUsuario/' + id;

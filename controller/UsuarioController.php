@@ -76,7 +76,6 @@ class UsuarioController extends Controller
     {
         if ($_POST) {
             $intId = intval(strClean($_POST['idUsuario']));
-            $strCpf = strClean($_POST['txtCpf']);
             $strNome = ucwords(strClean($_POST['txtNome']));
             $strSobrenome = ucwords(strClean($_POST['txtSobrenome']));
             $strTelefone = strClean($_POST['txtTelefone']);
@@ -86,6 +85,11 @@ class UsuarioController extends Controller
             $dateCadastro = date('Y-m-d H:i:s',);
             $intPergunta = intval(strClean($_POST['listPergunta']));
             $strResposta = strClean($_POST['txtResposta']);
+            
+            $strCpf = "";
+            if (isset($_POST['txtCpf'])) {
+                $strCpf = strClean($_POST['txtCpf']);
+            }
 
             $strSenha = "";
             if ($_POST['txtSenha'] != "") {
@@ -96,7 +100,7 @@ class UsuarioController extends Controller
                 $request = $this->model->insertUsuario($strCpf, $strNome, $strSobrenome, $strTelefone, $strEmail, $intCargo, $intStatus, $strSenha, $dateCadastro, $intPergunta, $strResposta);
                 $option = 1;
             } else {
-                $request = $this->model->updateUsuario($intId, $strCpf, $strNome, $strSobrenome, $strTelefone, $strEmail, $intCargo, $intStatus, $strSenha, $intPergunta, $strResposta);
+                $request = $this->model->updateUsuario($intId, $strNome, $strSobrenome, $strTelefone, $strEmail, $intCargo, $intStatus, $strSenha, $intPergunta, $strResposta);
                 $option = 2;
             }
 
