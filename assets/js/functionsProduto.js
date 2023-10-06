@@ -1,4 +1,32 @@
-// Inserir o plugin Tinymce
+// inserir o plugin "JsBarcode" - somente na vista Produto
+document.write(`<script src="${base_url}/assets/js/plugins/JsBarcode.all.min.js"></script>`);
+if (document.querySelector("#txtCodigo")) {
+    let inputCodigo = document.querySelector("#txtCodigo");
+    inputCodigo.onkeyup = function () {
+        if (inputCodigo.value.length >= 5) {
+            document.querySelector('#divBarCode').classList.remove("notBlock");
+            gerarBarcode();
+        } else {
+            document.querySelector('#divBarCode').classList.add("notBlock");
+        }
+    };
+}
+function gerarBarcode() {
+    let codigo = document.querySelector("#txtCodigo").value;
+    JsBarcode("#barcode", codigo);
+}
+function imprimirBarcode(area) {
+    var h = $(window).height();
+    var w = $(window).width();
+    let elemntArea = document.querySelector(area);
+    let vprint = window.open(' ', 'popimpr', height = '+h', width = '+w');
+    vprint.document.write(elemntArea.innerHTML);
+    vprint.document.close();
+    vprint.print();
+    vprint.close();
+}
+
+// Inserir o plugin "Tinymce"
 $(document).on('focusin', function (e) {
     if ($(e.target).closest(".tox-dialog").length) {
         e.stopImmediatePropagation();

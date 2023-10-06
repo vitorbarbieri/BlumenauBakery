@@ -1,32 +1,36 @@
 textarea {
-    resize: none;
+	resize: none;
 }
 
 .corVermelha {
-    color: red;
+	color: red;
 }
 
 .headerRegister {
-    background: #009688;
-    color: #fff;
+	background: #009688;
+	color: #fff;
 }
 
 .headerUpdate {
-    background: #17a2b8;
-    color: #fff;
+	background: #17a2b8;
+	color: #fff;
 }
 
 .headerView {
-    background: #6c757d;
-    color: #fff;
+	background: #6c757d;
+	color: #fff;
 }
 
 .imgSenha:hover {
-    cursor: pointer;
+	cursor: pointer;
+}
+
+.textCenter {
+	text-align: center;
 }
 
 /*Estilos login*/
-#divLoading{
+#divLoading {
 	position: fixed;
 	top: 0;
 	width: 100%;
@@ -34,11 +38,16 @@ textarea {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background: rgba(254,254,255, .65);
+	background: rgba(254, 254, 255, .65);
 	z-index: 9999;
 	display: none;
 }
-#divLoading img{
+
+#divLoading img {
 	width: 50px;
 	height: 50px;
+}
+
+.notBlock {
+	display: none !important;
 }

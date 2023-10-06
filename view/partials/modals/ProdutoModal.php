@@ -32,6 +32,16 @@
                                 <label class="control-label" for="txtCodigo">Código</label>&nbsp;
                                 <label class="corVermelha">*</label>
                                 <input class="form-control valid" id="txtCodigo" name="txtCodigo" tabindex="1" type="text" placeholder="Código de barra" onblur="alteraClassInvalido('.valid');">
+                                <div id="divBarCode" class="notBlock textCenter">
+                                    <br />
+                                    <div id="printCode">
+                                        <svg id="barcode"></svg>
+                                    </div>
+                                    <button class="btn btn-success btn-sm" type="button" onClick="imprimirBarcode('#printCode');">
+                                        <i class="fas fa-print"></i>&nbsp;
+                                        Imprimir
+                                    </button>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6 form-group">
