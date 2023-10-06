@@ -1,7 +1,6 @@
 window.addEventListener('load', function () {
     carregarPerguntasSecretas();
 }, false);
-
 function carregarPerguntasSecretas() {
     var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
     var ajaxUrl = base_url + '/Usuario/getSelectPerguntas';

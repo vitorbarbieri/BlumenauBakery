@@ -46,6 +46,22 @@ tinymce.init({
     toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons",
 });
 
+// Carregar selec Categorias
+window.addEventListener('load', function () {
+    carregarCategorias();
+}, false);
+function carregarCategorias() {
+    var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+    var ajaxUrl = base_url + '/Produto/getCategorias';
+    request.open("GET", ajaxUrl, true);
+    request.send();
+    request.onreadystatechange = function () {
+        if (request.readyState == 4 && request.status == 200) {
+            document.querySelector('#listCategoria').innerHTML += request.responseText;
+        }
+    }
+}
+
 function openModal() {
     // rowTable = "";
     // document.querySelector("#divBarCode").classList.add("notblock");

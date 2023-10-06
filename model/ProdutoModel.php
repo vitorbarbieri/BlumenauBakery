@@ -6,4 +6,11 @@ class ProdutoModel extends Mysql
     {
         parent::__construct();
     }
+
+    public function selectCategorias()
+    {
+        $sql = "SELECT id, nome FROM categoria";
+        $request = $this->select_all($sql);
+        return $request;
+    }
 }
