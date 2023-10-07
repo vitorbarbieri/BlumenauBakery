@@ -24,14 +24,14 @@
                             </div>
                             <div class="form-group">
                                 <label class="control-label">Descrição</label>
-                                <textarea class="form-control" id="txtDescricao" name="txtDescricao" tabindex="2" placeholder="Digite a descrição"></textarea>
+                                <label class="corVermelha">*</label>
+                                <textarea class="form-control valid" id="txtDescricao" name="txtDescricao" tabindex="2" placeholder="Digite a descrição" onblur="alteraClassInvalido('.valid');"></textarea>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label class="control-label" for="txtCodigo">Código</label>&nbsp;
-                                <label class="corVermelha">*</label>
-                                <input class="form-control valid" id="txtCodigo" name="txtCodigo" tabindex="1" type="text" placeholder="Código de barra" onblur="alteraClassInvalido('.valid');">
+                                <label class="control-label" for="txtCodigo">Código</label>
+                                <input class="form-control" id="txtCodigo" name="txtCodigo" tabindex="1" type="text" placeholder="Código de barra">
                                 <div id="divBarCode" class="notBlock textCenter">
                                     <br />
                                     <div id="printCode">

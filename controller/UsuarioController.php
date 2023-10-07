@@ -39,7 +39,7 @@ class UsuarioController extends Controller
 
             $arrData[$i]['opcao'] = '
             <div class="text-center">
-                <button class="btn btn-secondary btn-sm" onClick="verUsuario(' . $arrData[$i]['id'] . ')" title="Permissão" type="button">
+                <button class="btn btn-secondary btn-sm" onClick="verUsuario(' . $arrData[$i]['id'] . ')" title="Ver" type="button">
                     <i class="fa-solid fa-eye"></i>
                 </button>
                 <button class="btn btn-primary btn-sm" onClick="editarUsuario(' . $arrData[$i]['id'] . ')" title="Editar" type="button">

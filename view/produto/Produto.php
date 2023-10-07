@@ -30,12 +30,13 @@
             <div class="tile">
                 <div class="tile-body">
                     <div class="table-responsive">
-                        <table class="table table-hover table-bordered" id="tableProdutos">
+                        <table class="table table-hover table-bordered" id="tableProduto">
                             <thead>
                                 <tr>
                                     <th>Id</th>
                                     <th>Código</th>
                                     <th>Nome</th>
+                                    <th>Categoria</th>
                                     <th>Estoque</th>
                                     <th>Preço</th>
                                     <th>Status</th>

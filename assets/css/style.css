@@ -25,8 +25,16 @@ textarea {
 	cursor: pointer;
 }
 
+.textLenter {
+	text-align: left;
+}
+
 .textCenter {
 	text-align: center;
+}
+
+.textRight {
+	text-align: right;
 }
 
 /*Estilos login*/

@@ -62,6 +62,118 @@ function carregarCategorias() {
     }
 }
 
+let tableProdutos;
+// let rowTable = "";
+document.addEventListener('DOMContentLoaded', function () {
+    // Carregar DataTabel produtos
+    tableProdutos = $('#tableProduto').dataTable({
+        "aProcessing": true,
+        "aServerSide": true,
+        "scrollY": true,
+        "scrollX": false,
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json"
+        },
+        "ajax": {
+            "url": " " + base_url + "/produto/getProdutos",
+            "dataSrc": ""
+        },
+        "columns": [
+            { "data": "id", "width": "0%" },
+            { "data": "codigo", "width": "15%" },
+            { "data": "nome", "width": "30%" },
+            { "data": "cNome", "width": "15%" },
+            { "data": "estoque", "width": "10%" },
+            { "data": "preco", "width": "10%" },
+            { "data": "status", "width": "10%" },
+            { "data": "opcoes", "width": "10%" }
+        ],
+        "columnDefs": [
+            { "visible": false, "targets": 0 },
+            { 'className': "textCenter", "targets": [4] },
+            { 'className': "textRight", "targets": [5] },
+            { 'className': "textCenter", "targets": [6] }
+        ],
+        'dom': 'lBfrtip',
+        'buttons': [
+            {
+                "extend": "copyHtml5",
+                "text": "<i class='far fa-copy'></i> Copiar",
+                "titleAttr": "Copiar",
+                "className": "btn btn-secondary",
+                "exportOptions": {
+                    "columns": [1, 2, 5]
+                }
+            }, {
+                "extend": "excelHtml5",
+                "text": "<i class='fas fa-file-excel'></i> Excel",
+                "titleAttr": "Esportar a Excel",
+                "className": "btn btn-success"
+            }, {
+                "extend": "pdfHtml5",
+                "text": "<i class='fas fa-file-pdf'></i> PDF",
+                "titleAttr": "Esportar a PDF",
+                "className": "btn btn-danger"
+            }, {
+                "extend": "csvHtml5",
+                "text": "<i class='fas fa-file-csv'></i> CSV",
+                "titleAttr": "Esportar a CSV",
+                "className": "btn btn-info"
+            }
+        ],
+        "resonsieve": "true",
+        "bDestroy": true,
+        "iDisplayLength": 10,
+        "order": [[0, "asc"]]
+    });
+
+    // Salvar produto no Banco de Dados
+    var formProduto = document.querySelector("#formProduto");
+    formProduto.onsubmit = function (e) {
+        e.preventDefault();
+
+        $camposOk = true;
+        validaCampos(".valid");
+        if (!$camposOk) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Atenção',
+                text: 'Todos os campos são obrigatórios!',
+                didClose: () => {
+                    $("#txtCpf").select();
+                }
+            });
+            return false;
+        }
+
+        var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+        var ajaxUrl = base_url + '/Usuario/setUsuario';
+        var formData = new FormData(formUsuario);
+        request.open("POST", ajaxUrl, true);
+        request.send(formData);
+        request.onreadystatechange = function () {
+            if (request.readyState == 4 && request.status == 200) {
+                var objData = JSON.parse(request.responseText);
+                if (objData.status) {
+                    $('#modalFormUsuario').modal("hide");
+                    cancelar();
+                    Swal.fire('Atenção', objData.msg, 'success');
+                    tableUsuario.api().ajax.reload(function () { });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Atenção',
+                        text: objData.msg,
+                        didClose: () => {
+                            $("#txtCpf").select();
+                        }
+                    });
+                }
+            }
+        }
+    }
+}, false);
+
 function openModal() {
     // rowTable = "";
     // document.querySelector("#divBarCode").classList.add("notblock");

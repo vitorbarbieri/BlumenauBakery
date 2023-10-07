@@ -40,4 +40,39 @@ class ProdutoController extends Controller
         echo $htmlOptions;
         die();
     }
+
+    public function getProdutos()
+    {
+        $arrData = $this->model->selectProdutos();
+
+        for ($i = 0; $i < count($arrData); $i++) {
+            if ($arrData[$i]['codigo'] == null) {
+                $arrData[$i]['codigo'] = 0;
+            }
+
+            $arrData[$i]['preco'] = formatMoney($arrData[$i]['preco']);
+
+            if ($arrData[$i]['status'] == 1) {
+                $arrData[$i]['status'] = '<span class="badge badge-success">Ativo</span>';
+            } else {
+                $arrData[$i]['status'] = '<span class="badge badge-danger">Inativo</span>';
+            }
+
+            $arrData[$i]['opcoes'] = '
+            <div class="text-center">
+                <button class="btn btn-secondary btn-sm" onClick="verProduto(' . $arrData[$i]['id'] . ')" title="Ver" type="button">
+                    <i class="fa-solid fa-eye"></i>
+                </button>
+                <button class="btn btn-primary btn-sm" onClick="editarProduto(' . $arrData[$i]['id'] . ')" title="Editar" type="button">
+                    <i class="fa-solid fa-pencil"></i>
+                </button>
+                <button class="btn btn-danger btn-sm" onClick="deletarProduto(' . $arrData[$i]['id'] . ')" title="Excluir" type="button">
+                    <i class="fa-solid fa-trash"></i>
+                </button>
+            </div>';
+        }
+
+        echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
+        die();
+    }
 }
