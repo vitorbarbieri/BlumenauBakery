@@ -137,14 +137,26 @@ function validaSenha() {
 
 function validaCampos(classe) {
     $(classe).each(function () {
-        if ($(this).val() == "" || $(this).val() == 0) {
-            var id = $(this).attr("id");
-            if (id == "txtSenha" || id == "txtSenhaConfirma" && $("#txtSenha").val() == "" && $("#txtSenhaConfirma").val() == "") {
-                return;
-            }
+        var elementType = $(this).prop('nodeName');
 
-            $(this).addClass("is-invalid");
-            $camposOk = false;
+        switch (elementType) {
+            case "INPUT":
+            case "TEXTAREA":
+                if ($(this).val() == "") {
+                    var id = $(this).attr("id");
+                    if (id == "txtSenha" || id == "txtSenhaConfirma" && $("#txtSenha").val() == "" && $("#txtSenhaConfirma").val() == "") {
+                        break;
+                    }
+                    $(this).addClass("is-invalid");
+                    $camposOk = false;
+                }
+                break;
+            case "SELECT":
+                if ($(this).val() == 0) {
+                    $(this).addClass("is-invalid");
+                    $camposOk = false;
+                }
+                break;
         }
     });
 }

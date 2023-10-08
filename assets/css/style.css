@@ -37,7 +37,12 @@ textarea {
 	text-align: right;
 }
 
-/*Estilos login*/
+.notBlock {
+	display: none !important;
+}
+
+/* Estilos Login */
+
 #divLoading {
 	position: fixed;
 	top: 0;
@@ -56,6 +61,59 @@ textarea {
 	height: 50px;
 }
 
-.notBlock {
-	display: none !important;
+/* Upload Imagem */
+
+#containerImages {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	flex-wrap: wrap;
+}
+
+#containerImages>div {
+	margin-right: 10px;
+	margin-bottom: 8px;
+}
+
+.prevImage {
+	border: 1px solid #CCC;
+	width: 120px;
+	height: 148px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.prevImage img {
+	width: 100%;
+}
+
+.inputUploadfile {
+	display: none;
+}
+
+.btnUploadfile,
+.btnDeleteImage {
+	border: 0;
+	background-color: #009688;
+	text-align: center;
+	padding: 2px 3px;
+	color: #FFF;
+	font-size: 9pt;
+	cursor: pointer;
+	width: 100%;
+}
+
+.btnDeleteImage {
+	background-color: #dc3545;
+}
+
+.prevImage .loading {
+	width: 30px;
+	height: 30px;
+}
+
+#celFotos img {
+	width: 150px;
+	margin: 10px;
 }

@@ -1,3 +1,5 @@
+let tableProdutos;
+
 // inserir o plugin "JsBarcode" - somente na vista Produto
 document.write(`<script src="${base_url}/assets/js/plugins/JsBarcode.all.min.js"></script>`);
 if (document.querySelector("#txtCodigo")) {
@@ -44,6 +46,7 @@ tinymce.init({
         "save table contextmenu directionality emoticons template paste textcolor"
     ],
     toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons",
+    content_css: `${base_url}/assets/css/style.css`
 });
 
 // Carregar selec Categorias
@@ -62,7 +65,6 @@ function carregarCategorias() {
     }
 }
 
-let tableProdutos;
 // let rowTable = "";
 document.addEventListener('DOMContentLoaded', function () {
     // Carregar DataTabel produtos
@@ -124,7 +126,7 @@ document.addEventListener('DOMContentLoaded', function () {
         "resonsieve": "true",
         "bDestroy": true,
         "iDisplayLength": 10,
-        "order": [[0, "asc"]]
+        "order": [[1, "desc"]]
     });
 
     // Salvar produto no Banco de Dados
@@ -140,32 +142,46 @@ document.addEventListener('DOMContentLoaded', function () {
                 title: 'Atenção',
                 text: 'Todos os campos são obrigatórios!',
                 didClose: () => {
-                    $("#txtCpf").select();
+                    $("#txtNome").select();
                 }
             });
             return false;
         }
 
+        // if ($("#txtCodigo").length < 5) {
+        //     Swal.fire({
+        //         icon: 'error',
+        //         title: 'Atenção',
+        //         text: 'Código deve ter no mínimo 5 dígitos!',
+        //         didClose: () => {
+        //             $("#txtCodigo").select();
+        //         }
+        //     });
+        //     return false;
+        // }
+
+        tinymce.triggerSave(); // Salva a sinformações do editor para o "textarea"
+
         var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-        var ajaxUrl = base_url + '/Usuario/setUsuario';
-        var formData = new FormData(formUsuario);
+        var ajaxUrl = base_url + '/Produto/setProduto';
+        var formData = new FormData(formProduto);
         request.open("POST", ajaxUrl, true);
         request.send(formData);
         request.onreadystatechange = function () {
             if (request.readyState == 4 && request.status == 200) {
+                // console.log(request.responseText);
                 var objData = JSON.parse(request.responseText);
                 if (objData.status) {
-                    $('#modalFormUsuario').modal("hide");
                     cancelar();
                     Swal.fire('Atenção', objData.msg, 'success');
-                    tableUsuario.api().ajax.reload(function () { });
+                    tableProdutos.api().ajax.reload(function () { });
                 } else {
                     Swal.fire({
                         icon: 'error',
                         title: 'Atenção',
                         text: objData.msg,
                         didClose: () => {
-                            $("#txtCpf").select();
+                            $("#txtNome").select();
                         }
                     });
                 }
@@ -198,4 +214,11 @@ function openModal() {
     // document.getElementById('txtCpf').removeAttribute("disabled");
     document.querySelector("#formProduto").reset();
     $("#modalFormProdutos").modal("show");
+}
+
+function cancelar() {
+    removeClass(".valid");
+
+    document.querySelector("#formProduto").reset();
+    $("#modalFormProdutos").modal("hide");
 }

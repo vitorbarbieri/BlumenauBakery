@@ -75,4 +75,48 @@ class ProdutoController extends Controller
         echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
         die();
     }
+    public function setProduto()
+    {
+        if ($_POST) {
+            // dep($_POST);
+            // die();
+
+            $intId = intval(strClean($_POST['idProduto']));
+            $strNome = strClean($_POST['txtNome']);
+            $strDescricao = strClean($_POST['txtDescricao']);
+            $strCodigo = strClean($_POST['txtCodigo']);
+            $decPreco = floatval(str_replace(",", ".", $_POST['txtPreço']));
+            $intEstoque = intval($_POST['txtEstoque']);
+            $intCategoria = intval($_POST['listCategoria']);
+            $intStatus = intval($_POST['listStatus']);
+
+            if ($intId == 0) {
+                $request = $this->model->insertProduto($strNome, $strDescricao, $strCodigo, $decPreco, $intEstoque, $intCategoria, $intStatus);
+                $option = 1;
+            } else {
+                $request = $this->model->updateProduto($intId, $strNome, $strDescricao, $strCodigo, $decPreco, $intEstoque, $intCategoria, $intStatus);
+                $option = 2;
+            }
+
+            if ($request == 1) {
+                if ($option == 1) {
+                    $arrResponse = array('status' => true, 'msg' => 'Produto salvo com sucesso');
+                } else {
+                    $arrResponse = array('status' => true, 'msg' => 'Produto atualizado com sucesso');
+                }
+            } else {
+                if ($request == 2) {
+                    $arrResponse = array('status' => false, 'msg' => 'Atenção, Código já está sendo utilizado');
+                } else {
+                    if ($option == 1) {
+                        $arrResponse = array('status' => false, 'msg' => 'Erro ao salvar o Produto');
+                    } else {
+                        $arrResponse = array('status' => false, 'msg' => 'Erro ao atualizar o Produto');
+                    }
+                }
+            }
+            echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
+        }
+        die();
+    }
 }
