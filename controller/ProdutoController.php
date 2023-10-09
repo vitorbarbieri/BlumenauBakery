@@ -91,7 +91,9 @@ class ProdutoController extends Controller
             $intStatus = intval($_POST['listStatus']);
 
             if ($intId == 0) {
-                $request = $this->model->insertProduto($strNome, $strDescricao, $strCodigo, $decPreco, $intEstoque, $intCategoria, $intStatus);
+                $retorno = $this->model->insertProduto($strNome, $strDescricao, $strCodigo, $decPreco, $intEstoque, $intCategoria, $intStatus);
+                $idProduto = $retorno['id'];
+                $request = $retorno['status'];
                 $option = 1;
             } else {
                 $request = $this->model->updateProduto($intId, $strNome, $strDescricao, $strCodigo, $decPreco, $intEstoque, $intCategoria, $intStatus);
@@ -100,9 +102,9 @@ class ProdutoController extends Controller
 
             if ($request == 1) {
                 if ($option == 1) {
-                    $arrResponse = array('status' => true, 'msg' => 'Produto salvo com sucesso');
+                    $arrResponse = array('status' => true, 'idProducto' => $idProduto,'msg' => 'Produto salvo com sucesso');
                 } else {
-                    $arrResponse = array('status' => true, 'msg' => 'Produto atualizado com sucesso');
+                    $arrResponse = array('status' => true, 'idProducto' => $intId,'msg' => 'Produto atualizado com sucesso');
                 }
             } else {
                 if ($request == 2) {

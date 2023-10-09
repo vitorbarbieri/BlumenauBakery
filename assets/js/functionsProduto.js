@@ -174,6 +174,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (objData.status) {
                     cancelar();
                     Swal.fire('Atenção', objData.msg, 'success');
+                    document.querySelector("#idProduto").value = objData.idProducto;
+                    document.querySelector("#containerGallery").classList.remove("notBlock");
                     tableProdutos.api().ajax.reload(function () { });
                 } else {
                     Swal.fire({
@@ -192,9 +194,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function openModal() {
     // rowTable = "";
-    // document.querySelector("#divBarCode").classList.add("notblock");
-    // document.querySelector("#containerGallery").classList.add("notblock");
-    // document.querySelector("#containerImages").innerHTML = "";
+    document.querySelector("#divBarCode").classList.add("notBlock");
+    document.querySelector("#containerGallery").classList.add("notBlock");
+    document.querySelector("#containerImages").innerHTML = "";
 
 
     document.querySelector('#idProduto').value = "";
@@ -218,9 +220,6 @@ function openModal() {
 
 function cancelar() {
     removeClass(".valid");
-
-    document.querySelector("#formProduto").reset();
-    $("#modalFormProdutos").modal("hide");
 }
 
 function adicionarImagem() {
@@ -231,7 +230,7 @@ function adicionarImagem() {
         <div class="prevImage"></div>
         <input type="file" name="foto" id="img${key}" class="inputUploadfile">
         <label for="img${key}" class="btnUploadfile"><i class="fas fa-upload "></i></label>
-        <button class="btnDeleteImage notblock" type="button" onclick="fntDelItem('#div${key}')"><i class="fas fa-trash-alt"></i></button>`;
+        <button class="btnDeleteImage notBlock" type="button" onclick="fntDelItem('#div${key}')"><i class="fas fa-trash-alt"></i></button>`;
     document.querySelector("#containerImages").appendChild(newElement);
     document.querySelector("#div" + key + " .btnUploadfile").click();
     fntInputFile();

@@ -57,9 +57,9 @@ class ProdutoModel extends Mysql
             $query = "INSERT INTO produto (nome, id_categoria, codigo, descricao, preco, estoque, status) VALUES (?, ?, ?, ?, ?, ?, ?)";
             $arrData = array($this->strNome, $this->intIdCategoria, $this->strCodigo, $this->strDescricao, $this->floPreco, $this->intEstoque, $this->intStatus);
             $request = $this->insert($query, $arrData);
-            $return = 1;
+            $return = array('id' => $request, 'status' => 1);
         } else {
-            $return = 2;
+            $return = array('id' => 0, 'status' => 2);
         }
         return $return;
     }
