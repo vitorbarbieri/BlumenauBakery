@@ -93,28 +93,12 @@
                         <div class="form-group col-md-12">
                             <div id="containerGallery">
                                 <span>Adicionar Foto (440 x 545)</span>&numsp;
-                                <button class="btnAddImage btn btn-info btn-sm" type="button">
+                                <button class="btnAddImage btn btn-info btn-sm" type="button" onclick="adicionarImagem();">
                                     <i class="fas fa-plus"></i>
                                 </button>
                             </div>
                             <hr>
                             <div id="containerImages">
-                                <div id="div24">
-                                    <div class="prevImage">
-                                        <img src="<?= media(); ?>/img/uploads/coca-cola-350-ml-(1).png">
-                                    </div>
-                                    <input type="file" name="foto" id="img1" class="inputUploadfile">
-                                    <label for="img1" class="btnUploadfile"><i class="fas fa-upload "></i></label>
-                                    <button class="btnDeleteImage" type="button" onclick="fntDelItem('div24')"><i class="fas fa-trash-alt"></i></button>
-                                </div>
-                                <div id="div24">
-                                    <div class="prevImage">
-                                        <img class="loading" src="<?= media(); ?>/img/loading.svg">
-                                    </div>
-                                    <input type="file" name="foto" id="img1" class="inputUploadfile">
-                                    <label for="img1" class="btnUploadfile"><i class="fas fa-upload "></i></label>
-                                    <button class="btnDeleteImage" type="button" onclick="fntDelItem('div24')"><i class="fas fa-trash-alt"></i></button>
-                                </div>
                             </div>
                         </div>
                     </div>

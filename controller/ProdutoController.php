@@ -119,4 +119,30 @@ class ProdutoController extends Controller
         }
         die();
     }
+
+    public function setImage()
+    {
+        // dep($_POST);
+        // dep($_FILES);
+
+        if ($_POST) {
+            if (empty($_POST['idProduto'])) {
+                $arrResponse = array('status' => false, 'msg' => 'Erro de dado.');
+            } else {
+                $idProduto = intval($_POST['idProduto']);
+                $foto = $_FILES['foto'];
+                $imgNome = 'pro_' . md5(date('d-m-Y H:m:s')) . '.jpg';
+                $request_image = $this->model->insertImage($idProduto, $imgNome);
+                if ($request_image) {
+                    $uploadImage = uploadImage($foto, $imgNome);
+                    $arrResponse = array('status' => true, 'imgname' => $imgNome, 'msg' => 'Arquivo carregado.');
+                } else {
+                    $arrResponse = array('status' => false, 'msg' => 'Error de carga.');
+                }
+            }
+            sleep(0.5);
+            echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
+        };
+        die();
+    }
 }

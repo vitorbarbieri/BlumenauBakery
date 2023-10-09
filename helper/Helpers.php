@@ -49,12 +49,22 @@ function getModal(string $nameModal, $data)
     require_once($view_modal);
 }
 
+// Iniciar sessão
 function sessionUser(int $id)
 {
     require_once("model/LoginModel.php");
     $objLogin = new LoginModel();
     $request = $objLogin->sessionLogin($id);
     return $request;
+}
+
+// Subir imagem para o projeto (servidor)
+function uploadImage(array $data, string $name)
+{
+    $url_temp = $data['tmp_name'];
+    $destino = 'assets/img/uploads/' . $name;
+    $move = move_uploaded_file($url_temp, $destino);
+    return $move;
 }
 
 // Limpa string

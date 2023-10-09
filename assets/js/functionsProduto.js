@@ -222,3 +222,66 @@ function cancelar() {
     document.querySelector("#formProduto").reset();
     $("#modalFormProdutos").modal("hide");
 }
+
+function adicionarImagem() {
+    let key = Date.now();
+    let newElement = document.createElement("div");
+    newElement.id = "div" + key;
+    newElement.innerHTML = `
+        <div class="prevImage"></div>
+        <input type="file" name="foto" id="img${key}" class="inputUploadfile">
+        <label for="img${key}" class="btnUploadfile"><i class="fas fa-upload "></i></label>
+        <button class="btnDeleteImage notblock" type="button" onclick="fntDelItem('#div${key}')"><i class="fas fa-trash-alt"></i></button>`;
+    document.querySelector("#containerImages").appendChild(newElement);
+    document.querySelector("#div" + key + " .btnUploadfile").click();
+    fntInputFile();
+}
+
+function fntInputFile() {
+    let inputUploadfile = document.querySelectorAll(".inputUploadfile");
+    inputUploadfile.forEach(function (inputUploadfile) {
+        inputUploadfile.addEventListener('change', function () {
+            let idProduto = document.querySelector("#idProduto").value;
+            let parentId = this.parentNode.getAttribute("id");
+            let idFile = this.getAttribute("id");
+            let uploadFoto = document.querySelector("#" + idFile).value;
+            let fileimg = document.querySelector("#" + idFile).files;
+            let prevImg = document.querySelector("#" + parentId + " .prevImage");
+            let nav = window.URL || window.webkitURL;
+            if (uploadFoto != '') {
+                let type = fileimg[0].type;
+                let name = fileimg[0].name;
+                if (type != 'image/jpeg' && type != 'image/jpg' && type != 'image/png') {
+                    prevImg.innerHTML = "Arquivo em formato não válido";
+                    uploadFoto.value = "";
+                    return false;
+                } else {
+                    let objeto_url = nav.createObjectURL(this.files[0]);
+                    prevImg.innerHTML = `<img class="loading" src="${base_url}/assets/img/loading.svg" >`;
+
+                    let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+                    let ajaxUrl = base_url + '/Produto/setImage';
+                    let formData = new FormData();
+                    formData.append('idProduto', idProduto);
+                    formData.append("foto", this.files[0]);
+                    request.open("POST", ajaxUrl, true);
+                    request.send(formData);
+                    request.onreadystatechange = function () {
+                        if (request.readyState != 4) return;
+                        if (request.status == 200) {
+                            let objData = JSON.parse(request.responseText);
+                            if (objData.status) {
+                                prevImg.innerHTML = `<img src="${objeto_url}">`;
+                                document.querySelector("#" + parentId + " .btnDeleteImage").setAttribute("imgname", objData.imgname);
+                                document.querySelector("#" + parentId + " .btnUploadfile").classList.add("notBlock");
+                                document.querySelector("#" + parentId + " .btnDeleteImage").classList.remove("notBlock");
+                            } else {
+                                swal.fire("Erro", objData.msg, "error");
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    });
+}

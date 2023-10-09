@@ -10,6 +10,7 @@ class ProdutoModel extends Mysql
     private $intEstoque;
     private $intIdCategoria;
     private $intStatus;
+    private $strImagem;
 
     public function __construct()
     {
@@ -60,6 +61,16 @@ class ProdutoModel extends Mysql
         } else {
             $return = 2;
         }
-        return $return;        
+        return $return;
+    }
+
+    public function insertImage(int $idProduto, string $nomeImagem)
+    {
+        $this->intId = $idProduto;
+        $this->strImagem = $nomeImagem;
+        $query_insert  = "INSERT INTO imagem (id_produto, img) VALUES (?, ?)";
+        $arrData = array($this->intId, $this->strImagem);
+        $request_insert = $this->insert($query_insert, $arrData);
+        return $request_insert;
     }
 }
