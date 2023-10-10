@@ -7,8 +7,8 @@ if (document.querySelector("#txtCodigo")) {
     let inputCodigo = document.querySelector("#txtCodigo");
     inputCodigo.onkeyup = function () {
         // if (inputCodigo.value.length >= 5) {
-            document.querySelector('#divBarCode').classList.remove("notBlock");
-            gerarBarcode();
+        document.querySelector('#divBarCode').classList.remove("notBlock");
+        gerarBarcode();
         // } else {
         //     document.querySelector('#divBarCode').classList.add("notBlock");
         // }
@@ -134,6 +134,14 @@ document.addEventListener('DOMContentLoaded', function () {
     formProduto.onsubmit = function (e) {
         e.preventDefault();
 
+        let intCodigo = document.querySelector('#txtCodigo').value;
+        let strNome = document.querySelector('#txtNome').value;
+        var selectObj = document.querySelector('#listCategoria');
+        let strCategoria = selectObj.options[selectObj.selectedIndex].text;;
+        let intEstoque = document.querySelector('#txtEstoque').value;
+        let strPreco = document.querySelector('#txtPreco').value;
+        let intStatus = document.querySelector('#listStatus').value;
+
         $camposOk = true;
         validaCampos(".valid");
         if (!$camposOk) {
@@ -176,7 +184,19 @@ document.addEventListener('DOMContentLoaded', function () {
                     Swal.fire('Atenção', objData.msg, 'success');
                     document.querySelector("#idProduto").value = objData.idProducto;
                     document.querySelector("#containerGallery").classList.remove("notBlock");
-                    tableProdutos.api().ajax.reload(function () { });
+
+                    if (rowTable == "") {
+                        tableProdutos.api().ajax.reload();
+                    } else {
+                        htmlStatus = intStatus == 1 ? '<span class="badge badge-success">Activo</span>' : '<span class="badge badge-danger">Inactivo</span>';
+                        rowTable.cells[0].textContent = intCodigo;
+                        rowTable.cells[1].textContent = strNome;
+                        rowTable.cells[2].textContent = strCategoria;
+                        rowTable.cells[3].textContent = intEstoque;
+                        rowTable.cells[4].textContent = smony + strPreco;
+                        rowTable.cells[5].innerHTML = htmlStatus;
+                        rowTable = "";
+                    }
                 } else {
                     Swal.fire({
                         icon: 'error',
@@ -316,8 +336,8 @@ function verProduto(idProduto) {
     }
 }
 
-function editarProduto(idProduto) {
-    // rowTable = element.parentNode.parentNode.parentNode;
+function editarProduto(elemento, idProduto) {
+    rowTable = elemento.parentNode.parentNode.parentNode;
     document.querySelector('#titleModal').innerHTML = "Atualizar Produto";
     document.querySelector('.modal-header').classList.replace("headerRegister", "headerUpdate");
     document.querySelector('#btnActionForm').classList.replace("btn-primary", "btn-info");
@@ -343,8 +363,6 @@ function editarProduto(idProduto) {
                 document.querySelector("#listCategoria").value = objProduto.id_categoria;
                 document.querySelector("#listStatus").value = objProduto.status;
                 tinymce.activeEditor.setContent(objProduto.descricao);
-                $('#listCategoria').selectpicker('render');
-                $('#listStatus').selectpicker('render');
                 gerarBarcode();
                 if (objProduto.images.length > 0) {
                     let objProdutos = objProduto.images;

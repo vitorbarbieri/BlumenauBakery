@@ -63,7 +63,7 @@ class ProdutoController extends Controller
                 <button class="btn btn-secondary btn-sm" onClick="verProduto(' . $arrData[$i]['id'] . ')" title="Ver" type="button">
                     <i class="fa-solid fa-eye"></i>
                 </button>
-                <button class="btn btn-primary btn-sm" onClick="editarProduto(' . $arrData[$i]['id'] . ')" title="Editar" type="button">
+                <button class="btn btn-primary btn-sm" onClick="editarProduto(this, ' . $arrData[$i]['id'] . ')" title="Editar" type="button">
                     <i class="fa-solid fa-pencil"></i>
                 </button>
                 <button class="btn btn-danger btn-sm" onClick="deletarProduto(' . $arrData[$i]['id'] . ')" title="Excluir" type="button">

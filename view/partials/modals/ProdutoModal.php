@@ -87,6 +87,14 @@
                                     </a>
                                 </div>
                             </div>
+                            <div class="row text-center">
+                                <div class="col-md-12 form-group">
+                                    <a class="btn btn-danger btn-lg btn-block" tabindex="9" accesskey="f" data-dismiss="modal">
+                                        <i class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;
+                                        <span id="btnText2"><u>F</u>echar</span>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="tile-footer">
