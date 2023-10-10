@@ -1,16 +1,17 @@
 let tableProdutos;
+let rowTable = "";
 
 // inserir o plugin "JsBarcode" - somente na vista Produto
 document.write(`<script src="${base_url}/assets/js/plugins/JsBarcode.all.min.js"></script>`);
 if (document.querySelector("#txtCodigo")) {
     let inputCodigo = document.querySelector("#txtCodigo");
     inputCodigo.onkeyup = function () {
-        if (inputCodigo.value.length >= 5) {
+        // if (inputCodigo.value.length >= 5) {
             document.querySelector('#divBarCode').classList.remove("notBlock");
             gerarBarcode();
-        } else {
-            document.querySelector('#divBarCode').classList.add("notBlock");
-        }
+        // } else {
+        //     document.querySelector('#divBarCode').classList.add("notBlock");
+        // }
     };
 }
 function gerarBarcode() {
@@ -65,7 +66,6 @@ function carregarCategorias() {
     }
 }
 
-// let rowTable = "";
 document.addEventListener('DOMContentLoaded', function () {
     // Carregar DataTabel produtos
     tableProdutos = $('#tableProduto').dataTable({
@@ -193,27 +193,18 @@ document.addEventListener('DOMContentLoaded', function () {
 }, false);
 
 function openModal() {
-    // rowTable = "";
+    rowTable = "";
     document.querySelector("#divBarCode").classList.add("notBlock");
     document.querySelector("#containerGallery").classList.add("notBlock");
     document.querySelector("#containerImages").innerHTML = "";
 
 
     document.querySelector('#idProduto').value = "";
-    document.querySelector('#titleModal').innerHTML = "Criar Usuário";
+    document.querySelector('#titleModal').innerHTML = "Criar Produto";
     document.querySelector('.modal-header').classList.replace("headerUpdate", "headerRegister");
-    document.querySelector('.modal-header').classList.replace("headerView", "headerRegister");
     document.querySelector('#btnActionForm').classList.replace("btn-info", "btn-primary");
-    // document.querySelector('#btnCancelar').classList.replace("btn-secondary", "btn-danger");
     document.querySelector('#btnText').innerHTML = "<u>S</u>alvar";
-    // document.querySelector("#btnActionForm").setAttribute("accesskey", "s");
-    // document.querySelector('#btnText2').innerHTML = "<u>C</u>ancelar";
-    // document.querySelector("#btnCancelar").setAttribute("accesskey", "c");
-    // document.getElementById('btnActionForm').style.display = "";
-    // document.getElementById('divDataCriacao').style.display = "none";
-    // document.getElementById('divSenha').style.display = "";
-    // statusCampos("habilita");
-    // document.getElementById('txtCpf').removeAttribute("disabled");
+    document.querySelector("#btnActionForm").setAttribute("accesskey", "s");
     document.querySelector("#formProduto").reset();
     $("#modalFormProdutos").modal("show");
 }
@@ -320,6 +311,62 @@ function verProduto(idProduto) {
                 $('#modalViewProduto').modal('show');
             } else {
                 swal.fire("Erro", objData.msg, "error");
+            }
+        }
+    }
+}
+
+function editarProduto(idProduto) {
+    // rowTable = element.parentNode.parentNode.parentNode;
+    document.querySelector('#titleModal').innerHTML = "Atualizar Produto";
+    document.querySelector('.modal-header').classList.replace("headerRegister", "headerUpdate");
+    document.querySelector('#btnActionForm').classList.replace("btn-primary", "btn-info");
+    document.querySelector('#btnText').innerHTML = "<u>A</u>tualizar";
+    document.querySelector("#btnActionForm").setAttribute("accesskey", "a");
+
+    let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+    let ajaxUrl = base_url + '/Produto/getProduto/' + idProduto;
+    request.open("GET", ajaxUrl, true);
+    request.send();
+    request.onreadystatechange = function () {
+        if (request.readyState == 4 && request.status == 200) {
+            let objData = JSON.parse(request.responseText);
+            if (objData.status) {
+                let htmlImage = "";
+                let objProduto = objData.data;
+                document.querySelector("#idProduto").value = objProduto.id;
+                document.querySelector("#txtNome").value = objProduto.nome;
+                document.querySelector("#txtDescricao").value = objProduto.descricao;
+                document.querySelector("#txtCodigo").value = objProduto.codigo;
+                document.querySelector("#txtPreco").value = objProduto.preco;
+                document.querySelector("#txtEstoque").value = objProduto.estoque;
+                document.querySelector("#listCategoria").value = objProduto.id_categoria;
+                document.querySelector("#listStatus").value = objProduto.status;
+                tinymce.activeEditor.setContent(objProduto.descricao);
+                $('#listCategoria').selectpicker('render');
+                $('#listStatus').selectpicker('render');
+                gerarBarcode();
+                if (objProduto.images.length > 0) {
+                    let objProdutos = objProduto.images;
+                    for (let p = 0; p < objProdutos.length; p++) {
+                        let key = Date.now() + p;
+                        htmlImage += `
+                            <div id="div${key}">
+                                <div class="prevImage">
+                                    <img src="${objProdutos[p].url_image}"></img>
+                                </div>
+                                <button type="button" class="btnDeleteImage" onclick="fntDelItem('#div${key}')" imgname="${objProdutos[p].img}">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </div>`;
+                    }
+                }
+                document.querySelector("#containerImages").innerHTML = htmlImage;
+                document.querySelector("#divBarCode").classList.remove("notBlock");
+                document.querySelector("#containerGallery").classList.remove("notBlock");
+                $('#modalFormProdutos').modal('show');
+            } else {
+                swal("Error", objData.msg, "error");
             }
         }
     }

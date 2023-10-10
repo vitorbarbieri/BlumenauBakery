@@ -98,7 +98,7 @@ class ProdutoController extends Controller
         }
         die();
     }
-    
+
     public function setProduto()
     {
         if ($_POST) {
@@ -109,7 +109,7 @@ class ProdutoController extends Controller
             $strNome = strClean($_POST['txtNome']);
             $strDescricao = strClean($_POST['txtDescricao']);
             $strCodigo = strClean($_POST['txtCodigo']);
-            $decPreco = floatval(str_replace(",", ".", $_POST['txtPreço']));
+            $decPreco = floatval(str_replace(",", ".", $_POST['txtPreco']));
             $intEstoque = intval($_POST['txtEstoque']);
             $intCategoria = intval($_POST['listCategoria']);
             $intStatus = intval($_POST['listStatus']);

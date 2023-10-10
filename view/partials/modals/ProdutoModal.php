@@ -45,9 +45,9 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-6 form-group">
-                                    <label class="control-label" for="txtPreço">Preço</label>&nbsp;
+                                    <label class="control-label" for="txtPreco">Preço</label>&nbsp;
                                     <label class="corVermelha">*</label>
-                                    <input class="form-control valid" id="txtPreço" name="txtPreço" tabindex="4" type="text" placeholder="Valor preço" onblur="alteraClassInvalido('.valid');">
+                                    <input class="form-control valid" id="txtPreco" name="txtPreco" tabindex="4" type="text" placeholder="Valor preço" onblur="alteraClassInvalido('.valid');">
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label class="control-label" for="txtEstoque">Estoque</label>&nbsp;
