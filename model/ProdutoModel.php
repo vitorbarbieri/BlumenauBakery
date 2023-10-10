@@ -40,6 +40,27 @@ class ProdutoModel extends Mysql
         return $request;
     }
 
+    public function selectProducto(int $id)
+    {
+        $this->intId = $id;
+			$sql = "SELECT 
+                        p.id,
+						p.codigo,
+						p.nome,
+						p.descricao,
+						p.preco,
+						p.estoque,
+						p.id_categoria,
+						c.nome as nomeCategoria,
+						p.status
+					FROM produto p
+					INNER JOIN categoria c
+					ON p.id_categoria = c.id
+					WHERE p.id = $this->intId";
+			$request = $this->select($sql);
+			return $request;
+    }
+
     public function insertProduto(string $nome, string $descricao, string $codigo, float $preco, int $estoque, int $categoria, int $tatus)
     {
         $this->strNome = $nome;
@@ -72,5 +93,12 @@ class ProdutoModel extends Mysql
         $arrData = array($this->intId, $this->strImagem);
         $request_insert = $this->insert($query_insert, $arrData);
         return $request_insert;
+    }
+
+    public function selectImages(int $id){
+        $this->intId = $id;
+        $sql = "SELECT id_produto, img FROM imagem WHERE id_produto = $this->intId";
+        $request = $this->select_all($sql);
+        return $request;
     }
 }

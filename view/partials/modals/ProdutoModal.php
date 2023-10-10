@@ -107,3 +107,59 @@
         </div>
     </div>
 </div>
+
+<!-- Modal Ver Produto -->
+<div class="modal fade" id="modalViewProduto" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header header-primary">
+                <h5 class="modal-title" id="titleModal">Dados do Produto</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td width="15%">Codigo:</td>
+                            <td id="celCodigo"></td>
+                        </tr>
+                        <tr>
+                            <td>Nome:</td>
+                            <td id="celNome"></td>
+                        </tr>
+                        <tr>
+                            <td>Preço:</td>
+                            <td id="celPreco"></td>
+                        </tr>
+                        <tr>
+                            <td>Estoque:</td>
+                            <td id="celEstoque"></td>
+                        </tr>
+                        <tr>
+                            <td>Categoria:</td>
+                            <td id="celCategoria"></td>
+                        </tr>
+                        <tr>
+                            <td>Status:</td>
+                            <td id="celStatus"></td>
+                        </tr>
+                        <tr>
+                            <td>Descrição:</td>
+                            <td id="celDescricao"></td>
+                        </tr>
+                        <tr>
+                            <td>Imagens:</td>
+                            <td id="celFotos">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>

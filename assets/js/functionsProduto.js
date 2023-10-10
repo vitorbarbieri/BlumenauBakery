@@ -284,3 +284,43 @@ function fntInputFile() {
         });
     });
 }
+
+function verProduto(idProduto) {
+    let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+    let ajaxUrl = base_url + '/Produto/getProduto/' + idProduto;
+    request.open("GET", ajaxUrl, true);
+    request.send();
+    request.onreadystatechange = function () {
+        if (request.readyState == 4 && request.status == 200) {
+            let objData = JSON.parse(request.responseText);
+            if (objData.status) {
+                let htmlImage = "";
+                let objProduto = objData.data;
+                let estadoProduto = objProduto.status == 1 ? '<span class="badge badge-success">Ativo</span>' : '<span class="badge badge-danger">Inativo</span>';
+
+                document.querySelector("#celCodigo").innerHTML = objProduto.codigo;
+                document.querySelector("#celNome").innerHTML = objProduto.nome;
+                document.querySelector("#celPreco").innerHTML = objProduto.preco;
+                document.querySelector("#celEstoque").innerHTML = objProduto.estoque;
+                document.querySelector("#celCategoria").innerHTML = objProduto.nomeCategoria;
+                document.querySelector("#celStatus").innerHTML = estadoProduto;
+                if (objProduto.descripcion == null) {
+                    document.querySelector("#celDescricao").innerHTML = "";
+                } else {
+                    document.querySelector("#celDescricao").innerHTML = objProduto.descripcion;
+                }
+
+                if (objProduto.images.length > 0) {
+                    let objProdutos = objProduto.images;
+                    for (let p = 0; p < objProdutos.length; p++) {
+                        htmlImage += `<img src="${objProdutos[p].url_image}"></img>`;
+                    }
+                }
+                document.querySelector("#celFotos").innerHTML = htmlImage;
+                $('#modalViewProduto').modal('show');
+            } else {
+                swal.fire("Erro", objData.msg, "error");
+            }
+        }
+    }
+}

@@ -75,6 +75,30 @@ class ProdutoController extends Controller
         echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
         die();
     }
+
+    public function getProduto($idProduto)
+    {
+        $id = intval($idProduto);
+
+        if ($id > 0) {
+            $arrData = $this->model->selectProducto($id);
+            if (empty($arrData)) {
+                $arrResponse = array('status' => false, 'msg' => 'Dado não encontrado.');
+            } else {
+                $arrImg = $this->model->selectImages($id);
+                if (count($arrImg) > 0) {
+                    for ($i = 0; $i < count($arrImg); $i++) {
+                        $arrImg[$i]['url_image'] = media() . '/img/uploads/' . $arrImg[$i]['img'];
+                    }
+                }
+                $arrData['images'] = $arrImg;
+                $arrResponse = array('status' => true, 'data' => $arrData);
+            }
+            echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
+        }
+        die();
+    }
+    
     public function setProduto()
     {
         if ($_POST) {
@@ -102,9 +126,9 @@ class ProdutoController extends Controller
 
             if ($request == 1) {
                 if ($option == 1) {
-                    $arrResponse = array('status' => true, 'idProducto' => $idProduto,'msg' => 'Produto salvo com sucesso');
+                    $arrResponse = array('status' => true, 'idProducto' => $idProduto, 'msg' => 'Produto salvo com sucesso');
                 } else {
-                    $arrResponse = array('status' => true, 'idProducto' => $intId,'msg' => 'Produto atualizado com sucesso');
+                    $arrResponse = array('status' => true, 'idProducto' => $intId, 'msg' => 'Produto atualizado com sucesso');
                 }
             } else {
                 if ($request == 2) {
