@@ -37,7 +37,10 @@
 
                     <div class="right-top-bar flex-w h-full">
                         <a href="#" class="flex-c-m trans-04 p-lr-25">
-                            My Account
+                            Minha Conta
+                        </a>
+                        <a href="#" class="flex-c-m trans-04 p-lr-25">
+                            Entrar
                         </a>
                     </div>
                 </div>
@@ -47,7 +50,7 @@
                 <nav class="limiter-menu-desktop container">
 
                     <!-- Logo desktop -->
-                    <a href="#" class="logo">
+                    <a href="<?= base_url(); ?>" class="logo">
                         <img src="<?= media(); ?>/loja/img/icons/logo.png" alt="Logo">
                     </a>
 
@@ -87,7 +90,9 @@
         <div class="wrap-header-mobile">
             <!-- Logo moblie -->
             <div class="logo-mobile">
-                <a href="index.html"><img src="<?= media(); ?>/loja/images/icons/logo-01.png" alt="IMG-LOGO"></a>
+                <a href="<?= base_url(); ?>">
+                    <img src="<?= media(); ?>/loja/img/icons/logo.png" alt="Logo">
+                </a>
             </div>
 
             <!-- Icon header -->
@@ -95,14 +100,9 @@
                 <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 js-show-modal-search">
                     <i class="zmdi zmdi-search"></i>
                 </div>
-
                 <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart" data-notify="2">
                     <i class="zmdi zmdi-shopping-cart"></i>
                 </div>
-
-                <a href="#" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti" data-notify="0">
-                    <i class="zmdi zmdi-favorite-outline"></i>
-                </a>
             </div>
 
             <!-- Button show menu -->
@@ -119,26 +119,17 @@
             <ul class="topbar-mobile">
                 <li>
                     <div class="left-top-bar">
-                        Free shipping for standard order over $100
+                        Entrega grátis para compra acima de R$100,00
                     </div>
                 </li>
 
                 <li>
                     <div class="right-top-bar flex-w h-full">
                         <a href="#" class="flex-c-m p-lr-10 trans-04">
-                            Help & FAQs
+                            Minha Conta
                         </a>
-
                         <a href="#" class="flex-c-m p-lr-10 trans-04">
-                            My Account
-                        </a>
-
-                        <a href="#" class="flex-c-m p-lr-10 trans-04">
-                            EN
-                        </a>
-
-                        <a href="#" class="flex-c-m p-lr-10 trans-04">
-                            USD
+                            Entrar
                         </a>
                     </div>
                 </li>
@@ -146,35 +137,16 @@
 
             <ul class="main-menu-m">
                 <li>
-                    <a href="index.html">Home</a>
-                    <ul class="sub-menu-m">
-                        <li><a href="index.html">Homepage 1</a></li>
-                        <li><a href="home-02.html">Homepage 2</a></li>
-                        <li><a href="home-03.html">Homepage 3</a></li>
-                    </ul>
-                    <span class="arrow-main-menu-m">
-                        <i class="fa fa-angle-right" aria-hidden="true"></i>
-                    </span>
+                    <a href="<?= base_url(); ?>">Home</a>
                 </li>
-
                 <li>
-                    <a href="product.html">Shop</a>
+                    <a href="<?= base_url(); ?>/loja">Loja</a>
                 </li>
-
                 <li>
-                    <a href="shoping-cart.html" class="label1 rs1" data-label1="hot">Features</a>
+                    <a href="<?= base_url(); ?>/sobre">Sobre</a>
                 </li>
-
                 <li>
-                    <a href="blog.html">Blog</a>
-                </li>
-
-                <li>
-                    <a href="about.html">About</a>
-                </li>
-
-                <li>
-                    <a href="contact.html">Contact</a>
+                    <a href="<?= base_url(); ?>/contato">Contato</a>
                 </li>
             </ul>
         </div>
@@ -190,7 +162,7 @@
                     <button class="flex-c-m trans-04">
                         <i class="zmdi zmdi-search"></i>
                     </button>
-                    <input class="plh3" type="text" name="search" placeholder="Search...">
+                    <input class="plh3" type="text" name="search" placeholder="Buscar...">
                 </form>
             </div>
         </div>
