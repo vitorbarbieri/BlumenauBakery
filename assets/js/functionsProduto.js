@@ -389,3 +389,27 @@ function editarProduto(elemento, idProduto) {
         }
     }
 }
+
+function fntDelItem(elemento) {
+    let nameImg = document.querySelector(elemento + ' .btnDeleteImage').getAttribute("imgname");
+    let idProduto = document.querySelector("#idProduto").value;
+    let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+    let ajaxUrl = base_url + '/Produto/delImagem';
+    let formData = new FormData();
+    formData.append('idProduto', idProduto);
+    formData.append("file", nameImg);
+    request.open("POST", ajaxUrl, true);
+    request.send(formData);
+    request.onreadystatechange = function () {
+        if (request.readyState != 4) return;
+        if (request.status == 200) {
+            let objData = JSON.parse(request.responseText);
+            if (objData.status) {
+                let itemRemove = document.querySelector(elemento);
+                itemRemove.parentNode.removeChild(itemRemove);
+            } else {
+                swal("", objData.msg, "error");
+            }
+        }
+    }
+}

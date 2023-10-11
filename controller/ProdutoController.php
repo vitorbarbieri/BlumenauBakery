@@ -171,4 +171,26 @@ class ProdutoController extends Controller
         };
         die();
     }
+
+    public function delImagem()
+    {
+        if ($_POST) {
+            if (empty($_POST['idProduto']) || empty($_POST['file'])) {
+                $arrResponse = array("status" => false, "msg" => 'Dados incorretos.');
+            } else {
+                $idProduto = intval($_POST['idProduto']);
+                $imgNome  = strClean($_POST['file']);
+                $request_image = $this->model->deleteImage($idProduto, $imgNome);
+
+                if ($request_image) {
+                    $deleteFile =  deleteFile($imgNome);
+                    $arrResponse = array('status' => true, 'msg' => 'Foto eliminada');
+                } else {
+                    $arrResponse = array('status' => false, 'msg' => 'Erro ao excluir foto');
+                }
+            }
+            echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
+        }
+        die();
+    }
 }

@@ -67,6 +67,11 @@ function uploadImage(array $data, string $name)
     return $move;
 }
 
+// Deletar arquivo da pasta "assets/img/uploads"
+function deleteFile(string $name){
+    unlink('assets/img/uploads/'.$name);
+}
+
 // Limpa string
 function strClean($strCadena)
 {
