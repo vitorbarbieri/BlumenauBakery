@@ -413,3 +413,36 @@ function fntDelItem(elemento) {
         }
     }
 }
+
+function deletarProduto(idProduto) {
+    swal.fire({
+        title: "Excluir produto",
+        text: "Realmente deseja excluir o produto?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Sim, excluir!",
+        cancelButtonText: "Não, cancelar!",
+        focusCancel: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+            let ajaxUrl = base_url + '/Produto/delProducto';
+            let strData = "idProduto=" + idProduto;
+            request.open("POST", ajaxUrl, true);
+            request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            request.send(strData);
+            request.onreadystatechange = function () {
+                if (request.readyState == 4 && request.status == 200) {
+                    let objData = JSON.parse(request.responseText);
+                    if (objData.status) {
+                        swal.fire("Atenção!", objData.msg, "success");
+                        tableProdutos.api().ajax.reload();
+                    } else {
+                        swal.fire("Atenção!", objData.msg, "error");
+                    }
+                }
+            }
+        }
+
+    });
+}

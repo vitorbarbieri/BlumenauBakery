@@ -127,11 +127,20 @@ class ProdutoModel extends Mysql
         return $return;
     }
 
-    public function deleteImage(int $idProduto, string $imagem){
+    public function deleteImage(int $idProduto, string $imagem)
+    {
         $this->intId = $idProduto;
         $this->strImagem = $imagem;
         $query  = "DELETE FROM imagem WHERE id_produto = $this->intId AND img = '{$this->strImagem}'";
         $request_delete = $this->delete($query);
         return $request_delete;
+    }
+
+    public function deleteProduto(int $idProduto)
+    {
+        $this->intId = $idProduto;
+        $sql = "DELETE FROM produto WHERE id = $this->intId ";
+        $request = $this->delete($sql);
+        return $request;
     }
 }

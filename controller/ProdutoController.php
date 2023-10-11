@@ -146,6 +146,23 @@ class ProdutoController extends Controller
         die();
     }
 
+    public function delProducto()
+    {
+        // Validar se existe venda com o produto, não excluir, deve inativar
+
+        if ($_POST) {
+            $intIdProduto = intval($_POST['idProduto']);
+            $requestDelete = $this->model->deleteProduto($intIdProduto);
+            if ($requestDelete) {
+                $arrResponse = array('status' => true, 'msg' => 'Produto excluído com sucesso');
+            } else {
+                $arrResponse = array('status' => false, 'msg' => 'Erro ao excluir produto.');
+            }
+            echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
+        }
+        die();
+    }
+
     public function setImage()
     {
         // dep($_POST);
