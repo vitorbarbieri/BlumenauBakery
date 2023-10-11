@@ -61,6 +61,10 @@ textarea {
 	height: 50px;
 }
 
+.app-header__logo img {
+	height: 50px;
+}
+
 /* Upload Imagem */
 
 #containerImages {
