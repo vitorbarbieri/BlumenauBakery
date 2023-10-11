@@ -315,10 +315,10 @@ function verProduto(idProduto) {
                 document.querySelector("#celEstoque").innerHTML = objProduto.estoque;
                 document.querySelector("#celCategoria").innerHTML = objProduto.nomeCategoria;
                 document.querySelector("#celStatus").innerHTML = estadoProduto;
-                if (objProduto.descripcion == null) {
+                if (objProduto.descricao == "") {
                     document.querySelector("#celDescricao").innerHTML = "";
                 } else {
-                    document.querySelector("#celDescricao").innerHTML = objProduto.descripcion;
+                    document.querySelector("#celDescricao").innerHTML = objProduto.descricao;
                 }
 
                 if (objProduto.images.length > 0) {
