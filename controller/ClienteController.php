@@ -15,7 +15,7 @@ class ClienteController extends Controller
     public function cliente()
     {
         $data['page_id'] = 3;
-        $data['page_tag'] = "Cliente - Blumenau Bakary";
+        $data['page_tag'] = "Cliente - Blumenau Bakery";
         $data['page_title'] = "Clientes";
         $data['page_name'] = "cliente";
         $data['page_functions_js'] = "functionsCliente.js";

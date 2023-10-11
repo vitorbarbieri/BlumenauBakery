@@ -18,6 +18,11 @@ function headerAdmin($data = "")
     $view_header = "./view/partials/HeaderAdmin.php";
     require_once($view_header);
 }
+function headerLoja($data = "")
+{
+    $view_header = "./view/partials/HeaderLoja.php";
+    require_once($view_header);
+}
 
 // Exibe o Nav
 function navAdmin($data = "")
@@ -30,6 +35,11 @@ function navAdmin($data = "")
 function footerAdmin($data = "")
 {
     $view_footer = "./view/partials/FooterAdmin.php";
+    require_once($view_footer);
+}
+function footerLoja($data = "")
+{
+    $view_footer = "./view/partials/FooterLoja.php";
     require_once($view_footer);
 }
 

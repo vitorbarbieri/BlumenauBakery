@@ -15,7 +15,7 @@ class PerfilController extends Controller
     public function perfil()
     {
         $data['page_id'] = 4;
-        $data['page_tag'] = "Perfil - Manolo Bakes";
+        $data['page_tag'] = "Perfil - Blumenau Bakery";
         $data['page_title'] = "Perfil";
         $data['page_name'] = "Perfil";
         $data['page_functions_js'] = "functionsPerfil.js";
