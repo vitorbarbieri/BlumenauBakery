@@ -1,5 +1,7 @@
 <?php
+
 require_once("model/TProduto.php");
+
 class HomeController extends Controller
 {
     use TProduto;
