@@ -8,6 +8,7 @@ trait TProduto
 	private $strCategoria;
 	private $intIdCategoria;
 	private $strProduto;
+	private $intIdProduto;
 	private $qtd;
 	private $opcao;
 
@@ -84,83 +85,84 @@ trait TProduto
 		return $request;
 	}
 
-	// public function getProductoT(string $producto)
-	// {
-	// 	$this->conexao = new Mysql();
-	// 	$this->strProducto = $producto;
-	// 	$sql = "SELECT p.idproducto,
-	// 					p.codigo,
-	// 					p.nombre,
-	// 					p.descripcion,
-	// 					p.categoriaid,
-	// 					c.nombre as categoria,
-	// 					p.precio,
-	// 					p.stock
-	// 			FROM producto p 
-	// 			INNER JOIN categoria c
-	// 			ON p.categoriaid = c.idcategoria
-	// 			WHERE p.status != 0 AND p.nombre = '{$this->strProducto}' ";
-	// 	$request = $this->conexao->select($sql);
-	// 	if (!empty($request)) {
-	// 		$intIdProduto = $request['idproducto'];
-	// 		$sqlImg = "SELECT img
-	// 						FROM imagen
-	// 						WHERE productoid = $intIdProduto";
-	// 		$arrImg = $this->conexao->select_all($sqlImg);
-	// 		if (count($arrImg) > 0) {
-	// 			for ($i = 0; $i < count($arrImg); $i++) {
-	// 				$arrImg[$i]['url_image'] = media() . '/images/uploads/' . $arrImg[$i]['img'];
-	// 			}
-	// 		}
-	// 		$request['images'] = $arrImg;
-	// 	}
-	// 	return $request;
-	// }
+	public function getProductoT(int $idProduto)
+	{
+		$this->conexao = new Mysql();
+		$this->intIdProduto = $idProduto;
+		$sql = "SELECT 
+					p.id,
+					p.codigo,
+					p.nome,
+					p.descricao,
+					p.id_categoria,
+					c.nome as cNome,
+					p.preco,
+					p.estoque
+				FROM produto p 
+				INNER JOIN categoria c ON p.id_categoria = c.id
+				WHERE p.status = 1
+				AND p.id = $this->intIdProduto";
+		$request = $this->conexao->select($sql);
+		if (!empty($request)) {
+			$intIdProduto = $request['id'];
+			$sqlImg = "SELECT img FROM imagem WHERE id_produto = $intIdProduto";
+			$arrImg = $this->conexao->select_all($sqlImg);
+			if (count($arrImg) > 0) {
+				for ($i = 0; $i < count($arrImg); $i++) {
+					$arrImg[$i]['url_image'] = media() . '/img/uploads/' . $arrImg[$i]['img'];
+				}
+			}
+			$request['images'] = $arrImg;
+		}
+		return $request;
+	}
 
-	// public function getProductosRandom(int $idcategoria, int $qtd, string $opcao)
-	// {
-	// 	$this->intIdcategoria = $idcategoria;
-	// 	$this->qtd = $qtd;
-	// 	$this->opcao = $opcao;
+	public function getProdutosRandom(int $idCategoria, int $qtd, string $opcao, int $idProduto)
+	{
+		$this->intIdCategoria = $idCategoria;
+		$this->qtd = $qtd;
+		$this->opcao = $opcao;
+		$this->intIdProduto = $idProduto;
 
-	// 	if ($opcao == "r") {
-	// 		$this->opcao = " RAND() ";
-	// 	} else if ($opcao == "a") {
-	// 		$this->opcao = " idproducto ASC ";
-	// 	} else {
-	// 		$this->opcao = " idproducto DESC ";
-	// 	}
+		if ($opcao == "r") {
+			$this->opcao = " RAND() ";
+		} else if ($opcao == "a") {
+			$this->opcao = " id ASC ";
+		} else {
+			$this->opcao = " id DESC ";
+		}
 
-	// 	$this->conexao = new Mysql();
-	// 	$sql = "SELECT p.idproducto,
-	// 					p.codigo,
-	// 					p.nombre,
-	// 					p.descripcion,
-	// 					p.categoriaid,
-	// 					c.nombre as categoria,
-	// 					p.precio,
-	// 					p.stock
-	// 			FROM producto p 
-	// 			INNER JOIN categoria c
-	// 			ON p.categoriaid = c.idcategoria
-	// 			WHERE p.status != 0 AND p.categoriaid = $this->intIdcategoria
-	// 			ORDER BY $this->opcao LIMIT  $this->qtd ";
-	// 	$request = $this->conexao->select_all($sql);
-	// 	if (count($request) > 0) {
-	// 		for ($c = 0; $c < count($request); $c++) {
-	// 			$intIdProduto = $request[$c]['idproducto'];
-	// 			$sqlImg = "SELECT img
-	// 							FROM imagen
-	// 							WHERE productoid = $intIdProduto";
-	// 			$arrImg = $this->conexao->select_all($sqlImg);
-	// 			if (count($arrImg) > 0) {
-	// 				for ($i = 0; $i < count($arrImg); $i++) {
-	// 					$arrImg[$i]['url_image'] = media() . '/images/uploads/' . $arrImg[$i]['img'];
-	// 				}
-	// 			}
-	// 			$request[$c]['images'] = $arrImg;
-	// 		}
-	// 	}
-	// 	return $request;
-	// }
+		$this->conexao = new Mysql();
+		$sql = "SELECT 
+					p.id,
+					p.codigo,
+					p.nome,
+					p.descricao,
+					p.id_categoria,
+					c.nome as cNome,
+					p.preco,
+					p.estoque
+				FROM produto p 
+				INNER JOIN categoria c ON p.id_categoria = c.id
+				WHERE p.status = 1
+				AND p.id_categoria = $this->intIdCategoria
+				AND p.id != $this->intIdProduto
+				ORDER BY $this->opcao
+				LIMIT  $this->qtd";
+		$request = $this->conexao->select_all($sql);
+		if (count($request) > 0) {
+			for ($c = 0; $c < count($request); $c++) {
+				$intIdProduto = $request[$c]['id'];
+				$sqlImg = "SELECT img FROM imagem WHERE id_produto = $intIdProduto";
+				$arrImg = $this->conexao->select_all($sqlImg);
+				if (count($arrImg) > 0) {
+					for ($i = 0; $i < count($arrImg); $i++) {
+						$arrImg[$i]['url_image'] = media() . '/img/uploads/' . $arrImg[$i]['img'];
+					}
+				}
+				$request[$c]['images'] = $arrImg;
+			}
+		}
+		return $request;
+	}
 }

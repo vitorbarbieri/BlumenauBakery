@@ -32,4 +32,20 @@ class LojaController extends Controller
             $this->views->getView($this, "categoria", $data);
         }
     }
+
+    public function produto($params)
+    {
+        if (empty($params)) {
+            header("Location: " . base_url());
+        } else {
+            $idProduto = intval($params);
+            $arrProduto = $this->getProductoT($idProduto);
+            $data['page_tag'] = "Produto - Blumenau Bakery";
+            $data['page_title'] = "Produto";
+            $data['page_name'] = "produto";
+            $data['produto'] = $arrProduto;
+            $data['produtos'] = $this->getProdutosRandom($arrProduto['id_categoria'], 4, "r", $arrProduto['id']);
+            $this->views->getView($this, "produto", $data);
+        }
+    }
 }

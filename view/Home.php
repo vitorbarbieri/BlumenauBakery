@@ -158,13 +158,13 @@ $arrProdutos = $data['produtos'];
                     <div class="block2">
                         <div class="block2-pic hov-img0">
                             <img src="<?= $portada ?>" alt="<?= $arrProdutos[$i]['nome'] ?>">
-                            <a href="<?= base_url() . 'loja/produto/' . $arrProdutos[$i]['id'] ?>" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
+                            <a href="<?= base_url() . '/loja/produto/' . $arrProdutos[$i]['id'] ?>" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
                                 Quick View
                             </a>
                         </div>
                         <div class="block2-txt flex-w flex-t p-t-14">
                             <div class="block2-txt-child1 flex-col-l ">
-                                <a href="<?= base_url() . 'loja/produto/' . $arrProdutos[$i]['id'] ?>" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+                                <a href="<?= base_url() . '/loja/produto/' . $arrProdutos[$i]['id'] ?>" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
                                     <?= $arrProdutos[$i]['nome'] ?>
                                 </a>
                                 <span class="stext-105 cl3">
