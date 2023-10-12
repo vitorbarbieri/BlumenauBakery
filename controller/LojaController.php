@@ -12,11 +12,11 @@ class LojaController extends Controller
 
     public function loja()
     {
-        $data['page_tag'] = "Categoria - Blumenau Bakery";
-        $data['page_title'] = "Categoria";
-        $data['page_name'] = "categoria";
+        $data['page_tag'] = "Loja - Blumenau Bakery";
+        $data['page_title'] = "Loja";
+        $data['page_name'] = "loja";
         $data['produtos'] = $this->getProdutosT();
-        $this->views->getView($this, "categoria", $data);
+        $this->views->getView($this, "loja", $data);
     }
 
     public function categoria($params)
