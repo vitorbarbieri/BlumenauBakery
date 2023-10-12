@@ -89,7 +89,9 @@ textarea {
 }
 
 .prevImage img {
-	width: 100%;
+    object-fit: cover;
+	max-width: 120px;
+	max-height: 148px;
 }
 
 .inputUploadfile {
