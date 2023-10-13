@@ -1,6 +1,5 @@
 <?php
 headerLoja($data);
-getModal("CarrinhoModal", $data);
 $arrProdutos = $data['produtos'];
 ?>
 

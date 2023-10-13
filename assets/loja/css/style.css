@@ -38,3 +38,11 @@
     max-height: 600px;
     max-width: 400px;
 }
+
+.header-cart-item-img img {
+    max-height: 80px;
+    max-width: 60px;
+    object-fit: contain;
+    max-height: 80px;
+    max-width: 60px;
+}

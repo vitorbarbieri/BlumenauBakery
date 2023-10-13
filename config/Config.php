@@ -19,3 +19,7 @@ const SPM = ".";
 
 // Símbolo da moeda
 const SMONEY = "R$";
+
+// Dados para Encriptar / Desencriptar
+const KEY = 'abelosh';
+const METHODENCRIPT = "AES-128-ECB";

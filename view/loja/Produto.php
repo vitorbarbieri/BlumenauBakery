@@ -1,6 +1,5 @@
 <?php
 headerLoja($data);
-getModal("CarrinhoModal", $data);
 $arrProduto = $data['produto'];
 $arrProdutos = $data['produtos'];
 $arrImages = $arrProduto['images'];
@@ -25,6 +24,7 @@ $arrImages = $arrProduto['images'];
         </span>
     </div>
 </div>
+
 <!-- Product Detail -->
 <section class="sec-product-detail bg0 p-t-65 p-b-60">
     <div class="container">
@@ -34,7 +34,6 @@ $arrImages = $arrProduto['images'];
                     <div class="wrap-slick3 flex-sb flex-w">
                         <div class="wrap-slick3-dots"></div>
                         <div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
-
                         <div class="slick3 gallery-lb">
                             <?php
                             if (!empty($arrImages)) {
@@ -56,7 +55,6 @@ $arrImages = $arrProduto['images'];
                     </div>
                 </div>
             </div>
-
             <div class="col-md-6 col-lg-5 p-b-30">
                 <div class="p-r-50 p-t-5 p-lr-0-lg">
                     <h4 class="mtext-105 cl2 js-name-detail p-b-14">
@@ -65,7 +63,6 @@ $arrImages = $arrProduto['images'];
                     <span class="mtext-106 cl2">
                         <?= formatMoney($arrProduto['preco']); ?>
                     </span>
-
                     <!--  -->
                     <div class="p-t-33">
                         <div class="flex-w flex-r-m p-b-10">
@@ -74,12 +71,12 @@ $arrImages = $arrProduto['images'];
                                     <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
                                         <i class="fs-16 zmdi zmdi-minus"></i>
                                     </div>
-                                    <input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product" value="1">
+                                    <input id="qtdProduto" class="mtext-104 cl3 txt-center num-product" type="number" name="num-product" value="1" min="1">
                                     <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
                                         <i class="fs-16 zmdi zmdi-plus"></i>
                                     </div>
                                 </div>
-                                <button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
+                                <button id="<?= openssl_encrypt($arrProduto['id'], METHODENCRIPT, KEY); ?>" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
                                     Adicionar
                                 </button>
                             </div>
@@ -111,12 +108,10 @@ $arrImages = $arrProduto['images'];
             </div>
         </div>
     </div>
-
     <div class="bg6 flex-c-m flex-w size-302 m-t-73 p-tb-15">
         <h3>Produtos Relacionados</h3>
     </div>
 </section>
-
 <!-- Related Products -->
 <section class="sec-relate-product bg0 p-t-45 p-b-105">
     <div class="container">
@@ -164,5 +159,4 @@ $arrImages = $arrProduto['images'];
         </div>
     </div>
 </section>
-
 <?= footerLoja($data); ?>

@@ -78,8 +78,17 @@ function uploadImage(array $data, string $name)
 }
 
 // Deletar arquivo da pasta "assets/img/uploads"
-function deleteFile(string $name){
-    unlink('assets/img/uploads/'.$name);
+function deleteFile(string $name)
+{
+    unlink('assets/img/uploads/' . $name);
+}
+
+function getFile(string $url, $data)
+{
+    ob_start();
+    require_once("view/{$url}.php");
+    $file = ob_get_clean();
+    return $file;
 }
 
 // Limpa string
