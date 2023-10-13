@@ -69,12 +69,12 @@ $('.js-addcart-detail').each(function () {
                 let objData = JSON.parse(request.responseText);
                 if (objData.status) {
                     document.querySelector("#produtosCarrinho").innerHTML = objData.htmlCarrinho;
-                    document.querySelector("#qtdCarrinho").setAttribute("data-notify",objData.qtdCarrinho);
-                //     //document.querySelectorAll("#qtdCarrinho")[1].setAttribute("data-notify",objData.qtdCarrinho);
-                //     const cants = document.querySelectorAll("#qtdCarrinho");
-                //     cants.forEach(element => {
-                //         element.setAttribute("data-notify", objData.qtdCarrinho)
-                //     });
+                    // document.querySelector("#qtdCarrinho").setAttribute("data-notify", objData.qtdCarrinho);
+                    //document.querySelectorAll("#qtdCarrinho")[1].setAttribute("data-notify",objData.qtdCarrinho);
+                        const cants = document.querySelectorAll("#qtdCarrinho");
+                        cants.forEach(element => {
+                            element.setAttribute("data-notify", objData.qtdCarrinho)
+                        });
                     swal(nameProduct, "foi adicionado ao carrinho!", "success");
                 } else {
                     swal("", objData.msg, "error");
@@ -98,3 +98,46 @@ $('.js-pscroll').each(function () {
         ps.update();
     })
 });
+
+function fntdelItem(elemento) {
+    //Option 1 = Modal Carrinho
+    //Option 2 = Vista Carrinho
+    let option = elemento.getAttribute("op");
+    let idpr = elemento.getAttribute("idpr");
+
+    if (option == 1 || option == 2) {
+        let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+        let ajaxUrl = base_url + '/loja/delCarrinho';
+        let formData = new FormData();
+        formData.append('id', idpr);
+        formData.append('option', option);
+        request.open("POST", ajaxUrl, true);
+        request.send(formData);
+        request.onreadystatechange = function () {
+            if (request.readyState != 4) return;
+            if (request.status == 200) {
+                // console.log(request.responseText);
+                let objData = JSON.parse(request.responseText);
+                if (objData.status) {
+                    if (option == 1) {
+                        document.querySelector("#produtosCarrinho").innerHTML = objData.htmlCarrito;
+                        const qtds = document.querySelectorAll("#qtdCarrinho");
+                        qtds.forEach(elemento => {
+                            elemento.setAttribute("data-notify", objData.qtdCarrinho)
+                        });
+                    } else {
+                        // elemento.parentNode.parentNode.remove();
+                        // document.querySelector("#subTotalCompra").innerHTML = objData.subTotal;
+                        // document.querySelector("#totalCompra").innerHTML = objData.total;
+                        // if (document.querySelectorAll("#tblCarrito tr").length == 1) {
+                        //     window.location.href = base_url;
+                        // }
+                    }
+                } else {
+                    swal("", objData.msg, "error");
+                }
+            }
+            return false;
+        }
+    }
+}
