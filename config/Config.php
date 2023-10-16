@@ -25,4 +25,4 @@ const KEY = 'abelosh';
 const METHODENCRIPT = "AES-128-ECB";
 
 // Entrega pedido
-const COSTOENVIO = 10;
+const CUSTOENVIO = 10;

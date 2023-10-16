@@ -76,16 +76,18 @@ if (isset($_SESSION['arrCarrinho']) && count($_SESSION['arrCarrinho']) > 0) {
                             </li>
                         </ul>
                     </div>
-                    <!-- Icon header -->
-                    <div class="wrap-icon-header flex-w flex-r-m">
-                        <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
-                            <i class="zmdi zmdi-search"></i>
-                        </div>
+                    <?php if ($data['page_name'] != "carrinho") { ?>
+                        <!-- Icon header -->
+                        <div class="wrap-icon-header flex-w flex-r-m">
+                            <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
+                                <i class="zmdi zmdi-search"></i>
+                            </div>
 
-                        <div id="qtdCarrinho" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="<?= $qtdCarrinho ?>">
-                            <i class="zmdi zmdi-shopping-cart"></i>
+                            <div id="qtdCarrinho" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="<?= $qtdCarrinho ?>">
+                                <i class="zmdi zmdi-shopping-cart"></i>
+                            </div>
                         </div>
-                    </div>
+                    <?php } ?>
                 </nav>
             </div>
         </div>
@@ -97,15 +99,17 @@ if (isset($_SESSION['arrCarrinho']) && count($_SESSION['arrCarrinho']) > 0) {
                     <img src="<?= media(); ?>/loja/img/icons/logo.png" alt="Logo">
                 </a>
             </div>
-            <!-- Icon header -->
-            <div class="wrap-icon-header flex-w flex-r-m m-r-15">
-                <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 js-show-modal-search">
-                    <i class="zmdi zmdi-search"></i>
+            <?php if ($data['page_name'] != "carrinho") { ?>
+                <!-- Icon header -->
+                <div class="wrap-icon-header flex-w flex-r-m m-r-15">
+                    <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 js-show-modal-search">
+                        <i class="zmdi zmdi-search"></i>
+                    </div>
+                    <div id="qtdCarrinho" class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart" data-notify="<?= $qtdCarrinho ?>">
+                        <i class="zmdi zmdi-shopping-cart"></i>
+                    </div>
                 </div>
-                <div id="qtdCarrinho" class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart" data-notify="<?= $qtdCarrinho ?>">
-                    <i class="zmdi zmdi-shopping-cart"></i>
-                </div>
-            </div>
+            <?php } ?>
             <!-- Button show menu -->
             <div class="btn-show-menu-mobile hamburger hamburger--squeeze">
                 <span class="hamburger-box">

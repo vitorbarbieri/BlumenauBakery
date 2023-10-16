@@ -143,7 +143,7 @@ class LojaController extends Controller
                     "qtdCarrinho" => $qtdCarrinho,
                     "htmlCarrito" => $htmlCarrito,
                     // "subTotal" => formatMoney($subTotal),
-                    // "total" => formatMoney($subTotal + COSTOENVIO)
+                    // "total" => formatMoney($subTotal + CUSTOENVIO)
                 );
             } else {
                 $arrResponse = array("status" => false, "msg" => 'Dado incorreto.');
