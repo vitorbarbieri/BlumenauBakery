@@ -126,12 +126,20 @@ function fntdelItem(elemento) {
                             elemento.setAttribute("data-notify", objData.qtdCarrinho)
                         });
                     } else {
-                        // elemento.parentNode.parentNode.remove();
-                        // document.querySelector("#subTotalCompra").innerHTML = objData.subTotal;
-                        // document.querySelector("#totalCompra").innerHTML = objData.total;
-                        // if (document.querySelectorAll("#tblCarrito tr").length == 1) {
-                        //     window.location.href = base_url;
-                        // }
+                        elemento.parentNode.parentNode.remove();
+                        let valor = parseFloat(objData.subTotal.slice(2).replace(',', '.')).toFixed(2);
+                        if (valor <= 100) {
+                            document.querySelector("#subTotalCompra").innerHTML = objData.subTotal;
+                            document.querySelector("#valorFrete").innerHTML = "R$ 10,00";
+                            document.querySelector("#totalCompra").innerHTML = objData.total;
+                        } else {
+                            document.querySelector("#subTotalCompra").innerHTML = objData.subTotal;
+                            document.querySelector("#valorFrete").innerHTML = "R$ 0,00";
+                            document.querySelector("#totalCompra").innerHTML = objData.subTotal;
+                        }
+                        if (document.querySelectorAll("#tblCarrito tr").length == 1) {
+                            window.location.href = base_url;
+                        }
                     }
                 } else {
                     swal("", objData.msg, "error");
@@ -204,15 +212,15 @@ $('.btn-num-product-up').on('click', function () {
 });
 
 // Atualizar produto
-if(document.querySelector(".num-product")){
-	let inputCant = document.querySelectorAll(".num-product");
-	inputCant.forEach(function(inputCant) {
-		inputCant.addEventListener('keyup', function(){
-			let idpr = this.getAttribute('idpr');
-			let cant = this.value;
-			if(idpr != null){
-		    	fntUpdateQtd(idpr,cant);
-		    }
-		});
-	});
+if (document.querySelector(".num-product")) {
+    let inputCant = document.querySelectorAll(".num-product");
+    inputCant.forEach(function (inputCant) {
+        inputCant.addEventListener('keyup', function () {
+            let idpr = this.getAttribute('idpr');
+            let cant = this.value;
+            if (idpr != null) {
+                fntUpdateQtd(idpr, cant);
+            }
+        });
+    });
 }

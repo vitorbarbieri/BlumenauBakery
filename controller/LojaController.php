@@ -131,7 +131,7 @@ class LojaController extends Controller
                 $_SESSION['arrCarrinho'] = $arrCarrinho;
                 foreach ($_SESSION['arrCarrinho'] as $pro) {
                     $qtdCarrinho += $pro['quantidade'];
-                    // $subTotal += $pro['quantidade'] * $pro['preco'];
+                    $subTotal += $pro['quantidade'] * $pro['preco'];
                 }
                 $htmlCarrito = "";
                 if ($opcao == 1) {
@@ -142,8 +142,8 @@ class LojaController extends Controller
                     "msg" => 'Produto eliminado!',
                     "qtdCarrinho" => $qtdCarrinho,
                     "htmlCarrito" => $htmlCarrito,
-                    // "subTotal" => formatMoney($subTotal),
-                    // "total" => formatMoney($subTotal + CUSTOENVIO)
+                    "subTotal" => formatMoney($subTotal),
+                    "total" => formatMoney($subTotal + CUSTOENVIO)
                 );
             } else {
                 $arrResponse = array("status" => false, "msg" => 'Dado incorreto.');
