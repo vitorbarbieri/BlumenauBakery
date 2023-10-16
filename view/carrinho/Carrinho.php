@@ -77,28 +77,30 @@ if (isset($_SESSION['arrCarrinho']) && count($_SESSION['arrCarrinho']) > 0) {
                             Total Carrinho
                         </h4>
                         <div class="flex-w flex-t bor12 p-b-13">
-                            <?php if ($subTotal <= 100) { ?>
-                                <div class="size-208">
-                                    <span class="stext-110 cl2">
-                                        Subtotal:
-                                    </span>
-                                </div>
-                                <div class="size-209">
-                                    <span class="mtext-110 cl2">
-                                        <?= formatMoney($subTotal) ?>
-                                    </span>
-                                </div>
-                                <div class="size-208">
-                                    <span class="stext-110 cl2">
-                                        Envío:
-                                    </span>
-                                </div>
-                                <div class="size-209">
-                                    <span class="mtext-110 cl2">
+                            <div class="size-208">
+                                <span class="stext-110 cl2">
+                                    Subtotal:
+                                </span>
+                            </div>
+                            <div class="size-209">
+                                <span id="subTotalCompra" class="mtext-110 cl2">
+                                    <?= formatMoney($subTotal) ?>
+                                </span>
+                            </div>
+                            <div class="size-208">
+                                <span class="stext-110 cl2">
+                                    Envío:
+                                </span>
+                            </div>
+                            <div class="size-209">
+                                <span id="valorFrete" class="mtext-110 cl2">
+                                    <?php if ($subTotal <= 100) { ?>
                                         <?= formatMoney(CUSTOENVIO) ?>
-                                    </span>
-                                </div>
-                            <?php } ?>
+                                    <?php } else { ?>
+                                        <?= formatMoney(0) ?>
+                                    <?php } ?>
+                                </span>
+                            </div>
                         </div>
                         <div class="flex-w flex-t p-t-27 p-b-33">
                             <div class="size-208">

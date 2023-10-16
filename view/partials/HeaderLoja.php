@@ -30,6 +30,7 @@ if (isset($_SESSION['arrCarrinho']) && count($_SESSION['arrCarrinho']) > 0) {
     <link rel="stylesheet" type="text/css" href="<?= media(); ?>/loja/css/util.css">
     <link rel="stylesheet" type="text/css" href="<?= media(); ?>/loja/css/main.css">
     <link rel="stylesheet" type="text/css" href="<?= media(); ?>/loja/css/style.css">
+    <link rel="stylesheet" type="text/css" href="<?= media() ?>/css/style.css">
 </head>
 
 <body class="animsition">

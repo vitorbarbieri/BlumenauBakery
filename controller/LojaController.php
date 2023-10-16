@@ -152,4 +152,41 @@ class LojaController extends Controller
         }
         die();
     }
+
+    public function updateCarrinho()
+    {
+        if ($_POST) {
+            $arrCarrinho = array();
+            $totalProduto = 0;
+            $subTotal = 0;
+            $total = 0;
+            $idProduto = openssl_decrypt($_POST['id'], METHODENCRIPT, KEY);
+            $quantidade = intval($_POST['quantidade']);
+            if (is_numeric($idProduto) and $quantidade > 0) {
+                $arrCarrinho = $_SESSION['arrCarrinho'];
+                for ($p = 0; $p < count($arrCarrinho); $p++) {
+                    if ($arrCarrinho[$p]['idProduto'] == $idProduto) {
+                        $arrCarrinho[$p]['quantidade'] = $quantidade;
+                        $totalProduto = $arrCarrinho[$p]['preco'] * $quantidade;
+                        break;
+                    }
+                }
+                $_SESSION['arrCarrinho'] = $arrCarrinho;
+                foreach ($_SESSION['arrCarrinho'] as $pro) {
+                    $subTotal += $pro['quantidade'] * $pro['preco'];
+                }
+                $arrResponse = array(
+                    "status" => true,
+                    "msg" => 'Produto ataulizado!',
+                    "totalProduto" => formatMoney($totalProduto),
+                    "subTotal" => formatMoney($subTotal),
+                    "total" => formatMoney($subTotal + CUSTOENVIO)
+                );
+            } else {
+                $arrResponse = array("status" => false, "msg" => 'Dado incorreto.');
+            }
+            echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
+        }
+        die();
+    }
 }
