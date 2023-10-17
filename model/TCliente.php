@@ -15,10 +15,12 @@ trait TCliente
     private $intSexo;
     private $txtDataNascimento;
     private $strSenha;
+    private $intIdUsuario;
+    private $intIdTransacao;
 
     public function insertCliente(string $nome, string $email, string $cep, string $endereco, int $numero, string $bairro, string $cidade, int $estado, int $sexo, string $dataNascimento, string $senha)
     {
-		$this->conexao = new Mysql();
+        $this->conexao = new Mysql();
         $this->strNome = $nome;
         $this->strEmail = $email;
         $this->intCep = $cep;
@@ -43,5 +45,27 @@ trait TCliente
             $return = array('status' => 2);
         }
         return $return;
+    }
+
+    public function insertDetalheCliente(array $pedido)
+    {
+        $this->intIdUsuario = $pedido['idCliente'];
+        $this->intIdTransacao = $pedido['idTransacao'];
+        $produtos = $pedido['produtos'];
+
+        $this->conexao = new Mysql();
+        $sql = "SELECT * FROM detalhe_pedido_temp WHERE token = '{$this->intIdTransacao}' AND id_cliente = $this->intIdUsuario";
+        $request = $this->conexao->select_all($sql);
+
+        if (!empty($request)) {
+            $sqlDel = "DELETE FROM detalhe_pedido_temp WHERE token = '{$this->intIdTransacao}' AND id_cliente = $this->intIdUsuario";
+            $request = $this->conexao->delete($sqlDel);
+        }
+        
+        foreach ($produtos as $produto) {
+            $query_insert  = "INSERT INTO detalhe_pedido_temp (id_produto, id_cliente, preco, quantidade, token) VALUES (?, ?, ?, ?, ?)";
+            $arrData = array($this->intIdUsuario, $produto['idProduto'], $produto['preco'], $produto['quantidade'], $this->intIdTransacao);
+            $request_insert = $this->conexao->insert($query_insert, $arrData);
+        }
     }
 }

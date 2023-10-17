@@ -119,7 +119,7 @@ if (isset($_SESSION['arrCarrinho']) && count($_SESSION['arrCarrinho']) > 0) {
                                 </span>
                             </div>
                         </div>
-                        <a href="<?= base_url() ?>/carrinho/procesarPago" id="btnComprar" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
+                        <a href="<?= base_url() ?>/carrinho/processarPago" id="btnComprar" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
                             Pagar
                         </a>
                     </div>
