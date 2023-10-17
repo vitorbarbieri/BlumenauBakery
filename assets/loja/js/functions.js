@@ -36,6 +36,59 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
     }
+
+    // Inserir novo usuário
+    var formRegister = document.querySelector("#formRegister");
+    formRegister.onsubmit = function (e) {
+        e.preventDefault();
+
+        nome = document.querySelector("#txtNome").value;
+        email = document.querySelector("#txtEmailCliente").value;
+        cep = document.querySelector("#txtCep").value;
+        endereco = document.querySelector("#txtEndereco").value;
+        numero = document.querySelector("#txtNumero").value;
+        bairro = document.querySelector("#txtBairro").value;
+        cidade = document.querySelector("#txtCidade").value;
+        estado = document.querySelector("#listEstado").value;
+        sexo = document.querySelector("#listSexo").value;
+        dataNascimento = document.querySelector("#txtDataNascimento").value;
+        senha = document.querySelector("#txtSenhaCadastro").value;
+
+        // if (nome == "" || email == "" || cep == "" || endereco == "" || numero == "" || bairro == "" || cidade == "" || estado == 0 || sexo == 0 || dataNascimento == "" || senha == "") {
+        //     Swal.fire({
+        //         icon: 'error',
+        //         title: 'Atenção',
+        //         text: 'Todos os campos são obrigatórios!',
+        //         didClose: () => {
+        //             $("#txtNome").select();
+        //         }
+        //     });
+        //     return false;
+        // }
+
+        var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+        var ajaxUrl = base_url + '/loja/setCliente';
+        var formData = new FormData(formRegister);
+        request.open("POST", ajaxUrl, true);
+        request.send(formData);
+        request.onreadystatechange = function () {
+            if (request.readyState == 4 && request.status == 200) {
+                var objData = JSON.parse(request.responseText);
+                if (objData.status) {
+                    window.location.reload(false);
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Atenção',
+                        text: objData.msg,
+                        didClose: () => {
+                            $("#txtNome").select();
+                        }
+                    });
+                }
+            }
+        }
+    }
 }, false);
 
 $(".js-select2").each(function () {
@@ -263,4 +316,43 @@ if (document.querySelector(".num-product")) {
             }
         });
     });
+}
+
+/* ================================================== Funções Básicas ================================================== */
+
+function formataCampo(texto, mascara) {
+    var valor = document.querySelector(texto).value;
+
+    if (texto == "#txtTelefone") {
+        if (valor.length != 10 && valor.length != 11) {
+            document.querySelector(texto).value = "";
+            document.querySelector(texto).select();
+            return;
+        }
+        if (valor.length == 10) {
+            mascara = "(##)####-####";
+        }
+    }
+
+    if (texto == "#txtCpf" && valor.length != 11) {
+        document.querySelector(texto).value = "";
+        document.querySelector(texto).select();
+        return;
+    }
+
+    if (valor != "") {
+        var retorno = "";
+        var j = 0;
+        for (let i = 0; i < mascara.length; i++) {
+            var eValor = valor[j];
+            var eMascara = mascara[i];
+            if (eMascara != "#") {
+                retorno = retorno + eMascara;
+            } else {
+                retorno = retorno + eValor;
+                j++;
+            }
+        }
+        document.querySelector(texto).value = retorno;
+    }
 }

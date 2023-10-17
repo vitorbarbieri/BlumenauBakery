@@ -2,7 +2,7 @@
 
 class ClienteModel extends Mysql
 {
-	private $intId;
+    private $intId;
 
     public function __construct()
     {
@@ -21,12 +21,13 @@ class ClienteModel extends Mysql
         return $request;
     }
 
-    public function selectCliente(int $id){
-		$this->intId = $id;
-		$sql = "SELECT *
+    public function selectCliente(int $id)
+    {
+        $this->intId = $id;
+        $sql = "SELECT *
 				FROM cliente
 				WHERE id = $this->intId";
-		$request = $this->select($sql);
-		return $request;
-	}
+        $request = $this->select($sql);
+        return $request;
+    }
 }

@@ -39,7 +39,7 @@ if ($subTotal <= 100) {
             <div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-l-25 m-r--38 m-lr-0-xl">
                 <div>
                     <?php
-                    if (isset($_SESSION['login'])) {
+                    if (isset($_SESSION['loginCliente'])) {
                     ?>
                         <div>
                             <label for="tipopago">Endereço</label>
@@ -80,22 +80,87 @@ if ($subTotal <= 100) {
                                 <form id="formRegister">
                                     <div class="row">
                                         <div class="col col-md-6 form-group">
-                                            <label for="txtNombre">Nome</label>
-                                            <input type="text" class="form-control valid validText" id="txtNombre" name="txtNombre" required="">
-                                        </div>
-                                        <div class="col col-md-6 form-group">
-                                            <label for="txtApellido">Sobrenome</label>
-                                            <input type="text" class="form-control valid validText" id="txtApellido" name="txtApellido" required="">
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col col-md-6 form-group">
-                                            <label for="txtTelefono">Telefone</label>
-                                            <input type="text" class="form-control valid validNumber" id="txtTelefono" name="txtTelefono" required="" onkeypress="return controlTag(event);">
+                                            <label for="txtNome">Nome</label>
+                                            <input type="text" class="form-control" id="txtNome" name="txtNome">
                                         </div>
                                         <div class="col col-md-6 form-group">
                                             <label for="txtEmailCliente">E-mail</label>
-                                            <input type="email" class="form-control valid validEmail" id="txtEmailCliente" name="txtEmailCliente" required="">
+                                            <input type="email" class="form-control" id="txtEmailCliente" name="txtEmailCliente">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col col-md-3 form-group">
+                                            <label for="txtCep">CEP</label>
+                                            <input type="text" class="form-control" id="txtCep" name="txtCep" maxlength="8" onblur="formataCampo('#txtCep', '#####-###');">
+                                        </div>
+                                        <div class="col col-md-7 form-group">
+                                            <label for="txtEndereco">Endereço</label>
+                                            <input type="text" class="form-control" id="txtEndereco" name="txtEndereco">
+                                        </div>
+                                        <div class="col col-md-2 form-group">
+                                            <label for="txtNumero">Número</label>
+                                            <input type="text" class="form-control" id="txtNumero" name="txtNumero">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col col-md-4 form-group">
+                                            <label for="txtBairro">Bairro</label>
+                                            <input type="text" class="form-control" id="txtBairro" name="txtBairro">
+                                        </div>
+                                        <div class="col col-md-5 form-group">
+                                            <label for="txtCidade">Cidade</label>
+                                            <input type="text" class="form-control" id="txtCidade" name="txtCidade">
+                                        </div>
+                                        <div class="col col-md-3 form-group">
+                                            <label for="listEstado">Estado</label>
+                                            <select class="form-control" id="listEstado" name="listEstado">
+                                                <option value="0">-- Selecionar --</option>
+                                                <option value="1">AC</option>
+                                                <option value="2">AL</option>
+                                                <option value="3">AP</option>
+                                                <option value="4">AM</option>
+                                                <option value="5">BA</option>
+                                                <option value="6">CE</option>
+                                                <option value="7">DF</option>
+                                                <option value="8">ES</option>
+                                                <option value="9">GO</option>
+                                                <option value="10">MA</option>
+                                                <option value="11">MT</option>
+                                                <option value="12">MS</option>
+                                                <option value="13">MG</option>
+                                                <option value="14">PA</option>
+                                                <option value="15">PB</option>
+                                                <option value="16">PR</option>
+                                                <option value="17">PE</option>
+                                                <option value="18">PI</option>
+                                                <option value="19">RJ</option>
+                                                <option value="20">RN</option>
+                                                <option value="21">RS</option>
+                                                <option value="22">RO</option>
+                                                <option value="23">RR</option>
+                                                <option value="24">SC</option>
+                                                <option value="25">SP</option>
+                                                <option value="26">SE</option>
+                                                <option value="27">TO</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col col-md-3 form-group">
+                                            <label for="txtDataNascimento">Data de Nascimento</label>
+                                            <input type="date" class="form-control" id="txtDataNascimento" name="txtDataNascimento" maxlength="8">
+                                        </div>
+                                        <div class="col col-md-3 form-group">
+                                            <label for="listSexo">Sexo</label>
+                                            <select class="form-control" id="listSexo" name="listSexo">
+                                                <option value="0">-- Selecionar --</option>
+                                                <option value="1">Masculino</option>
+                                                <option value="2">Feminino</option>
+                                            </select>
+                                        </div>
+                                        <div class="col col-md-6 form-group">
+                                            <label for="txtSenhaCadastro">Senha</label>
+                                            <input type="password" class="form-control" id="txtSenhaCadastro" name="txtSenhaCadastro">
                                         </div>
                                     </div>
                                     <button type="submit" class="btn btn-primary">Registrar</button>
@@ -153,7 +218,7 @@ if ($subTotal <= 100) {
                     </div>
                 </div>
                 <?php
-                if (isset($_SESSION['login'])) {
+                if (isset($_SESSION['loginCliente'])) {
                 ?>
                     <h4 class="mtext-109 cl2 p-b-30">
                         Método de pago

@@ -1,12 +1,13 @@
 <?php
 
 require_once("model/TProduto.php");
+require_once("model/TCliente.php");
 require_once("model/LoginModel.php");
 
 class LojaController extends Controller
 {
     public $login;
-    use TProduto;
+    use TProduto, TCliente;
 
     public function __construct()
     {
@@ -187,6 +188,42 @@ class LojaController extends Controller
             }
             echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
         }
+        die();
+    }
+
+    public function setCliente()
+    {
+        error_reporting(0);
+        if ($_POST) {
+            $strNome = ucwords(strClean($_POST['txtNome']));
+            $strEmail = strtolower(strClean($_POST['txtEmailCliente']));
+            $strCep = strClean($_POST['txtCep']);
+            $strEndereco = ucwords(strClean($_POST['txtEndereco']));
+            $intNumero = intval(strClean($_POST['txtNumero']));
+            $strBairro = ucwords(strClean($_POST['txtBairro']));
+            $strCidade = ucwords(strClean($_POST['txtCidade']));
+            $intEstado = strtoupper(intval($_POST['listEstado']));
+            $intSexo = intval(strClean($_POST['listSexo']));
+            $txtDataNascimento = date("Y-m-d H:i:s", strtotime($_POST['txtDataNascimento']));
+            $strSenha = hash("SHA256", $_POST['txtSenha']);
+
+            $request = $this->insertCliente($strNome, $strEmail, $strCep, $strEndereco, $intNumero, $strBairro, $strCidade, $intEstado, $intSexo, $txtDataNascimento, $strSenha);
+            $status = $request['status'];
+            if ($status == 1) {
+                $id = $request['id'];
+                $arrResponse = array('status' => true, 'msg' => 'Dados guardados corretamente.');
+                $_SESSION['idUser'] = $id;
+                $_SESSION['loginCliente'] = true;
+                $this->login->sessionLoginCliente($id);
+            } else {
+                if ($status == 2) {
+                    $arrResponse = array('status' => false, 'msg' => 'E-mail já cadastrado, utilize outro!');
+                } else {
+                    $arrResponse = array("status" => false, "msg" => 'Erro ao salvar cliente!');
+                }
+            }
+        }
+        echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
         die();
     }
 }
