@@ -18,4 +18,12 @@ class CarrinhoController extends Controller
         $data['page_name'] = "carrinho";
         $this->views->getView($this, "carrinho", $data);
     }
+
+    public function procesarPago()
+    {
+        $data['page_tag'] = "Pagamento - Blumenau Bakery";
+        $data['page_title'] = "Pagamento";
+        $data['page_name'] = "pagamento";
+        $this->views->getView($this, "pagamento", $data);
+    }
 }

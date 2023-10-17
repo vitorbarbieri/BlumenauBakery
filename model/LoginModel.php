@@ -80,4 +80,25 @@ class LoginModel extends Mysql
         $arrData = array("{$this->senha}");
         $this->update($sql, $arrData);
     }
+
+    public function loginClient(string $login, string $senha)
+    {
+        $this->login = $login;
+        $this->senha = $senha;
+
+        $sql = "SELECT id, status FROM cliente WHERE email = '$this->login' AND senha = '$this->senha'";
+        $request = $this->select($sql);
+        return $request;
+    } 
+
+    public function sessionLoginCliente($idUser)
+    {
+        $this->idUser = $idUser;
+
+        // Buscar cargo
+        $sql = "SELECT * FROM cliente WHERE id = $this->idUser";
+        $request = $this->select($sql);
+        $_SESSION['userData'] = $request;
+        return $request;
+    }
 }

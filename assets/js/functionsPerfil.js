@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         });
                     } else {
                         $('#txtIdentificacao').select();
-                        swal("Erro", objData.msg, "error");
+                        swal.fire("Erro", objData.msg, "error");
                     }
                 }
             }
@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         });
                     } else {
                         $('#txtIdentificacao').select();
-                        swal("Erro", objData.msg, "error");
+                        swal.fire("Erro", objData.msg, "error");
                     }
                 }
             }

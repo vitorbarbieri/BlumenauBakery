@@ -91,4 +91,33 @@ class LoginController extends Controller
         }
         die();
     }
+
+    public function loginClient()
+    {
+        if ($_POST) {
+            $strUsuario = strtolower(strClean($_POST['txtEmail']));
+            $strPassword = hash("SHA256", $_POST['txtSenha']);
+            $requestUser = $this->model->loginClient($strUsuario, $strPassword);
+
+            if (empty($requestUser)) {
+                $arrResponse = array('status' => false, 'msg' => "Dados informados estão incorreta");
+            } else {
+                $arrData = $requestUser;
+                if ($arrData['status'] == 1) {
+                    $_SESSION['idUser'] = $arrData['id'];
+                    $_SESSION['login'] = true;
+
+                    $arrData = $this->model->sessionLoginCliente($_SESSION['idUser']);
+                    sessionUser($_SESSION['idUser']);
+
+                    $arrResponse = array('status' => true, 'msg' => "OK");
+                } else {
+                    $arrResponse = array('status' => false, 'msg' => "Usuário inativo");
+                }
+            }
+            sleep(1.5);
+            echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
+        }
+        die();
+    }
 }

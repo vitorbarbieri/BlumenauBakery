@@ -78,7 +78,9 @@
 <script src="<?= media() ?>/loja/vendor/parallax100/parallax100.js"></script>
 <script src="<?= media() ?>/loja/vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
 <script src="<?= media() ?>/loja/vendor/isotope/isotope.pkgd.min.js"></script>
-<script src="<?= media() ?>/loja/vendor/sweetalert/sweetalert.min.js"></script>
+<!-- Sweet alert 2 - https://sweetalert2.github.io/ -->
+<script type="text/javascript" src="<?= media(); ?>/js/plugins/sweetalert2.all.min.js"></script>
+
 <script src="<?= media() ?>/loja/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 <script src="<?= media() ?>/loja/js/main.js"></script>
 <script src="<?= media() ?>/loja/js/functions.js"></script>

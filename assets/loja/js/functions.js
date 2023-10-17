@@ -1,3 +1,43 @@
+document.addEventListener('DOMContentLoaded', function () {
+    if (document.querySelector("#formLogin")) {
+        let formLogin = document.querySelector("#formLogin");
+        formLogin.onsubmit = function (e) {
+            e.preventDefault();
+
+            var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+            var ajaxUrl = base_url + '/login/loginClient';
+            var formData = new FormData(formLogin);
+            request.open("POST", ajaxUrl, true);
+            request.send(formData);
+            request.onreadystatechange = function () {
+                if (request.readyState != 4) {
+                    return
+                }
+                if (request.status == 200) {
+                    var objData = JSON.parse(request.responseText);
+
+                    if (objData.status) {
+                        window.location.reload(false);
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Atenção',
+                            text: objData.msg,
+                            didClose: () => {
+                                $("#txtEmail").select();
+                            }
+                        });
+                        document.querySelector("#txtEmail").value = "";
+                        document.querySelector("#txtSenha").value = "";
+                    }
+                } else {
+                    swal.fire("Atenção", "Erro ao validar usuário", "error");
+                }
+            }
+        }
+    }
+}, false);
+
 $(".js-select2").each(function () {
     $(this).select2({
         minimumResultsForSearch: 20,
@@ -25,7 +65,7 @@ $('.js-addwish-b2').on('click', function (e) {
 $('.js-addwish-b2').each(function () {
     var nameProduct = $(this).parent().parent().find('.js-name-b2').html();
     $(this).on('click', function () {
-        swal(nameProduct, "is added to wishlist !", "success");
+        swal.fire(nameProduct, "is added to wishlist !", "success");
 
         $(this).addClass('js-addedwish-b2');
         $(this).off('click');
@@ -36,7 +76,7 @@ $('.js-addwish-detail').each(function () {
     var nameProduct = $(this).parent().parent().parent().find('.js-name-detail').html();
 
     $(this).on('click', function () {
-        swal(nameProduct, "is added to wishlist !", "success");
+        swal.fire(nameProduct, "is added to wishlist !", "success");
 
         $(this).addClass('js-addedwish-detail');
         $(this).off('click');
@@ -52,7 +92,7 @@ $('.js-addcart-detail').each(function () {
         let cant = document.querySelector('#qtdProduto').value;
 
         if (isNaN(cant) || cant < 1) {
-            swal("", "A quantidade deve ser maior que 1", "error");
+            swal.fire("", "A quantidade deve ser maior que 1", "error");
             return;
         }
         let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
@@ -75,9 +115,9 @@ $('.js-addcart-detail').each(function () {
                     cants.forEach(element => {
                         element.setAttribute("data-notify", objData.qtdCarrinho)
                     });
-                    swal(nameProduct, "foi adicionado ao carrinho!", "success");
+                    swal.fire(nameProduct, "foi adicionado ao carrinho!", "success");
                 } else {
-                    swal("", objData.msg, "error");
+                    swal.fire("", objData.msg, "error");
                 }
             }
             return false;
@@ -142,7 +182,7 @@ function fntdelItem(elemento) {
                         }
                     }
                 } else {
-                    swal("", objData.msg, "error");
+                    swal.fire("", objData.msg, "error");
                 }
             }
             return false;
@@ -180,7 +220,7 @@ function fntUpdateQtd(pro, qtd) {
                         document.querySelector("#totalCompra").innerHTML = objData.subTotal;
                     }
                 } else {
-                    swal("", objData.msg, "error");
+                    swal.fire("", objData.msg, "error");
                 }
             }
 

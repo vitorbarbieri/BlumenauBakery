@@ -384,7 +384,7 @@ function editarProduto(elemento, idProduto) {
                 document.querySelector("#containerGallery").classList.remove("notBlock");
                 $('#modalFormProdutos').modal('show');
             } else {
-                swal("Error", objData.msg, "error");
+                swal.fire("Error", objData.msg, "error");
             }
         }
     }
@@ -408,7 +408,7 @@ function fntDelItem(elemento) {
                 let itemRemove = document.querySelector(elemento);
                 itemRemove.parentNode.removeChild(itemRemove);
             } else {
-                swal("", objData.msg, "error");
+                swal.fire("", objData.msg, "error");
             }
         }
     }
