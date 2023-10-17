@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
             e.preventDefault();
 
             var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-            var ajaxUrl = base_url + '/login/loginClient';
+            var ajaxUrl = base_url + '/login/loginCliente';
             var formData = new FormData(formLogin);
             request.open("POST", ajaxUrl, true);
             request.send(formData);

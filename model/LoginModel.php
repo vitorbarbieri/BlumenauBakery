@@ -81,7 +81,7 @@ class LoginModel extends Mysql
         $this->update($sql, $arrData);
     }
 
-    public function loginClient(string $login, string $senha)
+    public function loginCliente(string $login, string $senha)
     {
         $this->login = $login;
         $this->senha = $senha;

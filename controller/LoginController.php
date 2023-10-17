@@ -92,12 +92,12 @@ class LoginController extends Controller
         die();
     }
 
-    public function loginClient()
+    public function loginCliente()
     {
         if ($_POST) {
             $strUsuario = strtolower(strClean($_POST['txtEmail']));
             $strPassword = hash("SHA256", $_POST['txtSenha']);
-            $requestUser = $this->model->loginClient($strUsuario, $strPassword);
+            $requestUser = $this->model->loginCliente($strUsuario, $strPassword);
 
             if (empty($requestUser)) {
                 $arrResponse = array('status' => false, 'msg' => "Dados informados estão incorreta");
@@ -105,10 +105,10 @@ class LoginController extends Controller
                 $arrData = $requestUser;
                 if ($arrData['status'] == 1) {
                     $_SESSION['idUser'] = $arrData['id'];
-                    $_SESSION['login'] = true;
+                    $_SESSION['loginCliente'] = true;
 
                     $arrData = $this->model->sessionLoginCliente($_SESSION['idUser']);
-                    sessionUser($_SESSION['idUser']);
+                    sessionCliente($_SESSION['idUser']);
 
                     $arrResponse = array('status' => true, 'msg' => "OK");
                 } else {
