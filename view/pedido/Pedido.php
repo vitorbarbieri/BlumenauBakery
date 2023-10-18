@@ -2,6 +2,7 @@
 <?= navAdmin($data); ?>
 <?php // getModal('ProdutoModal', $data); ?>
 
+<div id="divModal"></div>
 <main class="app-content">
     <div class="app-title">
         <div>

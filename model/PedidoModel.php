@@ -36,6 +36,7 @@ class PedidoModel extends Mysql
                     c.nome AS 'cNome',
                     p.total,
                     p.custo_envio,
+                    p.tipo_pagamento,
                     tp.descricao AS pagamento,
                     p.endereco_entrega,
                     p.status 

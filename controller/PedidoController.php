@@ -1,7 +1,11 @@
 <?php
 
+require_once("model/TTipoPago.php"); 
+
 class PedidoController extends Controller
 {
+	use TTipoPago;
+
     public function __construct()
     {
         parent::__construct();
@@ -52,10 +56,10 @@ class PedidoController extends Controller
                     <a title="Ver Pedido" href="' . base_url() . '/pedido/verPedido/' . $arrData[$i]['id'] . '" target="_blanck" class="btn btn-secondary btn-sm">
                         <i class="far fa-eye"></i>
                     </a>
-                    <a title="Editar Pedido" href="' . base_url() . '/pedido/editarPedido/' . $arrData[$i]['id'] . '" class="btn btn-primary btn-sm">
+                    <a title="Editar Pedido" class="btn btn-primary btn-sm" onClick="fntEditInfo(this,' . $arrData[$i]['id'] . ')">
                         <i class="fa-solid fa-pencil"></i>
                     </a>
-                    <a title="Gerar PDF" href="' . base_url() . '/fatura/gerarFatura/' . $arrData[$i]['id'] . '" target="_blanck" class="btn btn-danger btn-sm">
+                    <a title="Gerar PDF" target="_blanck" class="btn btn-warning btn-sm" onClick="fntEditInfo(this,' . $arrData[$i]['id'] . ')">
                         <i class="fas fa-file-pdf"></i>
                     </a>
                 </div>';
@@ -66,14 +70,33 @@ class PedidoController extends Controller
 
     public function verPedido(int $idPedido)
     {
-		if(!is_numeric($idPedido)){
-			header("Location:".base_url().'/pedidos');
-		}
-		
-		$data['page_tag'] = "Pedido - Tienda Virtual";
-		$data['page_title'] = "Pedido";
-		$data['page_name'] = "pedido";
-		$data['arrPedido'] = $this->model->selectPedido($idPedido);
-		$this->views->getView($this,"order",$data);
+        if (!is_numeric($idPedido)) {
+            header("Location:" . base_url() . '/pedidos');
+        }
+
+        $data['page_tag'] = "Pedido - Tienda Virtual";
+        $data['page_title'] = "Pedido";
+        $data['page_name'] = "pedido";
+        $data['arrPedido'] = $this->model->selectPedido($idPedido);
+        $this->views->getView($this, "order", $data);
+    }
+
+    public function getPedido(int $idPedido)
+    {
+        if ($idPedido == "") {
+            $arrResponse = array("status" => false, "msg" => 'Dados incorretos.');
+        } else {
+            $requestPedido = $this->model->selectPedido($idPedido, "");
+            if (empty($requestPedido)) {
+                $arrResponse = array("status" => false, "msg" => "Pedido não existe.");
+            } else {
+                $requestPedido['tiposPago'] = $this->getTiposPagoT();
+                $requestPedido['statusPedido'] = $this->getStatusPedidoT();
+                $htmlModal = getFile("partials/modals/PedidoModal", $requestPedido);
+                $arrResponse = array("status" => true, "html" => $htmlModal);
+            }
+        }
+        echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
+        die();
     }
 }

@@ -67,3 +67,24 @@ tablePedido = $('#tablePedido').dataTable({
     "iDisplayLength": 10,
     "order": [[0, "desc"]]
 });
+
+function fntEditInfo(elemento, idPedido) {
+    rowTable = elemento.parentNode.parentNode.parentNode;
+    let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+    let ajaxUrl = base_url + '/pedido/getPedido/' + idPedido;
+    request.open("GET", ajaxUrl, true);
+    request.send();
+    request.onreadystatechange = function () {
+        if (request.readyState == 4 && request.status == 200) {
+            let objData = JSON.parse(request.responseText);
+            if (objData.status) {
+                document.querySelector("#divModal").innerHTML = objData.html;
+                $('#modalFormPedido').modal('show');
+                fntUpdateInfo();
+            } else {
+                swal.fire("Atenção", objData.msg, "error");
+            }
+            return false;
+        }
+    }
+}
