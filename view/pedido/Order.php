@@ -1,4 +1,5 @@
-<?php headerAdmin($data); ?>
+<?= headerAdmin($data); ?>
+<?= navAdmin($data); ?>
 
 <main class="app-content">
     <div class="app-title">
@@ -46,7 +47,9 @@
                         </div>
                         <div class="row invoice-info">
                             <div class="col-4">
-                                <address><strong><?= NOME_EMPRESA; ?></strong><br>
+                                <h5>De:</h5>
+                                <address>
+                                    <strong><?= NOME_EMPRESA; ?></strong><br>
                                     <?= ENDERECO ?><br>
                                     <?= TELEFONE ?><br>
                                     <?= EMAIL ?><br>
@@ -54,12 +57,15 @@
                                 </address>
                             </div>
                             <div class="col-4">
-                                <address><strong><?= $cliente['nome'] ?></strong><br>
+                                <h5>Para:</h5>
+                                <address>
+                                    <strong><?= $cliente['nome'] ?></strong><br>
                                     Endereço: <?= $pedido['endereco_entrega']; ?><br>
                                     E-mail: <?= $cliente['email'] ?>
                                 </address>
                             </div>
                             <div class="col-4">
+                                <h5>Informações:</h5>
                                 <b>Orden #<?= $pedido['id'] ?></b><br>
                                 <b>Pagamento: </b><?= $pedido['pagamento'] ?><br>
                                 <b>Status:</b> <?= $pedido['status'] ?> <br>

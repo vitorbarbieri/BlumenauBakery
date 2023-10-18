@@ -32,4 +32,4 @@ const NOME_EMPRESA = "Blumenau Bakery";
 const ENDERECO = "R. 7 de Setembro, 1213 - Centro, Blumenau - SC, 89010-911";
 const TELEFONE = "Tel: (47) 3321-8545 / (47) 98614-1729 (WhatsApp)";
 const EMAIL = "info@blumenaubekary.com.br";
-const SITE = "ww.blumenaubekary.com.br";
+const SITE = "www.blumenaubekary.com.br";
