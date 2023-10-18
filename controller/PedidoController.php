@@ -1,10 +1,10 @@
 <?php
 
-require_once("model/TTipoPago.php"); 
+require_once("model/TTipoPago.php");
 
 class PedidoController extends Controller
 {
-	use TTipoPago;
+    use TTipoPago;
 
     public function __construct()
     {
@@ -97,6 +97,27 @@ class PedidoController extends Controller
             }
         }
         echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
+        die();
+    }
+
+    public function setPedido()
+    {
+        if ($_POST) {
+            $idPedido = intval($_POST['idPedido']);
+            $status = intval($_POST['listEstado']);
+
+            if ($idPedido == 0 || $status == 0) {
+                $arrResponse = array("status" => false, "msg" => 'Dados Incorretos.');
+            } else {
+                $requestPedido = $this->model->updatePedido($idPedido, $status);
+                if ($requestPedido) {
+                    $arrResponse = array("status" => true, "msg" => "Dados atualizados corretamente");
+                } else {
+                    $arrResponse = array("status" => false, "msg" => "Erro ao atualizar pedido.");
+                }
+            }
+            echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
+        }
         die();
     }
 }

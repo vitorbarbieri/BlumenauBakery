@@ -72,4 +72,12 @@ class PedidoModel extends Mysql
         }
         return $request;
     }
+
+    public function updatePedido(int $idPedido, int $status)
+    {
+        $query_insert  = "UPDATE pedido SET status = ? WHERE id = $idPedido";
+        $arrData = array($status);
+        $request_insert = $this->update($query_insert, $arrData);
+        return $request_insert;
+    }
 }

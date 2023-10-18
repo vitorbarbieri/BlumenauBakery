@@ -137,7 +137,7 @@ document.addEventListener('DOMContentLoaded', function () {
         let intCodigo = document.querySelector('#txtCodigo').value;
         let strNome = document.querySelector('#txtNome').value;
         var selectObj = document.querySelector('#listCategoria');
-        let strCategoria = selectObj.options[selectObj.selectedIndex].text;;
+        let strCategoria = selectObj.options[selectObj.selectedIndex].text;
         let intEstoque = document.querySelector('#txtEstoque').value;
         let strPreco = document.querySelector('#txtPreco').value;
         let intStatus = document.querySelector('#listStatus').value;

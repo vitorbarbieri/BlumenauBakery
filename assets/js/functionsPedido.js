@@ -88,3 +88,32 @@ function fntEditInfo(elemento, idPedido) {
         }
     }
 }
+
+function fntUpdateInfo() {
+    let formUpdatePedido = document.querySelector("#formUpdatePedido");
+    formUpdatePedido.onsubmit = function (e) {
+        e.preventDefault();
+
+        let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+        let ajaxUrl = base_url + '/pedido/setPedido/';
+        let formData = new FormData(formUpdatePedido);
+        request.open("POST", ajaxUrl, true);
+        request.send(formData);
+        request.onreadystatechange = function () {
+            if (request.readyState != 4) return;
+            if (request.status == 200) {
+                let objData = JSON.parse(request.responseText);
+                if (objData.status) {
+                    swal.fire("", objData.msg, "success");
+                    $('#modalFormPedido').modal('hide');
+                    var selectObj = document.querySelector('#listEstado');
+                    rowTable.cells[5].textContent = selectObj.options[selectObj.selectedIndex].text;
+                } else {
+                    swal.fire("Error", objData.msg, "error");
+                }
+                return false;
+            }
+        }
+
+    }
+}
