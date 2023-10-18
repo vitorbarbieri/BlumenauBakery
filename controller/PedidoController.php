@@ -27,8 +27,6 @@ class PedidoController extends Controller
         $arrData = $this->model->selectPedidos();
         //dep($arrData);
         for ($i = 0; $i < count($arrData); $i++) {
-            $btnAcoes = "";
-
             $arrData[$i]['custo_envio'] = formatMoney($arrData[$i]['custo_envio']);
             $arrData[$i]['total'] = formatMoney($arrData[$i]['total']);
 
@@ -51,18 +49,31 @@ class PedidoController extends Controller
 
             $arrData[$i]['opcoes'] = '
                 <div class="text-center">
-                    <a title="Ver Detalle" href="' . base_url() . '/pedido/ver/' . $arrData[$i]['id'] . '" target="_blanck" class="btn btn-secondary btn-sm">
+                    <a title="Ver Pedido" href="' . base_url() . '/pedido/verPedido/' . $arrData[$i]['id'] . '" target="_blanck" class="btn btn-secondary btn-sm">
                         <i class="far fa-eye"></i>
                     </a>
-                    <a title="Ver Detalle" href="' . base_url() . '/pedido/editar/' . $arrData[$i]['id'] . '" class="btn btn-primary btn-sm">
+                    <a title="Editar Pedido" href="' . base_url() . '/pedido/editarPedido/' . $arrData[$i]['id'] . '" class="btn btn-primary btn-sm">
                         <i class="fa-solid fa-pencil"></i>
                     </a>
-                    <a title="Generar PDF" href="' . base_url() . '/fatura/gerarFatura/' . $arrData[$i]['id'] . '" target="_blanck" class="btn btn-danger btn-sm">
+                    <a title="Gerar PDF" href="' . base_url() . '/fatura/gerarFatura/' . $arrData[$i]['id'] . '" target="_blanck" class="btn btn-danger btn-sm">
                         <i class="fas fa-file-pdf"></i>
                     </a>
                 </div>';
         }
         echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
         die();
+    }
+
+    public function verPedido(int $idPedido)
+    {
+		if(!is_numeric($idPedido)){
+			header("Location:".base_url().'/pedidos');
+		}
+		
+		$data['page_tag'] = "Pedido - Tienda Virtual";
+		$data['page_title'] = "Pedido";
+		$data['page_name'] = "pedido";
+		$data['arrPedido'] = $this->model->selectPedido($idPedido);
+		$this->views->getView($this,"order",$data);
     }
 }
