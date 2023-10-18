@@ -49,7 +49,7 @@ trait TCliente
 
     public function insertDetalheCliente(array $pedido)
     {
-        $this->intIdUsuario = $pedido['idCliente'];
+        $this->intIdUsuario = intval($pedido['idCliente']);
         $this->intIdTransacao = $pedido['idTransacao'];
         $produtos = $pedido['produtos'];
 
@@ -61,10 +61,14 @@ trait TCliente
             $sqlDel = "DELETE FROM detalhe_pedido_temp WHERE token = '{$this->intIdTransacao}' AND id_cliente = $this->intIdUsuario";
             $request = $this->conexao->delete($sqlDel);
         }
-        
+
         foreach ($produtos as $produto) {
+            $id = intval($produto['idProduto']);
+            $preco = floatval($produto['preco']);
+            $quantidade = intval($produto['quantidade']);
+            
             $query_insert  = "INSERT INTO detalhe_pedido_temp (id_produto, id_cliente, preco, quantidade, token) VALUES (?, ?, ?, ?, ?)";
-            $arrData = array($this->intIdUsuario, $produto['idProduto'], $produto['preco'], $produto['quantidade'], $this->intIdTransacao);
+            $arrData = array($id, $this->intIdUsuario, $preco, $quantidade, $this->intIdTransacao);
             $request_insert = $this->conexao->insert($query_insert, $arrData);
         }
     }
