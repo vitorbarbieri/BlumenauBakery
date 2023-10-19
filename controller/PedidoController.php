@@ -59,7 +59,7 @@ class PedidoController extends Controller
                     <a title="Editar Pedido" class="btn btn-primary btn-sm" onClick="fntEditInfo(this,' . $arrData[$i]['id'] . ')">
                         <i class="fa-solid fa-pencil"></i>
                     </a>
-                    <a title="Gerar PDF" target="_blanck" class="btn btn-warning btn-sm" onClick="fntEditInfo(this,' . $arrData[$i]['id'] . ')">
+                    <a title="Gerar PDF" href="' . base_url() . '/fatura/gerarFatura/' . $arrData[$i]['id'] . '" target="_blanck" class="btn btn-warning btn-sm">
                         <i class="fas fa-file-pdf"></i>
                     </a>
                 </div>';
