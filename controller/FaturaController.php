@@ -1,7 +1,7 @@
 <?php
 
+// https://www.html2pdf.fr/
 require 'html2pdf/vendor/autoload.php';
-
 use Spipu\Html2Pdf\Html2Pdf;
 
 class FaturaController extends Controller
