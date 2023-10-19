@@ -21,8 +21,8 @@ class FaturaController extends Controller
             } else {
                 $idPedido = $data['pedido']['id'];
                 $html = getFile("partials/modals/comprobantePDF", $data);
-                // $html2pdf = new Html2Pdf('p', 'A4', 'pt-br', 'true', 'UTF-8');
-                $html2pdf = new Html2Pdf();
+                $html2pdf = new Html2Pdf('P', 'A4', 'pt', 'true', 'UTF-8');
+                // $html2pdf = new Html2Pdf();
                 $html2pdf->writeHTML($html);
                 ob_end_clean();
                 $html2pdf->output('factura-' . $idPedido . '.pdf');
