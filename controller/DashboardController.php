@@ -27,6 +27,7 @@ class DashboardController extends Controller
         $data['clientes'] = $this->model->qtdClientes();
         $data['produtos'] = $this->model->qtdProdutos();
         $data['pedidos'] = $this->model->qtdPedidos();
+        $data['lastOrders'] = $this->model->lastOrders();
 
         $this->views->getView($this, "dashboard", $data);
     }

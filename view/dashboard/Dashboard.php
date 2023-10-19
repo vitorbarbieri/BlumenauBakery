@@ -62,6 +62,45 @@
             </a>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="tile">
+                <h3 class="tile-title">Últimos Pedidos</h3>
+                <table class="table table-striped table-sm">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Cliente</th>
+                            <th>Status</th>
+                            <th class="text-right">Valor</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        if (count($data['lastOrders']) > 0) {
+                            foreach ($data['lastOrders'] as $pedido) {
+                        ?>
+                                <tr>
+                                    <td><?= $pedido['id'] ?></td>
+                                    <td><?= $pedido['nome'] ?></td>
+                                    <td><?= $pedido['descricao'] ?></td>
+                                    <td class="text-right"><?= formatMoney($pedido['total']) ?></td>
+                                    <td>
+                                        <a href="<?= base_url() ?>/pedido/verPedido/<?= $pedido['id'] ?>" target="_blank">
+                                            <i class="fa fa-eye" aria-hidden="true"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                        <?php
+                            }
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </main>
 
 <?= footerAdmin($data); ?>
