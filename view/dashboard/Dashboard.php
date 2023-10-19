@@ -100,7 +100,92 @@
                 </table>
             </div>
         </div>
+        <div class="col-md-6">
+            <div class="tile">
+                <div class="container-title">
+                    <h3 class="tile-title">Tipo de Pagos por Mês</h3>
+                    <div class="dflex">
+                        <input class="date-picker pagoMes" name="pagoMes" placeholder="Mês e Ano">
+                        <button type="button" class="btnTipoVentaMes btn btn-info btn-sm" onclick="fntSearchPagos()"><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+                <div id="pagosMesAno"></div>
+            </div>
+        </div>
     </div>
+    <!-- <div class="row">
+        <div class="col-md-12">
+            <div class="tile">
+                <div class="container-title">
+                    <h3 class="tile-title">Vendas por Mês</h3>
+                    <div class="dflex">
+                        <input class="date-picker vendasMes" name="vendasMes" placeholder="Mês e Ano">
+                        <button type="button" class="btnVendasMes btn btn-info btn-sm" onclick="fntSearchVMes()">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+                <div id="graficaMes"></div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="tile">
+                <div class="container-title">
+                    <h3 class="tile-title">Vendas por Ano</h3>
+                    <div class="dflex">
+                        <input class="vendasAno" name="vendasAno" placeholder="Ano" minlength="4" maxlength="4" onkeypress="return controlTag(event);">
+                        <button type="button" class="btnVendasAno btn btn-info btn-sm" onclick="fntSearchVAno()">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+                <div id="graficaAno"></div>
+            </div>
+        </div>
+    </div> -->
 </main>
 
 <?= footerAdmin($data); ?>
+
+<script>
+    Highcharts.chart('pagosMesAno', {
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'Vendas por Tipo de Pagamento - <?= $data['pagosMes']['mes'] . ' de ' . $data['pagosMes']['ano'] ?>'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.2f}%</b>'
+        },
+        accessibility: {
+            point: {
+                valueSuffix: '%'
+            }
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.2f} %'
+                }
+            }
+        },
+        series: [{
+            name: 'Qtd',
+            colorByPoint: true,
+            data: [
+                <?php
+                foreach ($data['pagosMes']['tipospago'] as $pagos) {
+                    echo "{name:'" . $pagos['descricao'] . "', y:" . $pagos['total'] . "},";
+                }
+                ?>
+            ]
+        }]
+    });
+</script>

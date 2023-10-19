@@ -50,4 +50,20 @@ class DashboardModel extends Mysql
         $request = $this->select_all($sql);
         return $request;
     }
+    public function selectPagosMes(int $ano, int $mes)
+    {
+        $sql = "SELECT
+                    p.id,
+                    tp.descricao,
+                    COUNT(p.tipo_pagamento) AS 'quantidade',
+                    SUM(p.total) AS 'total'
+                FROM pedido p 
+                INNER JOIN tipo_pagamento tp ON tp.id = p.tipo_pagamento
+                WHERE MONTH(p.data) = $mes AND YEAR(p.data) = $ano
+                GROUP BY tp.id";
+        $pagos = $this->select_all($sql);
+        $meses = Meses();
+        $arrData = array('ano' => $ano, 'mes' => $meses[intval($mes-1)], 'tipospago' => $pagos );
+        return $arrData;
+    }
 }

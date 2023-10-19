@@ -167,3 +167,8 @@ function formatMoney($cantidad)
     $cantidad = number_format($cantidad, 2, SPD, SPM);
     return SMONEY . " " . $cantidad;
 }
+
+function Meses(){
+    $meses = array("Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro");
+    return $meses;
+}

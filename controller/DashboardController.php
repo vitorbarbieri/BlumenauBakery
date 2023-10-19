@@ -28,6 +28,13 @@ class DashboardController extends Controller
         $data['produtos'] = $this->model->qtdProdutos();
         $data['pedidos'] = $this->model->qtdPedidos();
         $data['lastOrders'] = $this->model->lastOrders();
+        // $data['productosTen'] = $this->model->productosTen();
+        
+        $ano = date('Y');
+        $mes = date('m');
+        $data['pagosMes'] = $this->model->selectPagosMes($ano,$mes);
+        // $data['ventasMDia'] = $this->model->selectVentasMes($ano,$mes);
+        // $data['ventasAno'] = $this->model->selectVentasAno($ano);
 
         $this->views->getView($this, "dashboard", $data);
     }
