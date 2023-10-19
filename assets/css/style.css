@@ -65,6 +65,10 @@ textarea {
 	height: 50px;
 }
 
+.linkw:hover {
+	text-decoration: none;
+}
+
 /* Upload Imagem */
 
 #containerImages {
@@ -89,7 +93,7 @@ textarea {
 }
 
 .prevImage img {
-    object-fit: cover;
+	object-fit: cover;
 	max-width: 120px;
 	max-height: 148px;
 }
