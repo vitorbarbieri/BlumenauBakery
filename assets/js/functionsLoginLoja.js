@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Verificar e-mail e senha informado pra acessar o sistema
     if (document.querySelector("#formLogin")) {
         let formLogin = document.querySelector("#formLogin");
         formLogin.onsubmit = function (e) {

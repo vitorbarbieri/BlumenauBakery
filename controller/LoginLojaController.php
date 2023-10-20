@@ -4,8 +4,12 @@ class LoginLojaController extends Controller
 {
     public function __construct()
     {
-        parent::__construct();
         session_start();
+        if (isset($_SESSION['loginCliente'])) {
+            header('location: ' . base_url());
+        }
+
+        parent::__construct();
     }
 
     public function loginLoja()
@@ -41,5 +45,14 @@ class LoginLojaController extends Controller
             echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
         }
         die();
+    }
+
+    public function criarConta()
+    {
+        $data['page_tag'] = "Registrar - Blumenau Bakery";
+        $data['page_title'] = "Registrar";
+        $data['page_name'] = "registrar";
+        $data['page_functions_js'] = "functionsLoginLoja.js";
+        $this->views->getView($this, "registrar", $data);
     }
 }

@@ -19,7 +19,7 @@
                 </div>
             </div>
             <div class="row justify-content-center">
-                <div class="col-md-6 col-lg-4">
+                <div class="col-md-12 col-lg-4">
                     <div class="login-wrap p-0">
                         <form id="formLogin" name="formLogin" class="signin-form">
                             <h3 class="mb-4 text-center">LOGIN</h3>
@@ -28,7 +28,7 @@
                             </div>
                             <div class="form-group">
                                 <input id="txtSenha" name="txtSenha" id="password-field" type="password" class="form-control" placeholder="Senha">
-                                <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                                <!-- <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span> -->
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="form-control btn btn-primary submit px-3">
@@ -38,7 +38,7 @@
                             </div>
                             <div class="form-group d-md-flex">
                                 <div class="w-50">
-                                    <a href="">Não tenho conta</a>
+                                    <a href="<?= base_url() ?>/loginLoja/criarConta">Não tenho conta</a>
                                 </div>
                                 <div class="w-50 text-center">
                                     <a href="#">Esquece sua senha?</a>
