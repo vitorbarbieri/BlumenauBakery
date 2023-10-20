@@ -69,4 +69,16 @@ class DashboardController extends Controller
             die();
         }
     }
+
+    public function vendasAno()
+    {
+        if ($_POST) {
+            $grafica = "vendasAno";
+            $ano = intval($_POST['ano']);
+            $pagos = $this->model->selectVendasAno($ano);
+            $script = getFile("partials/modals/graficosModal", $pagos);
+            echo $script;
+            die();
+        }
+    }
 }

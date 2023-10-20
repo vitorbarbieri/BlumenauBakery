@@ -99,15 +99,15 @@ if ($grafica = "vendasMes") {
 
 <?php
 if ($grafica = "vendasAno") {
-    $ventasAnio = $data;
+    $vendasAno = $data;
 ?>
     <script>
-        Highcharts.chart('graficaAnio', {
+        Highcharts.chart('graficaAno', {
             chart: {
                 type: 'column'
             },
             title: {
-                text: 'Ventas del año <?= $ventasAnio['anio'] ?> '
+                text: 'Ventas del año <?= $vendasAno['ano'] ?> '
             },
             subtitle: {
                 text: 'Esdística de ventas por mes'
@@ -138,8 +138,8 @@ if ($grafica = "vendasAno") {
                 name: 'Population',
                 data: [
                     <?php
-                    foreach ($ventasAnio['meses'] as $mes) {
-                        echo "['" . $mes['mes'] . "'," . $mes['venta'] . "],";
+                    foreach ($vendasAno['meses'] as $mes) {
+                        echo "['" . $mes['mes'] . "'," . $mes['venda'] . "],";
                     }
                     ?>
                 ],

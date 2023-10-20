@@ -18,7 +18,7 @@ $('.date-picker').datepicker({
 function fntSearchPagos() {
     let data = document.querySelector(".pagoMes").value;
     if (data == "") {
-        swal("", "Seleccione mes y año", "error");
+        swal.fire("Atenção", "Selecione o mês e ano", "error");
         return false;
     } else {
         let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
@@ -40,7 +40,7 @@ function fntSearchPagos() {
 function fntSearchVMes() {
     let data = document.querySelector(".vendasMes").value;
     if (data == "") {
-        swal("", "Seleccione mes y año", "error");
+        swal.fire("Atenção", "Selecione o mês e ano", "error");
         return false;
     } else {
         let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
@@ -52,7 +52,29 @@ function fntSearchVMes() {
         request.onreadystatechange = function () {
             if (request.readyState != 4) return;
             if (request.status == 200) {
-                $("#graficaMes").html(request.responseText);     
+                $("#graficaMes").html(request.responseText);
+                return false;
+            }
+        }
+    }
+}
+
+function fntSearchVAno() {
+    let ano = document.querySelector(".vendasAno").value;
+    if (ano == "") {
+        swal.fire("Atenção", "Informa o ano ", "error");
+        return false;
+    } else {
+        let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+        let ajaxUrl = base_url + '/dashboard/vendasAno';
+        let formData = new FormData();
+        formData.append('ano', ano);
+        request.open("POST", ajaxUrl, true);
+        request.send(formData);
+        request.onreadystatechange = function () {
+            if (request.readyState != 4) return;
+            if (request.status == 200) {
+                $("#graficaAno").html(request.responseText);
                 return false;
             }
         }
