@@ -40,7 +40,7 @@ class ProdutoModel extends Mysql
         return $request;
     }
 
-    public function selectProducto(int $id)
+    public function selectProduto(int $id)
     {
         $this->intId = $id;
         $sql = "SELECT 
@@ -142,5 +142,12 @@ class ProdutoModel extends Mysql
         $sql = "DELETE FROM produto WHERE id = $this->intId ";
         $request = $this->delete($sql);
         return $request;
+    }
+
+    public function selectUltimoId()
+    {
+        $sql = "SELECT codigo FROM produto ORDER BY codigo DESC LIMIT 1";
+        $request = $this->select($sql);
+        return $request; 
     }
 }

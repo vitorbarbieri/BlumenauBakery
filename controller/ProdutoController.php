@@ -81,7 +81,7 @@ class ProdutoController extends Controller
         $id = intval($idProduto);
 
         if ($id > 0) {
-            $arrData = $this->model->selectProducto($id);
+            $arrData = $this->model->selectProduto($id);
             if (empty($arrData)) {
                 $arrResponse = array('status' => false, 'msg' => 'Dado não encontrado.');
             } else {
@@ -208,6 +208,19 @@ class ProdutoController extends Controller
             }
             echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
         }
+        die();
+    }
+
+    public function getUltimoId()
+    {
+        $arrData = $this->model->selectUltimoId();
+        if (empty($arrData)) {
+            $arrResponse = array('status' => false, 'msg' => 'Próximo código nçao encontrado.');
+        } else {
+            $codigo = $arrData['codigo'] + 1;
+            $arrResponse = array('status' => true, 'codigo' => $codigo);
+        }
+        echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
         die();
     }
 }

@@ -6,12 +6,12 @@ document.write(`<script src="${base_url}/assets/js/plugins/JsBarcode.all.min.js"
 if (document.querySelector("#txtCodigo")) {
     let inputCodigo = document.querySelector("#txtCodigo");
     inputCodigo.onkeyup = function () {
-        // if (inputCodigo.value.length >= 5) {
-        document.querySelector('#divBarCode').classList.remove("notBlock");
-        gerarBarcode();
-        // } else {
-        //     document.querySelector('#divBarCode').classList.add("notBlock");
-        // }
+        if (inputCodigo.value.length >= 99999999999999999999999999) {
+            document.querySelector('#divBarCode').classList.remove("notBlock");
+            gerarBarcode();
+        } else {
+            document.querySelector('#divBarCode').classList.add("notBlock");
+        }
     };
 }
 function gerarBarcode() {
@@ -213,20 +213,31 @@ document.addEventListener('DOMContentLoaded', function () {
 }, false);
 
 function openModal() {
-    rowTable = "";
-    document.querySelector("#divBarCode").classList.add("notBlock");
-    document.querySelector("#containerGallery").classList.add("notBlock");
-    document.querySelector("#containerImages").innerHTML = "";
+    let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+    let ajaxUrl = base_url + '/Produto/getUltimoId';
+    request.open("GET", ajaxUrl, true);
+    request.send();
+    request.onreadystatechange = function () {
+        if (request.readyState == 4 && request.status == 200) {
+            let objData = JSON.parse(request.responseText);
+            if (objData.status) {
+                rowTable = "";
+                // document.querySelector("#divBarCode").classList.add("notBlock");
+                document.querySelector("#containerGallery").classList.add("notBlock");
+                document.querySelector("#containerImages").innerHTML = "";
+                document.querySelector('#idProduto').value = "";
+                document.querySelector('#titleModal').innerHTML = "Criar Produto";
+                document.querySelector('.modal-header').classList.replace("headerUpdate", "headerRegister");
+                document.querySelector('#btnActionForm').classList.replace("btn-info", "btn-primary");
+                document.querySelector('#btnText').innerHTML = "<u>S</u>alvar";
+                document.querySelector("#btnActionForm").setAttribute("accesskey", "s");
+                document.querySelector("#formProduto").reset();
 
-
-    document.querySelector('#idProduto').value = "";
-    document.querySelector('#titleModal').innerHTML = "Criar Produto";
-    document.querySelector('.modal-header').classList.replace("headerUpdate", "headerRegister");
-    document.querySelector('#btnActionForm').classList.replace("btn-info", "btn-primary");
-    document.querySelector('#btnText').innerHTML = "<u>S</u>alvar";
-    document.querySelector("#btnActionForm").setAttribute("accesskey", "s");
-    document.querySelector("#formProduto").reset();
-    $("#modalFormProdutos").modal("show");
+                document.querySelector("#txtCodigo").value = objData.codigo;
+                $("#modalFormProdutos").modal("show");
+            }
+        }
+    }
 }
 
 function cancelar() {

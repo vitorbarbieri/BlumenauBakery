@@ -30,8 +30,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="control-label" for="txtCodigo">Código</label>&nbsp;
-                                <label class="corVermelha">*</label>
-                                <input class="form-control valid" id="txtCodigo" name="txtCodigo" tabindex="3" type="text" placeholder="Código de barra" onblur="alteraClassInvalido('.valid');">
+                                <input class="form-control" id="txtCodigo" name="txtCodigo" tabindex="3" type="text" readonly>
                                 <div id="divBarCode" class="notBlock textCenter">
                                     <br />
                                     <div id="printCode">

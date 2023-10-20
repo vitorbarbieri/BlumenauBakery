@@ -15,7 +15,7 @@ $arrProdutos = $data['produtos'];
             </div>
 
             <!-- Tittle -->
-            <div class="flex-w flex-c-m m-tb-10">
+            <!-- <div class="flex-w flex-c-m m-tb-10">
                 <div class="flex-c-m stext-106 cl6 size-104 bor4 pointer hov-btn3 trans-04 m-r-8 m-tb-4 js-show-filter">
                     &numsp;
                     <i class="icon-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-filter-list"></i>
@@ -23,7 +23,7 @@ $arrProdutos = $data['produtos'];
                     Categorias
                     &numsp;
                 </div>
-            </div>
+            </div> -->
 
             <!-- Filter -->
             <div class="dis-none panel-filter w-full p-t-10">

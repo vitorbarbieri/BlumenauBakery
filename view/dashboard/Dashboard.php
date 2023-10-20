@@ -25,7 +25,7 @@
             <a href="<?= base_url() ?>/usuario" class="linkw">
                 <div class="widget-small primary coloured-icon"><i class="icon fa fa-users fa-3x"></i>
                     <div class="info">
-                        <h4>Usuarios</h4>
+                        <h4>Usuários</h4>
                         <p><b><?= $data['usuarios'] ?></b></p>
                     </div>
                 </div>
@@ -45,7 +45,7 @@
             <a href="<?= base_url() ?>/produto" class="linkw">
                 <div class="widget-small warning coloured-icon"><i class="icon fa fa fa-archive fa-3x"></i>
                     <div class="info">
-                        <h4>Productos</h4>
+                        <h4>Produtos</h4>
                         <p><b><?= $data['produtos'] ?></b></p>
                     </div>
                 </div>
