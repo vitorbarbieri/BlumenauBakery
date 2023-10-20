@@ -27,8 +27,7 @@ trait TProduto
 				FROM produto p 
 				INNER JOIN categoria c ON p.id_categoria = c.id
 				WHERE p.status = 1
-				ORDER BY p.id DESC
-				LIMIT 12";
+				ORDER BY p.id DESC";
 		$request = $this->conexao->select_all($sql);
 		if (count($request) > 0) {
 			for ($c = 0; $c < count($request); $c++) {

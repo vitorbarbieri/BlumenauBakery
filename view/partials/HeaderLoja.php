@@ -71,7 +71,7 @@ if (isset($_SESSION['arrCarrinho']) && count($_SESSION['arrCarrinho']) > 0) {
                     <!-- Menu desktop -->
                     <div class="menu-desktop">
                         <ul class="main-menu">
-                            <li class="active-menu">
+                            <li>
                                 <a href="<?= base_url(); ?>">Home</a>
                             </li>
                             <li>

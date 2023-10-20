@@ -145,7 +145,7 @@ $arrProdutos = $data['produtos'];
         <hr>
         <div class="row isotope-grid">
             <?php
-            for ($i = 0; $i < count($arrProdutos); $i++) {
+            for ($i = 0; $i < 12; $i++) {
                 if (count($arrProdutos[$i]['images']) > 0) {
                     $portada = $arrProdutos[$i]['images'][0]['url_image'];
                 } else {
