@@ -47,8 +47,8 @@ if ($grafica = "tipoPagoMes") {
 <?php } ?>
 
 <?php
-if ($grafica = "ventasMes") {
-    $ventasMes = $data;
+if ($grafica = "vendasMes") {
+    $vendasMes = $data;
 ?>
     <script>
         Highcharts.chart('graficaMes', {
@@ -56,15 +56,15 @@ if ($grafica = "ventasMes") {
                 type: 'line'
             },
             title: {
-                text: 'Ventas de <?= $ventasMes['mes'] . ' del ' . $ventasMes['anio'] ?>'
+                text: 'Vendas de <?= $vendasMes['mes'] . ' de ' . $vendasMes['ano'] ?> - (Pedidos Entregue)'
             },
             subtitle: {
-                text: 'Total Ventas <?= SMONEY . '. ' . formatMoney($ventasMes['total']) ?> '
+                text: 'Total Vendas <?= formatMoney($vendasMes['total']) ?> '
             },
             xAxis: {
                 categories: [
                     <?php
-                    foreach ($ventasMes['ventas'] as $dia) {
+                    foreach ($vendasMes['vendas'] as $dia) {
                         echo $dia['dia'] . ",";
                     }
                     ?>
@@ -84,10 +84,10 @@ if ($grafica = "ventasMes") {
                 }
             },
             series: [{
-                name: '',
+                name: 'Valor Total (R$)',
                 data: [
                     <?php
-                    foreach ($ventasMes['ventas'] as $dia) {
+                    foreach ($vendasMes['vendas'] as $dia) {
                         echo $dia['total'] . ",";
                     }
                     ?>
@@ -98,7 +98,7 @@ if ($grafica = "ventasMes") {
 <?php } ?>
 
 <?php
-if ($grafica = "ventasAnio") {
+if ($grafica = "vendasAno") {
     $ventasAnio = $data;
 ?>
     <script>

@@ -54,4 +54,19 @@ class DashboardController extends Controller
             die();
         }
     }
+
+    public function vendasMes()
+    {
+        if ($_POST) {
+            $grafica = "vendasMes";
+            $nData = str_replace(" ", "", $_POST['data']);
+            $arrData = explode('-', $nData);
+            $mes = $arrData[0];
+            $ano = $arrData[1];
+            $pagos = $this->model->selectVendasMes($ano, $mes);
+            $script = getFile("partials/modals/graficosModal", $pagos);
+            echo $script;
+            die();
+        }
+    }
 }

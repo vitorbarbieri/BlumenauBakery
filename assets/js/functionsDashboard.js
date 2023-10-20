@@ -36,3 +36,25 @@ function fntSearchPagos() {
         }
     }
 }
+
+function fntSearchVMes() {
+    let data = document.querySelector(".vendasMes").value;
+    if (data == "") {
+        swal("", "Seleccione mes y año", "error");
+        return false;
+    } else {
+        let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+        let ajaxUrl = base_url + '/dashboard/vendasMes';
+        let formData = new FormData();
+        formData.append('data', data);
+        request.open("POST", ajaxUrl, true);
+        request.send(formData);
+        request.onreadystatechange = function () {
+            if (request.readyState != 4) return;
+            if (request.status == 200) {
+                $("#graficaMes").html(request.responseText);     
+                return false;
+            }
+        }
+    }
+}
