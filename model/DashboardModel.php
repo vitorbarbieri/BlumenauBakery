@@ -40,11 +40,14 @@ class DashboardModel extends Mysql
         $sql = "SELECT 
                     p.id,
                     c.nome,
+                    DATE_FORMAT(p.data, '%d/%m/%Y') AS 'data',
+                    tp.descricao AS 'pagamento',
                     p.total,
                     st.descricao
 			    FROM pedido p
 			    INNER JOIN cliente c ON c.id = p.id_cliente
                 INNER JOIN status_pedido st ON st.id = p.status
+                INNER JOIN tipo_pagamento tp ON tp.id = p.tipo_pagamento
 			    ORDER BY p.id DESC
                 LIMIT 10";
         $request = $this->select_all($sql);

@@ -71,6 +71,8 @@
                         <tr>
                             <th>#</th>
                             <th>Cliente</th>
+                            <th>Data</th>
+                            <th>Tipo Pagamento</th>
                             <th>Status</th>
                             <th class="text-right">Valor</th>
                             <th></th>
@@ -84,7 +86,19 @@
                                 <tr>
                                     <td><?= $pedido['id'] ?></td>
                                     <td><?= $pedido['nome'] ?></td>
-                                    <td><?= $pedido['descricao'] ?></td>
+                                    <td><?= $pedido['data'] ?></td>
+                                    <td><?= $pedido['pagamento'] ?></td>
+                                    <?php
+                                    if ($pedido['descricao'] == "Pedido Entregue") {
+                                    ?>
+                                        <td><?= $pedido['descricao'] ?></td>
+                                    <?php
+                                    } else {
+                                    ?>
+                                        <td style="color: red;"><?= $pedido['descricao'] ?></td>
+                                    <?php
+                                    }
+                                    ?>
                                     <td class="text-right"><?= formatMoney($pedido['total']) ?></td>
                                     <td>
                                         <a href="<?= base_url() ?>/pedido/verPedido/<?= $pedido['id'] ?>" target="_blank">
