@@ -12,6 +12,8 @@
     <title><?= $data['page_tag'] ?></title>
     <!-- Bootstrap-select -->
     <link rel="stylesheet" type="text/css" href="<?= media() ?>/css/bootstrap-select.min.css">
+    <!-- https://jqueryui.com/ -->
+    <script type="text/javascript" src="<?= media(); ?>/js/datepicker/jquery-ui.min.css"></script>
     <!-- Main CSS-->
     <link rel="stylesheet" type="text/css" href="<?= media() ?>/css/main.css">
     <link rel="stylesheet" type="text/css" href="<?= media() ?>/css/style.css">

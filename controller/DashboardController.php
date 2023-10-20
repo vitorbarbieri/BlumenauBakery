@@ -22,6 +22,7 @@ class DashboardController extends Controller
         $data['page_tag'] = "Dashboard - Blumenau Bakery";
         $data['page_title'] = "Dashboard";
         $data['page_name'] = "dashboard";
+        $data['page_functions_js'] = "functionsDashboard.js";
 
         $data['usuarios'] = $this->model->qtdUsuarios();
         $data['clientes'] = $this->model->qtdClientes();
