@@ -45,10 +45,12 @@ if (isset($_SESSION['arrCarrinho']) && count($_SESSION['arrCarrinho']) > 0) {
                         Entrega grátis para compra acima de R$100,00
                     </div>
                     <div class="right-top-bar flex-w h-full">
-                        <a href="#" class="flex-c-m trans-04 p-lr-25">
-                            Minha Conta
-                        </a>
-                        <a href="<?= base_url() ?>/logout" class="flex-c-m trans-04 p-lr-25">
+                        <?php if (isset($_SESSION['loginCliente'])) { ?>
+                            <a href="#" class="flex-c-m trans-04 p-lr-25">
+                                Minha Conta
+                            </a>
+                        <?php } ?>
+                        <a href="<?= base_url() ?>/logout/loja" class="flex-c-m trans-04 p-lr-25">
                             <?php if (isset($_SESSION['loginCliente'])) { ?>
                                 Sair
                             <?php } else { ?>

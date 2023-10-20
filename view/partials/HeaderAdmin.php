@@ -45,7 +45,7 @@
                         </a>
                     </li>
                     <li>
-                        <a class="dropdown-item" href="<?= base_url() ?>/logout">
+                        <a class="dropdown-item" href="<?= base_url() ?>/logout/admin">
                             <i class="fa-solid fa-right-from-bracket"></i>&nbsp;
                             Logout
                         </a>

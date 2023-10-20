@@ -8,6 +8,12 @@
             <p class="app-sidebar__user-designation"><?= $_SESSION['userData']['nomeCargo'] ?></p>
         </div>
     </div>
+        <li>
+            <a class="app-menu__item" href="<?= base_url(); ?>" target="_blank">
+                <i class="app-menu__icon fa fa-globe"></i>
+                <span class="app-menu__label">Ver Site</span>
+            </a>
+        </li>
     <ul class="app-menu">
         <?php if ($_SESSION['userData']['idCargo'] == 1) { ?>
             <li>
