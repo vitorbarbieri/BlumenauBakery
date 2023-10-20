@@ -78,7 +78,7 @@
                     <p class="semibold-text mb-0">
                         <a href="#" data-toggle="flip">
                             <i class="fa-solid fa-angle-left"></i>&numsp;
-                            Voltar ara Login
+                            Voltar para Login
                         </a>
                     </p>
                 </div>

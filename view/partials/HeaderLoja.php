@@ -50,13 +50,15 @@ if (isset($_SESSION['arrCarrinho']) && count($_SESSION['arrCarrinho']) > 0) {
                                 Minha Conta
                             </a>
                         <?php } ?>
-                        <a href="<?= base_url() ?>/logout/loja" class="flex-c-m trans-04 p-lr-25">
-                            <?php if (isset($_SESSION['loginCliente'])) { ?>
+                        <?php if (isset($_SESSION['loginCliente'])) { ?>
+                            <a href="<?= base_url() ?>/logout/loja" class="flex-c-m trans-04 p-lr-25">
                                 Sair
-                            <?php } else { ?>
+                            </a>
+                        <?php } else { ?>
+                            <a href="<?= base_url() ?>/loginLoja" class="flex-c-m trans-04 p-lr-25">
                                 Entrar
-                            <?php } ?>
-                        </a>
+                            </a>
+                        <?php } ?>
                     </div>
                 </div>
             </div>
