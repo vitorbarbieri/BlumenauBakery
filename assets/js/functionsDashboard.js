@@ -14,3 +14,25 @@ $('.date-picker').datepicker({
         $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
     }
 });
+
+function fntSearchPagos() {
+    let data = document.querySelector(".pagoMes").value;
+    if (data == "") {
+        swal("", "Seleccione mes y año", "error");
+        return false;
+    } else {
+        let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+        let ajaxUrl = base_url + '/dashboard/tipoPagoMes';
+        let formData = new FormData();
+        formData.append('data', data);
+        request.open("POST", ajaxUrl, true);
+        request.send(formData);
+        request.onreadystatechange = function () {
+            if (request.readyState != 4) return;
+            if (request.status == 200) {
+                $("#pagosMesAno").html(request.responseText);
+                return false;
+            }
+        }
+    }
+}
