@@ -33,8 +33,8 @@ class DashboardController extends Controller
         $ano = date('Y');
         $mes = date('m');
         $data['pagosMes'] = $this->model->selectPagosMes($ano,$mes);
-        $data['vendasMDia'] = $this->model->selectVentasMes($ano,$mes);
-        // $data['ventasAno'] = $this->model->selectVentasAno($ano);
+        $data['vendasMDia'] = $this->model->selectVendasMes($ano,$mes);
+        $data['vendasAno'] = $this->model->selectVendasAno($ano);
 
         $this->views->getView($this, "dashboard", $data);
     }

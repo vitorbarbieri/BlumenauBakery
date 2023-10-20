@@ -128,7 +128,7 @@
                 <div id="graficaMes"></div>
             </div>
         </div>
-        <!-- <div class="col-md-12">
+        <div class="col-md-12">
             <div class="tile">
                 <div class="container-title">
                     <h3 class="tile-title">Vendas por Ano</h3>
@@ -141,7 +141,7 @@
                 </div>
                 <div id="graficaAno"></div>
             </div>
-        </div> -->
+        </div>
     </div>
 </main>
 
@@ -230,6 +230,62 @@
                 }
                 ?>
             ]
+        }]
+    });
+
+    Highcharts.chart('graficaAno', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Vendas do Ano <?= $data['vendasAno']['ano'] ?> - (Pedidos Entregue)'
+        },
+        subtitle: {
+            text: 'Estatísticas de Vendas por Ano'
+        },
+        xAxis: {
+            type: 'category',
+            labels: {
+                rotation: -45,
+                style: {
+                    fontSize: '13px',
+                    fontFamily: 'Verdana, sans-serif'
+                }
+            }
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: ''
+            }
+        },
+        legend: {
+            enabled: false
+        },
+        tooltip: {
+            pointFormat: 'Total: <b>R$ {point.y:.2f}</b>'
+        },
+        series: [{
+            name: 'Population',
+            data: [
+                <?php
+                foreach ($data['vendasAno']['meses'] as $mes) {
+                    echo "['" . $mes['mes'] . "'," . $mes['venda'] . "],";
+                }
+                ?>
+            ],
+            dataLabels: {
+                enabled: true,
+                rotation: -90,
+                color: '#FFFFFF',
+                align: 'right',
+                format: '{point.y:.2f}', // one decimal
+                y: 10, // 10 pixels down from the top
+                style: {
+                    fontSize: '13px',
+                    fontFamily: 'Verdana, sans-serif'
+                }
+            }
         }]
     });
 </script>

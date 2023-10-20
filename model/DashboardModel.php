@@ -68,7 +68,7 @@ class DashboardModel extends Mysql
         return $arrData;
     }
 
-    public function selectVentasMes(int $ano, int $mes)
+    public function selectVendasMes(int $ano, int $mes)
     {
         $totalVendasMes = 0;
         $arrVendaDias = array();
@@ -95,4 +95,35 @@ class DashboardModel extends Mysql
         $arrData = array('ano' => $ano, 'mes' => $meses[intval($mes - 1)], 'total' => $totalVendasMes, 'vendas' => $arrVendaDias);
         return $arrData;
     }
+    
+		public function selectVendasAno(int $ano){
+			$arrMVendas = array();
+			$arrMeses = Meses();
+			for ($i=1; $i <= 12; $i++) { 
+				$arrData = array('ano'=>'','no_mes'=>'','mes'=>'','venda'=>'');
+				$sql = "SELECT
+                            $ano AS 'ano',
+                            $i AS 'mes',
+                            SUM(total) AS venda 
+						FROM pedido 
+						WHERE MONTH(data)= $i
+                        AND YEAR(data) = $ano
+                        AND status = 3 
+						GROUP BY MONTH(data) ";
+				$vendaMes = $this->select($sql);
+				$arrData['mes'] = $arrMeses[$i-1];
+				if(empty($vendaMes)){
+					$arrData['ano'] = $ano;
+					$arrData['no_mes'] = $i;
+					$arrData['venda'] = 0;
+				}else{
+					$arrData['ano'] = $vendaMes['ano'];
+					$arrData['no_mes'] = $vendaMes['mes'];
+					$arrData['venda'] = $vendaMes['venda'];
+				}
+				array_push($arrMVendas, $arrData);
+			}
+			$arrVendas = array('ano' => $ano, 'meses' => $arrMVendas);
+			return $arrVendas;
+		}
 }
