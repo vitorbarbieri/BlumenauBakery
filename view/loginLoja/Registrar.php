@@ -41,10 +41,10 @@
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-5">
-                                    <input id="txtBairro" name="txtBairro" id="password-field" type="password" class="form-control" placeholder="Bairro">
+                                    <input id="txtBairro" name="txtBairro" type="text" class="form-control" placeholder="Bairro">
                                 </div>
                                 <div class="form-group col-md-5">
-                                    <input id="txtCidade" name="txtCidade" id="password-field" type="password" class="form-control" placeholder="Cidade">
+                                    <input id="txtCidade" name="txtCidade" type="text" class="form-control" placeholder="Cidade">
                                 </div>
                                 <div class="form-group col-md-2">
                                     <select class="form-control" id="listEstado" name="listEstado">
@@ -87,7 +87,7 @@
                                     <input id="txtDataNascimento" name="txtDataNascimento" type="text" class="form-control" placeholder="Data de Nascimento">
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <select class="form-control" id="listEstado" name="listSexo">
+                                    <select class="form-control" id="listSexo" name="listSexo">
                                         <option style="color: black;" value="0">Sexo</option>
                                         <option style="color: black;" value="1">Masculino</option>
                                         <option style="color: black;" value="2">Feminino</option>

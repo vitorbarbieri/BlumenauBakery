@@ -55,4 +55,40 @@ class LoginLojaController extends Controller
         $data['page_functions_js'] = "functionsLoginLoja.js";
         $this->views->getView($this, "registrar", $data);
     }
+
+    public function registrarCliente()
+    {
+        if ($_POST) {
+            $strNome = ucwords(strClean($_POST['txtNome']));
+            $strEmail = strtolower(strClean($_POST['txtEmail']));
+            $strEndereco = ucwords(strClean($_POST['txtEndereco']));
+            $intNumero = intval($_POST['txtNumero']);
+            $strBairro = ucwords(strClean($_POST['txtBairro']));
+            $strCidade = ucwords(strClean($_POST['txtCidade']));
+            $intEstado = intval($_POST['listEstado']);
+            $strCep = strClean($_POST['txtCep']);
+            $strDataNascimento = implode("-", array_reverse(explode("/", strClean($_POST['txtDataNascimento'])))); // Salvar no banco de dados (aaaa/mm/dd)
+            // $data = implode("/",array_reverse(explode("-",$data))); // Buscar no BD e mostrar na tela (dd/mm/aaaa)
+            $intSexo = intval($_POST['listSexo']);
+            $strSenha = hash("SHA256", $_POST['txtSenha']);
+
+            $request = $this->model->insertUsuario($strNome, $strEmail, $strEndereco, $intNumero, $strBairro, $strCidade, $intEstado, $strCep, $strDataNascimento, $intSexo, $strSenha);
+
+            $arrData = $request;
+            if ($arrData['status'] == 1) {
+                $_SESSION['idUser'] = $arrData['id'];
+                $_SESSION['loginCliente'] = true;
+                sessionCliente($arrData['id']);
+                $arrResponse = array('status' => true, 'msg' => "OK");
+            } else {
+                if ($arrData['status'] == 2) {
+                    $arrResponse = array('status' => false, 'msg' => "E-mail ja cadastrado, utilize outro!");
+                } else {
+                    $arrResponse = array('status' => false, 'msg' => 'Erro ao atualizar o usuário');
+                }
+            }
+            echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
+        }
+        die();
+    }
 }
