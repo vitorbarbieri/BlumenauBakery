@@ -50,6 +50,7 @@ class DashboardModel extends Mysql
         $request = $this->select_all($sql);
         return $request;
     }
+
     public function selectPagosMes(int $ano, int $mes)
     {
         $sql = "SELECT
@@ -63,7 +64,35 @@ class DashboardModel extends Mysql
                 GROUP BY tp.id";
         $pagos = $this->select_all($sql);
         $meses = Meses();
-        $arrData = array('ano' => $ano, 'mes' => $meses[intval($mes-1)], 'tipospago' => $pagos );
+        $arrData = array('ano' => $ano, 'mes' => $meses[intval($mes - 1)], 'tipospago' => $pagos);
+        return $arrData;
+    }
+
+    public function selectVentasMes(int $ano, int $mes)
+    {
+        $totalVendasMes = 0;
+        $arrVendaDias = array();
+        $dias = cal_days_in_month(CAL_GREGORIAN, $mes, $ano);
+        $n_dia = 1;
+        for ($i = 0; $i < $dias; $i++) {
+            $date = date_create($ano . "-" . $mes . "-" . $n_dia);
+            $dataVenda = date_format($date, "Y-m-d");
+            $sql = "SELECT 
+                        DAY(data) AS 'dia',
+                        COUNT(id) AS 'quantidade',
+                        SUM(total) AS 'total' 
+					FROM pedido 
+					WHERE DATE(data) = '$dataVenda'
+                    AND status = 3";
+            $vendaDia = $this->select($sql);
+            $vendaDia['dia'] = $n_dia;
+            $vendaDia['total'] = $vendaDia['total'] == "" ? 0 : $vendaDia['total'];
+            $totalVendasMes += $vendaDia['total'];
+            array_push($arrVendaDias, $vendaDia);
+            $n_dia++;
+        }
+        $meses = Meses();
+        $arrData = array('ano' => $ano, 'mes' => $meses[intval($mes - 1)], 'total' => $totalVendasMes, 'vendas' => $arrVendaDias);
         return $arrData;
     }
 }

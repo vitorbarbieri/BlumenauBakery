@@ -113,7 +113,7 @@
             </div>
         </div>
     </div>
-    <!-- <div class="row">
+    <div class="row">
         <div class="col-md-12">
             <div class="tile">
                 <div class="container-title">
@@ -128,7 +128,7 @@
                 <div id="graficaMes"></div>
             </div>
         </div>
-        <div class="col-md-12">
+        <!-- <div class="col-md-12">
             <div class="tile">
                 <div class="container-title">
                     <h3 class="tile-title">Vendas por Ano</h3>
@@ -141,8 +141,8 @@
                 </div>
                 <div id="graficaAno"></div>
             </div>
-        </div>
-    </div> -->
+        </div> -->
+    </div>
 </main>
 
 <?= footerAdmin($data); ?>
@@ -183,6 +183,50 @@
                 <?php
                 foreach ($data['pagosMes']['tipospago'] as $pagos) {
                     echo "{name:'" . $pagos['descricao'] . "', y:" . $pagos['total'] . "},";
+                }
+                ?>
+            ]
+        }]
+    });
+
+    Highcharts.chart('graficaMes', {
+        chart: {
+            type: 'line'
+        },
+        title: {
+            text: 'Vendas de <?= $data['vendasMDia']['mes'] . ' de ' . $data['vendasMDia']['ano'] ?> - (Pedidos Entregue)'
+        },
+        subtitle: {
+            text: 'Total Vendas <?= formatMoney($data['vendasMDia']['total']) ?> '
+        },
+        xAxis: {
+            categories: [
+                <?php
+                foreach ($data['vendasMDia']['vendas'] as $dia) {
+                    echo $dia['dia'] . ",";
+                }
+                ?>
+            ]
+        },
+        yAxis: {
+            title: {
+                text: ''
+            }
+        },
+        plotOptions: {
+            line: {
+                dataLabels: {
+                    enabled: true
+                },
+                enableMouseTracking: false
+            }
+        },
+        series: [{
+            name: 'Valor Total (R$)',
+            data: [
+                <?php
+                foreach ($data['vendasMDia']['vendas'] as $dia) {
+                    echo $dia['total'] . ",";
                 }
                 ?>
             ]
