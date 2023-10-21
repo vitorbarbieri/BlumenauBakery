@@ -15,7 +15,7 @@ $arrImages = $arrProduto['images'];
             Inicio
             <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
         </a>
-        <a href="<?= base_url() . '/loja/categoria/' . $arrProduto['cNome']; ?>" class="stext-109 cl8 hov-cl1 trans-04">
+        <a href="<?= base_url() . '/loja/categoria/' . $arrProduto['id_categoria'] . "/" . $arrProduto['cNome']; ?>" class="stext-109 cl8 hov-cl1 trans-04">
             <?= $arrProduto['cNome'] ?>
             <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
         </a>

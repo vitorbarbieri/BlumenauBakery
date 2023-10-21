@@ -80,15 +80,20 @@ trait TProduto
 		return $request;
 	}
 
-	public function getProductosCategoriaT(string $categoria)
+	public function getProdutosCategoriaT(int $idCategoria, string $rota, $desde = null, $porPagina = null)
 	{
-		$this->strCategoria = $categoria;
+		$this->intIdCategoria = $idCategoria;
+		$this->strCategoria = $rota;
+		$where = "";
+		if (is_numeric($desde) and is_numeric($porPagina)) {
+			$where = " LIMIT " . $desde . "," . $porPagina;
+		}
+
 		$this->conexao = new Mysql();
-		$sql_cat = "SELECT id FROM categoria WHERE nome = '{$this->strCategoria}'";
+		$sql_cat = "SELECT id, nome FROM categoria WHERE id = $this->intIdCategoria";
 		$request = $this->conexao->select($sql_cat);
 
 		if (!empty($request)) {
-			$this->intIdCategoria = $request['id'];
 			$sql = "SELECT 
 						p.id,
 						p.codigo,
@@ -102,7 +107,7 @@ trait TProduto
 					INNER JOIN categoria c ON p.id_categoria = c.id
 					WHERE p.status = 1
 					AND p.id_categoria = $this->intIdCategoria
-					ORDER BY p.nome";
+					ORDER BY p.nome ASC " . $where;
 			$request = $this->conexao->select_all($sql);
 			if (count($request) > 0) {
 				for ($c = 0; $c < count($request); $c++) {
@@ -117,11 +122,16 @@ trait TProduto
 					$request[$c]['images'] = $arrImg;
 				}
 			}
+			$request = array(
+				'idCategoria' => $this->intIdCategoria,
+				'rota' => $this->strCategoria,
+				'produtos' => $request
+			);
 		}
 		return $request;
 	}
 
-	public function getProductoT(int $idProduto)
+	public function getProdutoT(int $idProduto)
 	{
 		$this->conexao = new Mysql();
 		$this->intIdProduto = $idProduto;

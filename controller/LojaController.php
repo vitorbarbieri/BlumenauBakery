@@ -38,11 +38,25 @@ class LojaController extends Controller
         if (empty($params)) {
             header("Location: " . base_url());
         } else {
-            $categoria = strClean($params);
-            $data['page_tag'] = $categoria . " - Blumenau Bakery";
-            $data['page_title'] = $categoria;
+            $arrParams = explode(",", $params);
+            $idCategoria = intval($arrParams[0]);
+            $rota = strClean($arrParams[1]);
+            $pagina = 1;
+            if(count($arrParams) > 2 AND is_numeric($arrParams[2])){
+                $pagina = $arrParams[2];
+            };
+            $qtdProdutos = $this->qtdProdutos($idCategoria);
+            $total_registro = $qtdProdutos['total_registro'];
+            $desde = ($pagina-1) * QTDPRODLOJA;
+            $total_paginas = ceil($total_registro / QTDPRODLOJA);
+            $infoCategoria = $this->getProdutosCategoriaT($idCategoria, $rota, $desde, QTDPRODLOJA);
+            $data['page_tag'] = $rota . " - Blumenau Bakery";
+            $data['page_title'] = $rota;
             $data['page_name'] = "categoria";
-            $data['produtos'] = $this->getProductosCategoriaT($categoria);
+            $data['infoCategoria'] = $infoCategoria;
+            $data['pagina'] = $pagina;
+            $data['total_paginas'] = $total_paginas;
+            $data['produtos'] = $infoCategoria['produtos'];
             $this->views->getView($this, "categoria", $data);
         }
     }
@@ -53,7 +67,7 @@ class LojaController extends Controller
             header("Location: " . base_url());
         } else {
             $idProduto = intval($params);
-            $arrProduto = $this->getProductoT($idProduto);
+            $arrProduto = $this->getProdutoT($idProduto);
             $data['page_tag'] = "Produto - Blumenau Bakery";
             $data['page_title'] = "Produto";
             $data['page_name'] = "produto";
@@ -71,7 +85,7 @@ class LojaController extends Controller
             $idProduto = openssl_decrypt($_POST['id'], METHODENCRIPT, KEY);
             $quantidade = $_POST['cant'];
             if (is_numeric($idProduto) and is_numeric($quantidade)) {
-                $arrInfoProduto = $this->getProductoT($idProduto);
+                $arrInfoProduto = $this->getProdutoT($idProduto);
                 if (!empty($arrInfoProduto)) {
                     $arrProduto = array(
                         'idProduto' => $idProduto,
@@ -249,6 +263,7 @@ class LojaController extends Controller
         $data['page_name'] = "loja";
         $data['pagina'] = $pagina;
         $data['total_paginas'] = $total_paginas;
+        $data['categorias'] = $this->getCategorias();
         $this->views->getView($this, "loja", $data);
     }
 }

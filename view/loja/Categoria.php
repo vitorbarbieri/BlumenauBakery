@@ -255,11 +255,28 @@ $arrProdutos = $data['produtos'];
         </div>
 
         <!-- Load more -->
-        <div class="flex-c-m flex-w w-full p-t-45">
-            <a href="#" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
-                Load More
-            </a>
-        </div>
+        <?php
+        if (count($data['produtos']) > 0) {
+            $prevPagina = $data['pagina'] - 1;
+            $nextPagina = $data['pagina'] + 1;
+        ?>
+            <div class="flex-c-m flex-w w-full p-t-45">
+                <?php if ($data['pagina'] > 1) { ?>
+                    <a href="<?= base_url() ?>/loja/categoria/<?= $data['infoCategoria']['idCategoria'].'/'.$data['infoCategoria']['rota'].'/'. $prevPagina ?>" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
+                        <i class="fa-solid fa-chevron-left"></i>&numsp;
+                        Anterior
+                    </a>&numsp;&numsp;&numsp;
+                <?php } ?>
+                <?php if ($data['pagina'] != $data['total_paginas']) { ?>
+                    <a href="<?= base_url() ?>/loja/categoria/<?= $data['infoCategoria']['idCategoria'].'/'.$data['infoCategoria']['rota'].'/'. $nextPagina ?>" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
+                        Próxima&numsp;
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </a>
+                <?php } ?>
+            </div>
+        <?php
+        }
+        ?>
     </div>
 </div>
 
