@@ -170,11 +170,12 @@ if (isset($_SESSION['arrCarrinho']) && count($_SESSION['arrCarrinho']) > 0) {
                 <button class="flex-c-m btn-hide-modal-search trans-04 js-hide-modal-search">
                     <img src="<?= media(); ?>/loja/images/icons/icon-close2.png" alt="CLOSE">
                 </button>
-                <form class="wrap-search-header flex-w p-l-15">
+                <form class="wrap-search-header flex-w p-l-15" method="get" action="<?= base_url(); ?>/loja/search">
                     <button class="flex-c-m trans-04">
                         <i class="zmdi zmdi-search"></i>
                     </button>
-                    <input class="plh3" type="text" name="search" placeholder="Buscar...">
+                    <input type="hidden" name="p" value="1">
+                    <input class="plh3" type="text" name="s" placeholder="Buscar...">
                 </form>
             </div>
         </div>

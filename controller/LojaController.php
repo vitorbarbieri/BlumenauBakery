@@ -42,14 +42,14 @@ class LojaController extends Controller
             $idCategoria = intval($arrParams[0]);
             $rota = strClean($arrParams[1]);
             $pagina = 1;
-            if(count($arrParams) > 2 AND is_numeric($arrParams[2])){
+            if (count($arrParams) > 2 and is_numeric($arrParams[2])) {
                 $pagina = $arrParams[2];
             };
             $qtdProdutos = $this->qtdProdutos($idCategoria);
             $total_registro = $qtdProdutos['total_registro'];
-            $desde = ($pagina-1) * QTDPRODLOJA;
-            $total_paginas = ceil($total_registro / QTDPRODLOJA);
-            $infoCategoria = $this->getProdutosCategoriaT($idCategoria, $rota, $desde, QTDPRODLOJA);
+            $desde = ($pagina - 1) * QTDPRODCATEGORIA;
+            $total_paginas = ceil($total_registro / QTDPRODCATEGORIA);
+            $infoCategoria = $this->getProdutosCategoriaT($idCategoria, $rota, $desde, QTDPRODCATEGORIA);
             $data['page_tag'] = $rota . " - Blumenau Bakery";
             $data['page_title'] = $rota;
             $data['page_name'] = "categoria";
@@ -263,7 +263,29 @@ class LojaController extends Controller
         $data['page_name'] = "loja";
         $data['pagina'] = $pagina;
         $data['total_paginas'] = $total_paginas;
-        $data['categorias'] = $this->getCategorias();
         $this->views->getView($this, "loja", $data);
+    }
+
+    public function search()
+    {
+        if (empty($_REQUEST['s'])) {
+            header("Location: " . base_url());
+        } else {
+            $busca = strClean($_REQUEST['s']);
+        }
+        $pagina = empty($_REQUEST['p']) ? 1 : intval($_REQUEST['p']);
+        $qtdProdutos = $this->qtdProdSearch($busca);
+        $total_registro = $qtdProdutos['total_registro'];
+        $desde = ($pagina - 1) * QTDPRODBUSCAR;
+        $total_paginas = ceil($total_registro / QTDPRODBUSCAR);
+        $data['produtos'] = $this->getProdSearch($busca, $desde, QTDPRODBUSCAR);
+        $data['page_tag'] = "Busca - " . NOME_EMPRESA;
+        $data['page_title'] = "Resultado de: " . ucwords($busca);
+        $data['page_name'] = "loja";
+        $data['pagina'] = $pagina;
+        $data['total_paginas'] = $total_paginas;
+        $data['busca'] = $busca;
+        // $data['categorias'] = $this->getCategorias();
+        $this->views->getView($this, "search", $data);
     }
 }

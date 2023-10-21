@@ -224,4 +224,49 @@ trait TProduto
 		$total_registro = $result_register;
 		return $total_registro;
 	}
+
+	public function qtdProdSearch($busca)
+	{
+		$this->conexao = new Mysql();
+		$sql = "SELECT COUNT(*) AS total_registro FROM produto WHERE nome LIKE '%$busca%' AND status = 1";
+		$result_register = $this->conexao->select($sql);
+		$total_registro = $result_register;
+		return $total_registro;
+	}
+
+	public function getProdSearch($busca, $desde, $porPagina)
+	{
+		$this->conexao = new Mysql();
+		$sql = "SELECT 
+					p.id,
+					p.codigo,
+					p.nome,
+					p.descricao,
+					p.id_categoria,
+					c.nome as categoria,
+					p.preco,
+					p.estoque
+				FROM produto p 
+				INNER JOIN categoria c ON c.id = p.id_categoria
+				WHERE p.status = 1
+				AND p.nome
+				LIKE '%$busca%'
+				ORDER BY p.nome ASC
+				LIMIT $desde,$porPagina";
+		$request = $this->conexao->select_all($sql);
+		if (count($request) > 0) {
+			for ($c = 0; $c < count($request); $c++) {
+				$intIdProduto = $request[$c]['id'];
+				$sqlImg = "SELECT img FROM imagem WHERE id_produto = $intIdProduto";
+				$arrImg = $this->conexao->select_all($sqlImg);
+				if (count($arrImg) > 0) {
+					for ($i = 0; $i < count($arrImg); $i++) {
+						$arrImg[$i]['url_image'] = media() . '/img/uploads/' . $arrImg[$i]['img'];
+					}
+				}
+				$request[$c]['images'] = $arrImg;
+			}
+		}
+		return $request;
+	}
 }

@@ -37,3 +37,5 @@ const SITE = "www.blumenaubekary.com.br";
 // Produtos por página
 const QTDPRODHOME = 8;
 const QTDPRODLOJA = 8;
+const QTDPRODCATEGORIA = 8;
+const QTDPRODBUSCAR = 12;
