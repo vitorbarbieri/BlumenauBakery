@@ -119,9 +119,6 @@ $('.js-addwish-b2').each(function () {
     var nameProduct = $(this).parent().parent().find('.js-name-b2').html();
     $(this).on('click', function () {
         swal.fire(nameProduct, "is added to wishlist !", "success");
-
-        $(this).addClass('js-addedwish-b2');
-        $(this).off('click');
     });
 });
 
@@ -139,10 +136,18 @@ $('.js-addwish-detail').each(function () {
 /*---------------------------------------------*/
 
 $('.js-addcart-detail').each(function () {
-    var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
+    let nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
+    let cant = 1;
     $(this).on('click', function () {
         let id = this.getAttribute('id');
-        let cant = document.querySelector('#qtdProduto').value;
+
+        if (document.querySelector('#qtdProduto')) {
+            cant = document.querySelector('#qtdProduto').value;
+        }
+
+        if (this.getAttribute('pr')) {
+            cant = this.getAttribute('pr');
+        }
 
         if (isNaN(cant) || cant < 1) {
             swal.fire("", "A quantidade deve ser maior que 1", "error");

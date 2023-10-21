@@ -8,17 +8,17 @@
                 </h4>
                 <ul>
                     <li class="p-b-10">
-                        <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+                        <a href="<?= base_url() . '/loja/categoria/1/Bebidas' ?>" class="stext-107 cl7 hov-cl1 trans-04">
                             Bebidas
                         </a>
                     </li>
                     <li class="p-b-10">
-                        <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+                        <a href="<?= base_url() . '/loja/categoria/2/Salgados' ?>" class="stext-107 cl7 hov-cl1 trans-04">
                             Salgados
                         </a>
                     </li>
                     <li class="p-b-10">
-                        <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+                        <a href="<?= base_url() . '/loja/categoria/3/Doces' ?>" class="stext-107 cl7 hov-cl1 trans-04">
                             Doces
                         </a>
                     </li>
@@ -29,8 +29,10 @@
                     CONTATO
                 </h4>
                 <p class="stext-107 cl7 size-218">
-                    R. 7 de Setembro, 1213 - Centro, Blumenau - SC, 89010-911<br />
-                    Tel: (47) 3321-8545 / (47) 98614-1729 (WhatsApp)
+                    <?= ENDERECO ?><br />
+                    <?= TELEFONE ?><br />
+                    <?= EMAIL ?><br />
+                    <?= SITE ?>
                 </p>
                 <div class="p-t-27">
                     <a href="https://facebook.com" class="fs-18 cl7 hov-cl1 trans-04 m-r-16" target="_blank">

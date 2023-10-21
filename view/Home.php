@@ -163,12 +163,17 @@ $arrProdutos = $data['produtos'];
                         </div>
                         <div class="block2-txt flex-w flex-t p-t-14">
                             <div class="block2-txt-child1 flex-col-l ">
-                                <a href="<?= base_url() . '/loja/produto/' . $arrProdutos[$i]['id'] ?>" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+                                <a href="<?= base_url() . '/loja/produto/' . $arrProdutos[$i]['id'] ?>" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6 p-r-5">
                                     <?= $arrProdutos[$i]['nome'] ?>
                                 </a>
                                 <span class="stext-105 cl3">
                                     <?= formatMoney($arrProdutos[$i]['preco']); ?>
                                 </span>
+                            </div>
+                            <div class="block2-txt-child2 flex-r p-t-3">
+                                <a href="#" id="<?= openssl_encrypt($arrProdutos[$i]['id'], METHODENCRIPT, KEY); ?>" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2 js-addcart-detail icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11">
+                                    <i class="zmdi zmdi-shopping-cart"></i>
+                                </a>
                             </div>
                         </div>
                     </div>
