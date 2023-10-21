@@ -80,6 +80,8 @@
 <script src="<?= media() ?>/loja/vendor/isotope/isotope.pkgd.min.js"></script>
 <!-- Sweet alert 2 - https://sweetalert2.github.io/ -->
 <script type="text/javascript" src="<?= media(); ?>/js/plugins/sweetalert2.all.min.js"></script>
+<!-- Font Awesome -->
+<script src="<?= media(); ?>/js/fontawesome.js"></script>
 
 <script src="<?= media() ?>/loja/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 <script src="<?= media() ?>/loja/js/main.js"></script>

@@ -27,7 +27,42 @@ trait TProduto
 				FROM produto p 
 				INNER JOIN categoria c ON p.id_categoria = c.id
 				WHERE p.status = 1
-				ORDER BY p.id DESC";
+				ORDER BY p.id DESC
+				LIMIT " . QTDPRODHOME;
+		$request = $this->conexao->select_all($sql);
+		if (count($request) > 0) {
+			for ($c = 0; $c < count($request); $c++) {
+				$intIdProduto = $request[$c]['id'];
+				$sqlImg = "SELECT img FROM imagem WHERE id_produto = $intIdProduto";
+				$arrImg = $this->conexao->select_all($sqlImg);
+				if (count($arrImg) > 0) {
+					for ($i = 0; $i < count($arrImg); $i++) {
+						$arrImg[$i]['url_image'] = media() . '/img/uploads/' . $arrImg[$i]['img'];
+					}
+				}
+				$request[$c]['images'] = $arrImg;
+			}
+		}
+		return $request;
+	}
+
+	public function getProdutosPage(int $desde, int $qtdPorPagina)
+	{
+		$this->conexao = new Mysql();
+		$sql = "SELECT 
+					p.id,
+					p.codigo,
+					p.nome,
+					p.descricao,
+					p.id_categoria,
+					c.nome as cNome,
+					p.preco,
+					p.estoque
+				FROM produto p 
+				INNER JOIN categoria c ON p.id_categoria = c.id
+				WHERE p.status = 1
+				ORDER BY p.id ASC
+				LIMIT $desde, $qtdPorPagina";
 		$request = $this->conexao->select_all($sql);
 		if (count($request) > 0) {
 			for ($c = 0; $c < count($request); $c++) {
@@ -165,5 +200,18 @@ trait TProduto
 			}
 		}
 		return $request;
+	}
+
+	public function qtdProdutos($categoria = null)
+	{
+		$where = "";
+		if ($categoria != null) {
+			$where = " AND id_categoria = " . $categoria;
+		}
+		$this->con = new Mysql();
+		$sql = "SELECT COUNT(*) as total_registro FROM produto WHERE status = 1 " . $where;
+		$result_register = $this->con->select($sql);
+		$total_registro = $result_register;
+		return $total_registro;
 	}
 }

@@ -21,7 +21,15 @@ class LojaController extends Controller
         $data['page_tag'] = "Loja - Blumenau Bakery";
         $data['page_title'] = "Loja";
         $data['page_name'] = "loja";
-        $data['produtos'] = $this->getProdutosT();
+        $pagina = 1;
+        $qtdProdutos = $this->qtdProdutos();
+        $totalProdutos = $qtdProdutos['total_registro'];
+        $desde = ($pagina - 1) * QTDPRODLOJA;
+        $totalPaginas = ceil($totalProdutos / QTDPRODLOJA);
+        $data['produtos'] = $this->getProdutosPage($desde, QTDPRODLOJA);
+        $data['pagina'] = $pagina;
+        $data['total_paginas'] = $totalPaginas;
+
         $this->views->getView($this, "loja", $data);
     }
 
@@ -225,5 +233,22 @@ class LojaController extends Controller
         }
         echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
         die();
+    }
+
+    public function page($pagina = null)
+    {
+        $pagina = is_numeric($pagina) ? $pagina : 1;
+        $qtdProdutos = $this->qtdProdutos();
+        $total_registro = $qtdProdutos['total_registro'];
+        $desde = ($pagina - 1) * QTDPRODLOJA;
+        $total_paginas = ceil($total_registro / QTDPRODLOJA);
+        $data['produtos'] = $this->getProdutosPage($desde, QTDPRODLOJA);
+        //dep($data['productos']);exit;
+        $data['page_tag'] = "Loja - Blumenau Bakery";
+        $data['page_title'] = "Loja";
+        $data['page_name'] = "loja";
+        $data['pagina'] = $pagina;
+        $data['total_paginas'] = $total_paginas;
+        $this->views->getView($this, "loja", $data);
     }
 }
