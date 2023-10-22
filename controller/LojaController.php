@@ -288,4 +288,76 @@ class LojaController extends Controller
         // $data['categorias'] = $this->getCategorias();
         $this->views->getView($this, "search", $data);
     }
+
+    public function processarVenda()
+    {
+        if ($_POST) {
+            $idCliente = $_SESSION['idUser'];
+            $valorTotal = 0;
+            $idTipoPago = intval($_POST['intTipoPago']);
+            $enderecoEnvio = strClean($_POST['endereco']) . ' - ' . strClean($_POST['cidade']);
+            $status = 1;
+            $subTotal = 0;
+            date_default_timezone_set("America/Sao_Paulo");
+            $dataPedido = date("Y-m-d H:i:s");
+
+            if (!empty($_SESSION['arrCarrinho'])) {
+                foreach ($_SESSION['arrCarrinho'] as $pro) {
+                    $subTotal += $pro['quantidade'] * $pro['preco'];
+                }
+                if ($subTotal <= 100) {
+                    $custoEnvio = CUSTOENVIO;
+                } else {
+                    $custoEnvio = 0.00;
+                }
+                $valorTotal = $subTotal + $custoEnvio;
+
+                // Criar Pedido
+                $request_pedido = $this->insertPedido($idCliente, $dataPedido, $custoEnvio, $valorTotal, $idTipoPago, $enderecoEnvio, $status);
+                $request_pedido = 6;
+
+                if ($request_pedido > 0) {
+                    // Inserir Detalhe Pedido
+                    foreach ($_SESSION['arrCarrinho'] as $produto) {
+                        $idProduto = $produto['idProduto'];
+                        $preco = $produto['preco'];
+                        $quantidade = $produto['quantidade'];
+                        $this->insertDetalhe($request_pedido, $idProduto, $preco, $quantidade);
+                    }
+
+                    $order = openssl_encrypt($request_pedido, METHODENCRIPT, KEY);
+                    $arrResponse = array(
+                        "status" => true,
+                        "order" => $order,
+                        "msg" => 'Pedido realizado com sucesso'
+                    );
+                    $_SESSION['dataPedido'] = $arrResponse;
+                    unset($_SESSION['arrCarrinho']);
+                    session_regenerate_id(true);
+                }
+            } else {
+                $arrResponse = array("status" => false, "msg" => 'Não foi possível processar o pedido.');
+            }
+        } else {
+            $arrResponse = array("status" => false, "msg" => 'Não foi possível processar o pedido.');
+        }
+        echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
+        die();
+    }
+
+    public function confirmarPedido()
+    {
+        if (empty($_SESSION['dataPedido'])) {
+            header("Location: " . base_url());
+        } else {
+            $dataPedido = $_SESSION['dataPedido'];
+            $idPedido = openssl_decrypt($dataPedido['order'], METHODENCRIPT, KEY);
+            $data['page_tag'] = "Confirmar Pedido";
+            $data['page_title'] = "Confirmar Pedido";
+            $data['page_name'] = "confirmarPedido";
+            $data['order'] = $idPedido;
+            $this->views->getView($this, "confirmarPedido", $data);
+        }
+        unset($_SESSION['dataPedido']);
+    }
 }

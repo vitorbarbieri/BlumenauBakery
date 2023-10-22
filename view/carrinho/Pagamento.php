@@ -44,10 +44,10 @@ if ($subTotal <= 100) {
                         <div>
                             <label for="tipopago">Endereço</label>
                             <div class="bor8 bg0 m-b-12">
-                                <input id="txtDireccion" class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="state" placeholder="Endereço">
+                                <input id="txtEndereco" class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="state" placeholder="Endereço" value="<?= $_SESSION['userData']['endereco'] . ", " . $_SESSION['userData']['numero'] ?>">
                             </div>
                             <div class="bor8 bg0 m-b-22">
-                                <input id="txtCiudad" class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="postcode" placeholder="Cidade / Estado">
+                                <input id="txtCidade" class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="postcode" placeholder="Cidade" value="<?= $_SESSION['userData']['cidade'] ?>">
                             </div>
                         </div>
                     <?php } else { ?>
@@ -225,9 +225,9 @@ if ($subTotal <= 100) {
                     </h4>
                     <div class="divmetodpago">
                         <div id="divtipopago" class="notblock">
-                            <label for="listtipopago">Tipo de pago</label>
+                            <label for="listTipoPago">Tipo de pago</label>
                             <div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9">
-                                <select id="listtipopago" class="js-select2" name="listtipopago">
+                                <select id="listTipoPago" class="teste" name="listTipoPago">
                                     <option value="0">-- Selecionar --</option>
                                     <option value="1">Dinheiro</option>
                                     <option value="2">PIX</option>

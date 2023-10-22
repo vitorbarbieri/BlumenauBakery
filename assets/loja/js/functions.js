@@ -118,7 +118,7 @@ $('.js-addwish-b2').on('click', function (e) {
 $('.js-addwish-b2').each(function () {
     var nameProduct = $(this).parent().parent().find('.js-name-b2').html();
     $(this).on('click', function () {
-        swal.fire(nameProduct, "is added to wishlist !", "success");
+        // swal.fire(nameProduct, "foi adicionado ao carrinho!", "success");
     });
 });
 
@@ -173,7 +173,8 @@ $('.js-addcart-detail').each(function () {
                     cants.forEach(element => {
                         element.setAttribute("data-notify", objData.qtdCarrinho)
                     });
-                    swal.fire(nameProduct, "foi adicionado ao carrinho!", "success");
+                    // swal.fire(nameProduct, "foi adicionado ao carrinho!", "success");
+                    swal.fire("", "Produto adicionado ao carrinho!", "success");
                 } else {
                     swal.fire("", objData.msg, "error");
                 }
@@ -321,6 +322,43 @@ if (document.querySelector(".num-product")) {
             }
         });
     });
+}
+
+/* ================================================== Processar Pagamento ================================================== */
+
+if (document.querySelector("#btnComprar")) {
+    let btnPago = document.querySelector("#btnComprar");
+    btnPago.addEventListener('click', function () {
+        let endereco = document.querySelector("#txtEndereco").value;
+        let cidade = document.querySelector("#txtCidade").value;
+        let intTipoPago = parseInt(document.querySelector("#listTipoPago").value);
+        if (endereco == "" || cidade == "" || intTipoPago == 0) {
+            swal.fire("", "Complete os dados de envio", "error");
+            return;
+        } else {
+            let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+            let ajaxUrl = base_url + '/loja/processarVenda';
+            let formData = new FormData();
+            formData.append('endereco', endereco);
+            formData.append('cidade', cidade);
+            formData.append('intTipoPago', intTipoPago);
+            request.open("POST", ajaxUrl, true);
+            request.send(formData);
+            request.onreadystatechange = function () {
+                if (request.readyState != 4) return;
+                if (request.status == 200) {
+                    let objData = JSON.parse(request.responseText);
+                    if (objData.status) {
+                        window.location = base_url + "/loja/confirmarPedido/";
+                    } else {
+                        swal.fire("", objData.msg, "error");
+                    }
+                }
+                return false;
+            }
+        }
+
+    }, false);
 }
 
 /* ================================================== Funções Básicas ================================================== */

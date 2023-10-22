@@ -66,10 +66,30 @@ trait TCliente
             $id = intval($produto['idProduto']);
             $preco = floatval($produto['preco']);
             $quantidade = intval($produto['quantidade']);
-            
+
             $query_insert  = "INSERT INTO detalhe_pedido_temp (id_produto, id_cliente, preco, quantidade, token) VALUES (?, ?, ?, ?, ?)";
             $arrData = array($id, $this->intIdUsuario, $preco, $quantidade, $this->intIdTransacao);
             $request_insert = $this->conexao->insert($query_insert, $arrData);
         }
+    }
+
+    public function insertPedido(int $idCliente, $data, float $custoEnvio, float $valorTotal, int $idTipoPago, string $enderecoEnvio, int $status)
+    {
+        $this->conexao = new Mysql();
+        $query_insert  = "INSERT INTO pedido (id_cliente, data , custo_envio, total, tipo_pagamento, endereco_entrega, status) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $arrData = array($idCliente, $data, $custoEnvio, $valorTotal, $idTipoPago, $enderecoEnvio, $status);
+        $request_insert = $this->conexao->insert($query_insert, $arrData);
+        $return = $request_insert;
+        return $return;
+    }
+
+    public function insertDetalhe(int $idPedido, int $idProduto, float $preco, int $quantidade)
+    {
+        $this->conexao = new Mysql();
+        $query_insert  = "INSERT INTO detalhe_pedido (id_pedido, id_produto, preco, quantidade) VALUES(?, ?, ?, ?)";
+        $arrData = array($idPedido, $idProduto, $preco, $quantidade);
+        $request_insert = $this->conexao->insert($query_insert, $arrData);
+        $return = $request_insert;
+        return $return;
     }
 }
