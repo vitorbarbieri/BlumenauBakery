@@ -81,10 +81,10 @@
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-4">
-                                    <input id="txtCep" name="txtCep" type="text" class="form-control" placeholder="CEP">
+                                    <input id="txtCep" name="txtCep" type="text" class="form-control" placeholder="CEP" maxlength="8" onblur="formataCampo('#txtCep','#####-###')">
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <input id="txtDataNascimento" name="txtDataNascimento" type="text" class="form-control" placeholder="Data de Nascimento">
+                                    <input id="txtDataNascimento" name="txtDataNascimento" type="text" class="form-control" placeholder="Data de Nascimento" maxlength="8" onblur="formataCampo('#txtDataNascimento','##/##/####')">
                                 </div>
                                 <div class="form-group col-md-4">
                                     <select class="form-control" id="listSexo" name="listSexo">
@@ -132,7 +132,8 @@
     <script src="<?= media(); ?>/js/fontawesome.js"></script>
     <!-- Sweet alert 2 - https://sweetalert2.github.io/ -->
     <script type="text/javascript" src="<?= media(); ?>/js/plugins/sweetalert2.all.min.js"></script>
-
+    
+    <script type="text/javascript" src="<?= media(); ?>/js/scriptsBasicos.js"></script>
     <script src="<?= media(); ?>/js/<?= $data['page_functions_js'] ?>"></script>
 
 </body>
