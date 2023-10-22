@@ -80,3 +80,51 @@ function fntSearchVAno() {
         }
     }
 }
+
+function editarStatus(idPedido) {
+    let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+    let ajaxUrl = base_url + '/pedido/getPedido/' + idPedido;
+    request.open("GET", ajaxUrl, true);
+    request.send();
+    request.onreadystatechange = function () {
+        if (request.readyState == 4 && request.status == 200) {
+            let objData = JSON.parse(request.responseText);
+            if (objData.status) {
+                document.querySelector("#divModal").innerHTML = objData.html;
+                $('#modalFormPedido').modal('show');
+                atualizarStatus();
+            } else {
+                swal.fire("Atenção", objData.msg, "error");
+            }
+            return false;
+        }
+    }
+}
+
+function atualizarStatus() {
+    let formUpdatePedido = document.querySelector("#formUpdatePedido");
+    formUpdatePedido.onsubmit = function (e) {
+        e.preventDefault();
+
+        let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+        let ajaxUrl = base_url + '/pedido/setPedido/';
+        let formData = new FormData(formUpdatePedido);
+        request.open("POST", ajaxUrl, true);
+        request.send(formData);
+        request.onreadystatechange = function () {
+            if (request.readyState != 4) return;
+            if (request.status == 200) {
+                let objData = JSON.parse(request.responseText);
+                if (objData.status) {
+                    swal.fire("", objData.msg, "success");
+                    $('#modalFormPedido').modal('hide');
+                    location.reload()
+                } else {
+                    swal.fire("Error", objData.msg, "error");
+                }
+                return false;
+            }
+        }
+
+    }
+}

@@ -1,6 +1,7 @@
 <?= headerAdmin($data); ?>
 <?= navAdmin($data); ?>
 
+<div id="divModal"></div>
 <main class="app-content">
     <div class="app-title">
         <div>
@@ -95,7 +96,7 @@
                                     <?php
                                     } else {
                                     ?>
-                                        <td style="color: red;"><?= $pedido['descricao'] ?></td>
+                                        <td style="color: red; cursor: pointer;" onclick="editarStatus(<?= $pedido['id'] ?>)"><?= $pedido['descricao'] ?></td>
                                     <?php
                                     }
                                     ?>

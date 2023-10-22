@@ -314,7 +314,6 @@ class LojaController extends Controller
 
                 // Criar Pedido
                 $request_pedido = $this->insertPedido($idCliente, $dataPedido, $custoEnvio, $valorTotal, $idTipoPago, $enderecoEnvio, $status);
-                $request_pedido = 6;
 
                 if ($request_pedido > 0) {
                     // Inserir Detalhe Pedido
