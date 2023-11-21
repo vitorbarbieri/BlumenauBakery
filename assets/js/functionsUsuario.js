@@ -12,8 +12,8 @@ function carregarPerguntasSecretas() {
     request.onreadystatechange = function () {
         if (request.readyState == 4 && request.status == 200) {
             document.querySelector('#listPergunta').innerHTML += request.responseText;
-            // document.querySelector('#listPergunta').value += 0;
-            // $('#listPergunta').selectpicker('render');
+            document.querySelector('#listPergunta').value = 0;
+            // $('#listPergunta').selectpxicker('render');
             // $('#listPergunta').selectpicker('refresh');
         }
     }
@@ -86,25 +86,23 @@ document.addEventListener('DOMContentLoaded', function () {
         var strSenha = document.querySelector("#txtSenha").value;
         var strConfirmaSenha = document.querySelector("#txtSenhaConfirma").value;
 
-        if (intId == "" || (intId != "" && (strSenha != "" || strConfirmaSenha != ""))) {
-            $camposOk = true;
-            validaCampos(".valid");
-            if (!$camposOk) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Atenção',
-                    text: 'Todos os campos são obrigatórios!',
-                    didClose: () => {
-                        $("#txtCpf").select();
-                    }
-                });
-                return false;
-            }
+        $camposOk = true;
+        validaCampos(".valid");
+        if (!$camposOk) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Atenção',
+                text: 'Todos os campos são obrigatórios!',
+                didClose: () => {
+                    $("#txtCpf").select();
+                }
+            });
+            return false;
+        }
 
-            var senhaOK = validaSenha();
-            if (!senhaOK) {
-                return false;
-            }
+        var senhaOK = validaSenha();
+        if (!senhaOK) {
+            return false;
         }
 
         var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
@@ -152,6 +150,7 @@ function openModal() {
     statusCampos("habilita");
     document.getElementById('txtCpf').removeAttribute("disabled");
     document.querySelector("#formUsuario").reset();
+    document.querySelector('#listPergunta').value = 0;
     $("#modalFormUsuario").modal("show");
     $('#txtCpf').select();
 }
@@ -161,6 +160,7 @@ function cancelar() {
     ocultarSenha();
 
     document.querySelector("#formUsuario").reset();
+    document.querySelector('#listPergunta').value = 0;
     $("#modalFormUsuario").modal("hide");
 }
 

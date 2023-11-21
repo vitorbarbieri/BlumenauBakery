@@ -98,10 +98,10 @@ function ocultarSenha() {
 }
 
 function validaSenha() {
-    var id = document.querySelector("#txtSenha").getAttribute("id");
-    if (id == "txtSenha" || id == "txtSenhaConfirma" && document.querySelector("#txtSenha").value == "" && document.querySelector("#txtSenhaConfirma").value == "") {
-        return true;
-    }
+    // var id = document.querySelector("#txtSenha").getAttribute("id");
+    // if (id == "txtSenha" || id == "txtSenhaConfirma" && document.querySelector("#txtSenha").value == "" && document.querySelector("#txtSenhaConfirma").value == "") {
+    //     return true;
+    // }
 
     var strSenha = document.querySelector("#txtSenha");
     var strSenhaConfirma = document.querySelector("#txtSenhaConfirma");
@@ -143,10 +143,10 @@ function validaCampos(classe) {
             case "INPUT":
             case "TEXTAREA":
                 if ($(this).val() == "") {
-                    var id = $(this).attr("id");
-                    if (id == "txtSenha" || id == "txtSenhaConfirma" && $("#txtSenha").val() == "" && $("#txtSenhaConfirma").val() == "") {
-                        break;
-                    }
+                    // var id = $(this).attr("id");
+                    // if (id == "txtSenha" || id == "txtSenhaConfirma" && $("#txtSenha").val() == "" && $("#txtSenhaConfirma").val() == "") {
+                    //     break;
+                    // }
                     $(this).addClass("is-invalid");
                     $camposOk = false;
                 }

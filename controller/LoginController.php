@@ -49,14 +49,14 @@ class LoginController extends Controller
         }
         die();
     }
-    
+
     public function getUsuarioPergunta($email)
     {
         $strEmail = strClean($email);
         if ($strEmail != "") {
             $arrData = $this->model->selectUsuarioPergunta($strEmail);
             if (empty($arrData)) {
-                $arrResponse = array('status' => false, 'msg' => 'Cliente não existe.');
+                $arrResponse = array('status' => false, 'msg' => 'Usuário não existe.');
             } else {
                 $arrResponse = array('status' => true, 'data' => $arrData);
             }
@@ -77,7 +77,7 @@ class LoginController extends Controller
 
             if (empty($arrData)) {
                 $arrResponse = array('status' => false, 'msg' => 'Cliente não existe.');
-            } else { 
+            } else {
                 if (strtolower($arrData['resposta']) == strtolower($strResposta)) {
                     $senha = passGenerator();
                     $strSenha = hash("SHA256", $senha);

@@ -27,7 +27,6 @@ document.addEventListener('DOMContentLoaded', function () {
                                 $("#txtEmail").select();
                             }
                         });
-                        document.querySelector("#txtEmail").value = "";
                         document.querySelector("#txtSenha").value = "";
                     }
                 } else {

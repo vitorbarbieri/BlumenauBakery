@@ -34,6 +34,10 @@ class ClienteController extends Controller
             }
 
             $arrData[$i]['ultima_compra'] = date("d/m/Y", strtotime($arrData[$i]['ultima_compra']));
+            $ano = substr($arrData[$i]['ultima_compra'], 6, 4);
+            if ($ano < 2000) {
+                $arrData[$i]['ultima_compra'] = '00/00/0000';
+            }
 
             $arrData[$i]['opcao'] = '
             <div class="text-center">
@@ -56,7 +60,13 @@ class ClienteController extends Controller
                 $arrResponse = array('status' => false, 'msg' => 'Cliente não existe.');
             } else {
                 $arrData['data_nascimento'] = date("d/m/Y", strtotime($arrData['data_nascimento']));
+
                 $arrData['ultima_compra'] = date("d/m/Y", strtotime($arrData['ultima_compra']));
+                $ano = substr($arrData['ultima_compra'], 6, 4);
+                if ($ano < 2000) {
+                    $arrData['ultima_compra'] = '00/00/0000';
+                }
+
                 $arrResponse = array('status' => true, 'data' => $arrData);
             }
             echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);

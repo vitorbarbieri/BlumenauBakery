@@ -33,12 +33,6 @@
             <li class="dropdown"><a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Open Profile Menu"><i class="fa fa-user fa-lg"></i></a>
                 <ul class="dropdown-menu settings-menu dropdown-menu-right">
                     <li>
-                        <a class="dropdown-item" href="<?= base_url() ?>/opcoes">
-                            <i class="fa-solid fa-gear"></i>&nbsp;
-                            Configurações
-                        </a>
-                    </li>
-                    <li>
                         <a class="dropdown-item" href="<?= base_url() ?>/Perfil/perfil">
                             <i class="fa-regular fa-user"></i>&nbsp;
                             Perfil
