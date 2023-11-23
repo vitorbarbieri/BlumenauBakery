@@ -88,6 +88,7 @@
 <script src="<?= media() ?>/loja/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 <script src="<?= media() ?>/loja/js/main.js"></script>
 <script src="<?= media() ?>/loja/js/functions.js"></script>
+<script src="<?= media() ?>/loja/js/minhaConta.js"></script>
 
 </body>
 

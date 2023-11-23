@@ -30,6 +30,10 @@ if (isset($_SESSION['arrCarrinho']) && count($_SESSION['arrCarrinho']) > 0) {
     <link rel="stylesheet" type="text/css" href="<?= media(); ?>/loja/css/util.css">
     <link rel="stylesheet" type="text/css" href="<?= media(); ?>/loja/css/main.css">
     <link rel="stylesheet" type="text/css" href="<?= media(); ?>/loja/css/style.css">
+    <!-- Bootstrap-select -->
+    <link rel="stylesheet" type="text/css" href="<?= media() ?>/css/bootstrap-select.min.css">
+    <!-- Main CSS-->
+    <link rel="stylesheet" type="text/css" href="<?= media() ?>/css/main.css">
     <link rel="stylesheet" type="text/css" href="<?= media() ?>/css/style.css">
 </head>
 
@@ -46,11 +50,9 @@ if (isset($_SESSION['arrCarrinho']) && count($_SESSION['arrCarrinho']) > 0) {
                     </div>
                     <div class="right-top-bar flex-w h-full">
                         <?php if (isset($_SESSION['loginCliente'])) { ?>
-                            <a href="#" class="flex-c-m trans-04 p-lr-25">
+                            <a href="<?= base_url() ?>/minhaConta" class="flex-c-m trans-04 p-lr-25">
                                 Minha Conta
                             </a>
-                        <?php } ?>
-                        <?php if (isset($_SESSION['loginCliente'])) { ?>
                             <a href="<?= base_url() ?>/logout/loja" class="flex-c-m trans-04 p-lr-25">
                                 Sair
                             </a>
