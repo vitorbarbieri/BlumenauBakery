@@ -2,6 +2,17 @@
 
 class MinhaContaModel extends Mysql
 {
+    private $intId;
+    private $strNome;
+    private $strEmail;
+    private $strEndereco;
+    private $intNumero;
+    private $strCep;
+    private $strBairro;
+    private $strCidade;
+    private $intEstado;
+    private $strSenha;
+
     public function __construct()
     {
         parent::__construct();
@@ -76,5 +87,34 @@ class MinhaContaModel extends Mysql
             );
         }
         return $request;
+    }
+
+    public function updateCliente(int $id, string $nome, string $email, string $endereco, int $numero, string $bairro, string $cidade, int $estado, string $cep, string $senha)
+    {
+        $this->intId = $id;
+        $this->strNome = $nome;
+        $this->strEmail = $email;
+        $this->strEndereco = $endereco;
+        $this->intNumero = $numero;
+        $this->strBairro = $bairro;
+        $this->strCidade = $cidade;
+        $this->intEstado = $estado;
+        $this->strCep = $cep;
+        $this->strSenha = $senha;;
+
+        $sql = "SELECT * FROM cliente WHERE id = '{$this->intId}'";
+        $request = $this->select($sql);
+
+        if (!empty($request)) {
+            if ($this->strSenha == "") {
+                $sql = "UPDATE cliente SET nome = ?, email = ?, endereco = ?, numero = ?, bairro = ?, cidade = ?, estado = ?, cep = ? WHERE id = $this->intId";
+                $arrData = array($this->strNome, $this->strEmail, $this->strEndereco, $this->intNumero, $this->strBairro, $this->strCidade, $this->intEstado, $this->strCep);
+            } else {
+                $sql = "UPDATE cliente SET nome = ?, email = ?, endereco = ?, numero = ?, bairro = ?, cidade = ?, estado = ?, cep = ?, senha = ? WHERE id = $this->intId";
+                $arrData = array($this->strNome, $this->strEmail, $this->strEndereco, $this->intNumero, $this->strBairro, $this->strCidade, $this->intEstado, $this->strCep, $this->strSenha);
+            }
+            $request = $this->update($sql, $arrData);
+            return 1;
+        }
     }
 }

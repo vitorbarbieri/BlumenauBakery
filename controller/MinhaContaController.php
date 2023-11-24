@@ -73,4 +73,38 @@ class MinhaContaController extends Controller
         $data['arrPedido'] = $this->model->selectPedido($idPedidoNum);
         $this->views->getView($this, "order", $data);
     }
+
+    public function setUsuario($id)
+    {
+        if ($_POST) {
+            $intId = intval(strClean($_POST['idUsuario']));
+            $strNome = ucwords(strClean($_POST['txtNome']));
+            $strEmail = strtolower(strClean($_POST['txtEmail']));
+            $strEndereco = ucwords(strClean($_POST['txtEndereço']));
+            $intNumero = intval(strClean($_POST['txtNumero']));
+            $strCep = strClean($_POST['txtCep']);
+            $strBairro = strClean($_POST['txtBairro']);
+            $strCidade = strClean($_POST['txtCidade']);
+            $intEstado = intval(strClean($_POST['listEstado']));
+
+            $strSenha = "";
+            if ($_POST['txtSenha'] != "") {
+                $strSenha = hash("SHA256", $_POST['txtSenha']);
+            }
+
+            if ($strSenha == "") {
+                $request = $this->model->updateCliente($intId, $strNome, $strEmail, $strEndereco, $intNumero, $strBairro, $strCidade, $intEstado, $strCep, $strSenha);
+            } else {
+                $request = $this->model->updateCliente($intId, $strNome, $strEmail, $strEndereco, $intNumero, $strBairro, $strCidade, $intEstado, $strCep, $strSenha);
+            }
+
+            if ($request == 1) {
+                $arrResponse = array('status' => true, 'msg' => 'Dados atualizado com sucesso');
+            } else {
+                $arrResponse = array('status' => false, 'msg' => 'Erro ao atualizar os dados');
+            }
+            echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
+        }
+        die();
+    }
 }

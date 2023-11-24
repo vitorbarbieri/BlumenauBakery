@@ -288,6 +288,7 @@ function fntUpdateQtd(pro, qtd) {
 }
 
 /*==================================================================
+
 [ +/- Num produto ]*/
 $('.btn-num-product-down').on('click', function () {
     let numProduct = Number($(this).next().val());
@@ -358,4 +359,45 @@ if (document.querySelector("#btnComprar")) {
         }
 
     }, false);
+}
+
+/* ================================================== Editar Cliente ================================================== */
+
+function editarCliente(idCliente) {
+    document.querySelector("#idUsuario").value = parseInt(idCliente);
+
+    if (document.querySelector("#txtSenha").value != document.querySelector("#txtConfirmarSenha").value) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Atenção',
+            text: 'Senhas não são iguais!',
+            didClose: () => {
+                $("#txtSenha").select();
+            }
+        });
+        return;
+    }
+
+    var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+    var ajaxUrl = base_url + '/minhaConta/setUsuario';
+    var formData = new FormData(formUsuario);
+    request.open("POST", ajaxUrl, true);
+    request.send(formData);
+    request.onreadystatechange = function () {
+        if (request.readyState == 4 && request.status == 200) {
+            var objData = JSON.parse(request.responseText);
+            if (objData.status) {
+                Swal.fire('Atenção', objData.msg, 'success');
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Atenção',
+                    text: objData.msg,
+                    didClose: () => {
+                        $("#txtNome").select();
+                    }
+                });
+            }
+        }
+    }
 }
