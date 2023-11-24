@@ -134,7 +134,14 @@ if ($_SESSION['userData']['status'] == 1) {
                                                             <td><?= $data['pedidos'][$i]['total'] ?></td>
                                                             <td><?= $data['pedidos'][$i]['pagamento'] ?></td>
                                                             <td><?= $data['pedidos'][$i]['status'] ?></td>
-                                                            <td></td>
+                                                            <td>
+                                                                <div class="text-center">
+                                                                    <!-- <a title="Ver Pedido" href="<?php ?>" target="_blank" class="btn btn-secondary btn-sm"> -->
+                                                                    <a title="Ver Pedido" href="http://localhost/blumenaubakery/minhaConta/verPedido/<?= $data['pedidos'][$i]['id'] ?> " target="_blank" class="btn btn-secondary btn-sm">
+                                                                        <i class="far fa-eye"></i>
+                                                                    </a>
+                                                                </div>
+                                                            </td>
                                                         </tr>
                                                     <?php } ?>
                                                 </tbody>

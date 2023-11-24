@@ -28,7 +28,7 @@ class MinhaContaController extends Controller
 
             switch ($arrData[$i]['status']) {
                 case 1:
-                    $arrData[$i]['status'] = "Pedido Realizado";
+                    $arrData[$i]['status'] = "Pedido Recebido";
                     break;
                 case 2:
                     $arrData[$i]['status'] = "Pedido Enviado";
@@ -58,5 +58,19 @@ class MinhaContaController extends Controller
         }
         return $arrData;
         die();
+    }
+
+    public function verPedido(string $idPedido)
+    {
+        $idPedidoNum = intval($idPedido);
+        if (!is_numeric($idPedidoNum)) {
+            header("Location:" . base_url() . '/minhaConta');
+        }
+
+        $data['page_tag'] = "Pedido - Tienda Virtual";
+        $data['page_title'] = "Pedido";
+        $data['page_name'] = "pedido";
+        $data['arrPedido'] = $this->model->selectPedido($idPedidoNum);
+        $this->views->getView($this, "order", $data);
     }
 }

@@ -36,7 +36,7 @@ class PedidoController extends Controller
 
             switch ($arrData[$i]['status']) {
                 case 1:
-                    $arrData[$i]['status'] = "Pedido Realizado";
+                    $arrData[$i]['status'] = "Pedido Recebido";
                     break;
                 case 2:
                     $arrData[$i]['status'] = "Pedido Enviado";
@@ -53,13 +53,13 @@ class PedidoController extends Controller
 
             $arrData[$i]['opcoes'] = '
                 <div class="text-center">
-                    <a title="Ver Pedido" href="' . base_url() . '/pedido/verPedido/' . $arrData[$i]['id'] . '" target="_blanck" class="btn btn-secondary btn-sm">
+                    <a title="Ver Pedido" href="' . base_url() . '/pedido/verPedido/' . $arrData[$i]['id'] . '" target="_blank" class="btn btn-secondary btn-sm">
                         <i class="far fa-eye"></i>
                     </a>
                     <a title="Editar Pedido" class="btn btn-primary btn-sm" onClick="fntEditInfo(this,' . $arrData[$i]['id'] . ')">
                         <i class="fa-solid fa-pencil"></i>
                     </a>
-                    <a title="Gerar PDF" href="' . base_url() . '/fatura/gerarFatura/' . $arrData[$i]['id'] . '" target="_blanck" class="btn btn-warning btn-sm">
+                    <a title="Gerar PDF" href="' . base_url() . '/fatura/gerarFatura/' . $arrData[$i]['id'] . '" target="_blank" class="btn btn-warning btn-sm">
                         <i class="fas fa-file-pdf"></i>
                     </a>
                 </div>';
