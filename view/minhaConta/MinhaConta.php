@@ -31,19 +31,11 @@ if ($_SESSION['userData']['status'] == 1) {
     Minha Conta
 </h2>
 <div style="margin: 20px 150px;">
-    <div class="row user">
-        <div class="col-md-2">
-            <div class="tile p-0">
-                <ul class="nav flex-column nav-tabs user-tabs">
-                    <li class="nav-item"><a class="nav-link active" href="#user-timeline" data-toggle="tab">Dados Pessoais</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#user-orders" data-toggle="tab">Pedidos</a></li>
-                </ul>
-            </div>
-        </div>
+    <div class="row d-flex justify-content-center">
         <div class="col-md-10">
             <div class="tab-content">
-                <div class="tab-pane active" id="user-timeline">
-                    <div class="tile user-settings mx">
+                <div>
+                    <div>
                         <div class="post-media"><a href="#"></a>
                             <div class="content">
                                 <h4 class="line-head">
@@ -105,13 +97,16 @@ if ($_SESSION['userData']['status'] == 1) {
                                         <input class="form-control" id="txtConfirmarSenha" name="txtConfirmarSenha" tabindex="7" type="text" value="••••••••••">
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Salvar</button>
+                                <div class="d-grid gap-2 d-flex justify-content-end">
+                                    <button type="submit" class="btn btn-primary">Salvar</button>
+                                </div>
                             </form>
                         </div>
                     </div>
-                </div>
-                <div class="tab-pane fade" id="user-orders">
-                    <div class="tile user-orders">
+                    <div style="margin: 30px 0;">
+                        <hr />
+                    </div>
+                    <div>
                         <h4 class="line-head">
                             Pedidos
                         </h4>
@@ -120,7 +115,7 @@ if ($_SESSION['userData']['status'] == 1) {
                                 <div class="tile">
                                     <div class="tile-body">
                                         <div class="table-responsive">
-                                            <table class="table table-hover table-bordered" id="tablePedido">
+                                            <table class="table">
                                                 <thead>
                                                     <tr>
                                                         <th>Id</th>
@@ -132,6 +127,16 @@ if ($_SESSION['userData']['status'] == 1) {
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+                                                    <?php for ($i = 0; $i < count($data['pedidos']); $i++) { ?>
+                                                        <tr>
+                                                            <td><?= $data['pedidos'][$i]['id'] ?></td>
+                                                            <td><?= $data['pedidos'][$i]['data'] ?></td>
+                                                            <td><?= $data['pedidos'][$i]['total'] ?></td>
+                                                            <td><?= $data['pedidos'][$i]['pagamento'] ?></td>
+                                                            <td><?= $data['pedidos'][$i]['status'] ?></td>
+                                                            <td></td>
+                                                        </tr>
+                                                    <?php } ?>
                                                 </tbody>
                                             </table>
                                         </div>
