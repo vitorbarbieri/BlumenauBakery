@@ -91,9 +91,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 return false;
             }
 
-            var senhaOK = validaSenha();
-            if (!senhaOK) {
-                return false;
+            var strSenha = document.querySelector("#txtSenha");
+            var strSenhaConfirma = document.querySelector("#txtSenhaConfirma");
+            if (strSenha.value != "" || strSenhaConfirma.value != "") {
+                var senhaOK = validaSenha();
+                if (!senhaOK) {
+                    return false;
+                }
             }
 
             var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
@@ -139,7 +143,7 @@ function modalFormPerfilConfig() {
 
 function cancelar() {
     removeClass(".valid");
-    
+
     document.querySelector("#formPerfil").reset();
     $("#modalFormPerfil").modal("hide");
 }

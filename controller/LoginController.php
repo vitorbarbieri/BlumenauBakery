@@ -29,7 +29,7 @@ class LoginController extends Controller
             $requestUser = $this->model->loginUser($strUsuario, $strPassword);
 
             if (empty($requestUser)) {
-                $arrResponse = array('status' => false, 'msg' => "Dados informados estão incorreta");
+                $arrResponse = array('status' => false, 'msg' => "Dados informados estão incorretos");
             } else {
                 $arrData = $requestUser;
                 if ($arrData['status'] == 1) {
@@ -100,7 +100,7 @@ class LoginController extends Controller
             $requestUser = $this->model->loginCliente($strUsuario, $strPassword);
 
             if (empty($requestUser)) {
-                $arrResponse = array('status' => false, 'msg' => "Dados informados estão incorreta");
+                $arrResponse = array('status' => false, 'msg' => "Dados informados estão incorretos");
             } else {
                 $arrData = $requestUser;
                 if ($arrData['status'] == 1) {

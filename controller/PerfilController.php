@@ -29,8 +29,9 @@ class PerfilController extends Controller
             $strNome = strClean($_POST['txtNome']);
             $strSobrenome = strClean($_POST['txtSobrenome']);
             $strTelefono = strClean($_POST['txtTelefone']);
+            $strEmail = strClean($_POST['txtEmail']);
 
-            $request_user = $this->model->updatePerfil($idUsuario, $strNome, $strSobrenome, $strTelefono, "", "", "");
+            $request_user = $this->model->updatePerfil($idUsuario, $strNome, $strSobrenome, $strTelefono, $strEmail, "", 0, "");
             if ($request_user) {
                 sessionUser($_SESSION['idUser']);
                 $arrResponse = array('status' => true, 'msg' => 'Usuário atualizado com sucesso!');
@@ -55,7 +56,7 @@ class PerfilController extends Controller
                 $strSenha = hash("SHA256", $_POST['txtSenha']);
             }
 
-            $request_user = $this->model->updatePerfil($idUsuario, "", "", "", $strSenha, $intPergunta, $strResposta);
+            $request_user = $this->model->updatePerfil($idUsuario, "", "", "", "", $strSenha, $intPergunta, $strResposta);
             if ($request_user) {
                 sessionUser($_SESSION['idUser']);
                 $arrResponse = array('status' => true, 'msg' => 'Usuário atualizado com sucesso!');

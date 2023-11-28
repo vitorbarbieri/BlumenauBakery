@@ -80,15 +80,13 @@
                             </div>
                             <div id="divSenha" class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label class="control-label" for="txtSenha">Senha</label>&nbsp;
-                                    <label class="corVermelha">*</label>
-                                    <input class="form-control validConfig block" id="txtSenha" name="txtSenha" tabindex="1" type="password" placeholder="Digite sua senha" onblur="alteraClassInvalido('.validConfig');" value="">
+                                    <label class="control-label" for="txtSenha">Senha</label>
+                                    <input class="form-control block" id="txtSenha" name="txtSenha" tabindex="1" type="password" placeholder="Digite sua senha" value="">
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label class="control-label" for="txtSenhaConfirma">Confirmação Senha</label>&nbsp;
-                                    <label class="corVermelha">*</label>
+                                    <label class="control-label" for="txtSenhaConfirma">Confirmação Senha</label>
                                     <div style="display: flex; align-items: center;">
-                                        <input class="form-control validConfig block" id="txtSenhaConfirma" name="txtSenhaConfirma" tabindex="2" type="password" placeholder="Digite sua senha" onBlur="alteraClassInvalido('.validConfig');" value="">
+                                        <input class="form-control block" id="txtSenhaConfirma" name="txtSenhaConfirma" tabindex="2" type="password" placeholder="Digite sua senha" value="">
                                         &nbsp;
                                         <i class="fa-solid fa-eye imgSenha" onclick="mostrarSenha();"></i>
                                     </div>
@@ -98,7 +96,7 @@
                                 <div class="form-group col-md-12">
                                     <label for="listPergunta">Pergunta Secreta</label>&nbsp;
                                     <label class="corVermelha">*</label>
-                                    <select class="form-control validConfig block" data-live-search="true" id="listPergunta" name="listPergunta" tabindex="3" onchange="alteraClassInvalido('.validConfig');"  value="<?= $_SESSION['userData']['id_pergunta']; ?>">
+                                    <select class="form-control validConfig block" data-live-search="true" id="listPergunta" name="listPergunta" tabindex="3" onchange="alteraClassInvalido('.validConfig');" value="<?= $_SESSION['userData']['id_pergunta']; ?>">
                                         <option value="0">-- Selecionar --</option>
                                     </select>
                                 </div>
