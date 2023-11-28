@@ -86,6 +86,15 @@ document.addEventListener('DOMContentLoaded', function () {
         var strSenha = document.querySelector("#txtSenha").value;
         var strConfirmaSenha = document.querySelector("#txtSenhaConfirma").value;
 
+        var btnConfirmar = document.querySelector('#btnText').innerHTML;
+        if (btnConfirmar == "<u>A</u>lterar") {
+            document.querySelector("#txtSenha").classList.remove("valid");
+            document.querySelector("#txtSenhaConfirma").classList.remove("valid");
+        } else {
+            document.querySelector("#txtSenha").classList.add("valid");
+            document.querySelector("#txtSenhaConfirma").classList.add("valid");
+        }
+
         $camposOk = true;
         validaCampos(".valid");
         if (!$camposOk) {
@@ -100,9 +109,11 @@ document.addEventListener('DOMContentLoaded', function () {
             return false;
         }
 
-        var senhaOK = validaSenha();
-        if (!senhaOK) {
-            return false;
+        if (btnConfirmar != "<u>A</u>lterar") {
+            var senhaOK = validaSenha();
+            if (!senhaOK) {
+                return false;
+            }
         }
 
         var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');

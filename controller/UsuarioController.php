@@ -14,8 +14,8 @@ class UsuarioController extends Controller
 
     public function usuario()
     {
-        if($_SESSION['userData']['idCargo'] != 1){
-            header("Location:".base_url().'/cliente');
+        if ($_SESSION['userData']['idCargo'] != 1) {
+            header("Location:" . base_url() . '/cliente');
         }
 
         $data['page_id'] = 2;
@@ -85,7 +85,7 @@ class UsuarioController extends Controller
             $dateCadastro = date('Y-m-d H:i:s',);
             $intPergunta = intval(strClean($_POST['listPergunta']));
             $strResposta = strClean($_POST['txtResposta']);
-            
+
             $strCpf = "";
             if (isset($_POST['txtCpf'])) {
                 $strCpf = strClean($_POST['txtCpf']);
