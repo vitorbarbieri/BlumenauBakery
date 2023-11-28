@@ -117,4 +117,14 @@ class MinhaContaModel extends Mysql
             return 1;
         }
     }
+
+    public function selectCliente(int $id)
+    {
+        $this->intId = $id;
+        $sql = "SELECT *
+				FROM cliente
+				WHERE id = $this->intId";
+        $request = $this->select($sql);
+        return $request;
+    }
 }

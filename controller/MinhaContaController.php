@@ -14,6 +14,7 @@ class MinhaContaController extends Controller
         $data['page_title'] = "Conta";
         $data['page_name'] = "conta";
         $data['pedidos'] = $this->getPedidos();
+        $data['cliente'] = $this->getCliente($_SESSION['userData']['id']);
 
         $this->views->getView($this, "minhaConta", $data);
     }
@@ -105,6 +106,29 @@ class MinhaContaController extends Controller
             }
             echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
         }
+        die();
+    }
+
+    public function getCliente($id)
+    {
+        $idCliente = intval($id);
+        if ($idCliente > 0) {
+            $arrData = $this->model->selectCliente($idCliente);
+            if (empty($arrData)) {
+                $arrResponse = array('status' => false, 'msg' => 'Cliente não existe.');
+            } else {
+                $arrData['data_nascimento'] = date("d/m/Y", strtotime($arrData['data_nascimento']));
+
+                $arrData['ultima_compra'] = date("d/m/Y", strtotime($arrData['ultima_compra']));
+                $ano = substr($arrData['ultima_compra'], 6, 4);
+                if ($ano < 2000) {
+                    $arrData['ultima_compra'] = '00/00/0000';
+                }
+
+                $arrResponse = array('status' => true, 'data' => $arrData);
+            }
+        }
+        return $arrData;
         die();
     }
 }
