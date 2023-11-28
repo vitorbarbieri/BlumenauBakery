@@ -139,6 +139,10 @@ class ProdutoModel extends Mysql
     public function deleteProduto(int $idProduto)
     {
         $this->intId = $idProduto;
+        $sql = "DELETE FROM imagem WHERE id_produto = $this->intId ";
+        $request = $this->delete($sql);
+
+        $this->intId = $idProduto;
         $sql = "DELETE FROM produto WHERE id = $this->intId ";
         $request = $this->delete($sql);
         return $request;
@@ -148,6 +152,6 @@ class ProdutoModel extends Mysql
     {
         $sql = "SELECT codigo FROM produto ORDER BY codigo DESC LIMIT 1";
         $request = $this->select($sql);
-        return $request; 
+        return $request;
     }
 }
