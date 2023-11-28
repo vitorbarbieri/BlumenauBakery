@@ -69,7 +69,7 @@ class LoginLojaController extends Controller
             $strCep = strClean($_POST['txtCep']);
             $strDataNascimento = implode("-", array_reverse(explode("/", strClean($_POST['txtDataNascimento'])))); // Salvar no banco de dados (aaaa/mm/dd)
             // $data = implode("/",array_reverse(explode("-",$data))); // Buscar no BD e mostrar na tela (dd/mm/aaaa)
-            $intSexo = intval($_POST['listSexo']);
+            $intSexo = strClean($_POST['listSexo']);
             $strSenha = hash("SHA256", $_POST['txtSenha']);
 
             $request = $this->model->insertUsuario($strNome, $strEmail, $strEndereco, $intNumero, $strBairro, $strCidade, $intEstado, $strCep, $strDataNascimento, $intSexo, $strSenha);

@@ -89,8 +89,8 @@
                                 <div class="form-group col-md-4">
                                     <select class="form-control" id="listSexo" name="listSexo">
                                         <option style="color: black;" value="0">Sexo</option>
-                                        <option style="color: black;" value="1">Masculino</option>
-                                        <option style="color: black;" value="2">Feminino</option>
+                                        <option style="color: black;" value="M">Masculino</option>
+                                        <option style="color: black;" value="F">Feminino</option>
                                     </select>
                                 </div>
                             </div>
@@ -132,7 +132,7 @@
     <script src="<?= media(); ?>/js/fontawesome.js"></script>
     <!-- Sweet alert 2 - https://sweetalert2.github.io/ -->
     <script type="text/javascript" src="<?= media(); ?>/js/plugins/sweetalert2.all.min.js"></script>
-    
+
     <script type="text/javascript" src="<?= media(); ?>/js/scriptsBasicos.js"></script>
     <script src="<?= media(); ?>/js/<?= $data['page_functions_js'] ?>"></script>
 

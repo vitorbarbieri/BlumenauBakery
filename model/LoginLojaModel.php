@@ -30,7 +30,7 @@ class LoginLojaModel extends Mysql
         return $request;
     }
 
-    public function insertUsuario(string $nome, string $email, string $endereco, int $numero, string $bairro, string $cidade, int $estado, string $cep, $dataNascimento, int $sexo, string $senha)
+    public function insertUsuario(string $nome, string $email, string $endereco, int $numero, string $bairro, string $cidade, int $estado, string $cep, $dataNascimento, string $sexo, string $senha)
     {
         $this->nome = $nome;
         $this->email = $email;
