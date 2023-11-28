@@ -324,6 +324,9 @@ class LojaController extends Controller
                         $this->insertDetalhe($request_pedido, $idProduto, $preco, $quantidade);
                     }
 
+                    // Atualizar Data última compra Pedido
+                    $this->updateClient($idCliente, $dataPedido);
+
                     $order = openssl_encrypt($request_pedido, METHODENCRIPT, KEY);
                     $arrResponse = array(
                         "status" => true,

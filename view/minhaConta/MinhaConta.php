@@ -4,7 +4,7 @@ headerLoja($data);
 if ($data['cliente']['ultima_compra'] == "00/00/0000") {
     $dataUltimaCompra = "";
 } else {
-    $dataUltimaCompra = "31/12/2023";
+    $dataUltimaCompra = $data['cliente']['ultima_compra'];
 }
 
 if ($data['cliente']['sexo'] = "M") {

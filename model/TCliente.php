@@ -92,4 +92,14 @@ trait TCliente
         $return = $request_insert;
         return $return;
     }
+
+    public function updateClient(int $id, $data)
+    {
+        $this->conexao = new Mysql();
+        $query_insert  = "UPDATE cliente SET ultima_compra = ? WHERE id = $id";
+        $arrData = array($data);
+        $request_insert = $this->conexao->update($query_insert, $arrData);
+        $return = $request_insert;
+        return $return;
+    }
 }
